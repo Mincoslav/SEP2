@@ -2,11 +2,29 @@ package domain;
 
 import model.ModelManager;
 
+import java.util.ArrayList;
+
 public class Wishlist {
 
-	private Product product;
+	private ArrayList<Product> products;
 
+	public Wishlist() {
+		products = new ArrayList<>();
+	}
 
-	private ModelManager modelManager;
+	public void addProduct(Product product){
+		products.add(product);
+	}
 
+	public void removeProduct(Product product){
+		products.remove(product);
+	}
+
+	public int size() {
+		return products.size();
+	}
+
+	public Product getProduct(int index) {
+		return products.get(index);
+	}
 }
