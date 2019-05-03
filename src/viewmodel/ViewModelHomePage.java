@@ -3,7 +3,7 @@ package viewmodel;
 import view.View;
 import model.Model;
 
-public class ViewModel {
+public class ViewModelHomePage {
 
 	private View view;
 

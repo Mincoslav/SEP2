@@ -1,7 +1,5 @@
 package domain;
 
-import model.ModelManager;
-
 public class Order {
 
 	private ShoppingBag shoppingBag;
@@ -16,9 +14,25 @@ public class Order {
 		this.costumerName = costumerName;
 		this.adress = adress;
 		this.phone = phone;
-
 	}
 
+	public ShoppingBag getShoppingBag() {
+		return shoppingBag;
+	}
 
+	public int getOrderID() {
+		return orderID;
+	}
 
+	public String getCostumerName() {
+		return costumerName;
+	}
+
+	public String getAdress() {
+		return adress;
+	}
+
+	public int getPhone() {
+		return phone;
+	}
 }
