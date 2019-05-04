@@ -1,8 +1,9 @@
 package domain;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Categories {
+public class Categories implements Serializable {
 
 
 	ArrayList<Product> categoryProducts;
