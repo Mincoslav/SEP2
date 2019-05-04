@@ -1,7 +1,5 @@
 package domain;
 
-import model.ModelManager;
-
 import java.util.ArrayList;
 
 public class Wishlist {

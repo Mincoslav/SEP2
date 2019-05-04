@@ -104,5 +104,18 @@ public class Product {
 				Objects.equals(getDescription(), product.getDescription());
 	}
 
+	@Override
+	public String toString() {
+		return "Product{" +
+				"name='" + name + '\'' +
+				", imageLocation='" + imageLocation + '\'' +
+				", categoryID=" + categoryID +
+				", quantity=" + quantity +
+				", purchasedQuantity=" + purchasedQuantity +
+				", onSale=" + onSale +
+				", description='" + description + '\'' +
+				", price=" + price +
+				'}';
+	}
 }
 

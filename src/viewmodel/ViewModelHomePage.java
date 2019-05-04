@@ -1,7 +1,7 @@
 package viewmodel;
 
 import view.ViewHomePage;
-import model.Model;
+import mediator.Model;
 
 public class ViewModelHomePage {
 
