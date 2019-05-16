@@ -2,8 +2,11 @@
   <library name="postgresql-9.4-1202.jdbc42">
     <CLASSES>
       <root url="jar://$USER_HOME$/Downloads/postgresql-9.4-1202.jdbc42.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/MyObserver-1.0.jar!/" />
     </CLASSES>
     <JAVADOC />
-    <SOURCES />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/Downloads/MyObserver-1.0.jar!/" />
+    </SOURCES>
   </library>
 </component>

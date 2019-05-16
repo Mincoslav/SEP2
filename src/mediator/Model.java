@@ -12,6 +12,7 @@ public interface Model {
     void removeFromWishlist(Product product);
     void removeFromShoppingBag(Product product);
     void purchase();
+    
 
 
 }
