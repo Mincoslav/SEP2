@@ -25,12 +25,12 @@ public class DatabaseConnection {
         try {
             statement = connection.prepareStatement("SELECT * FROM " + table);
             ResultSet rs = statement.executeQuery();
-            ArrayList<Product> persons = new ArrayList<>();
+            ArrayList<Product> products = new ArrayList<>();
             while (rs.next()) {
                 String name = rs.getString("name");
                 int stock = rs.getInt("stock");
                 int categoryID = rs.getInt("categoryID");
-                persons.add(new Product(name,null,categoryID,stock,false,null,0));
+                products.add(new Product(name,null,categoryID,stock,false,null,0));
             }
         } catch (SQLException e) {
             e.printStackTrace();
