@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public class DatabaseConnection {
 
     private Connection connection;
-    private  PreparedStatement statement ;
+    private PreparedStatement statement ;
 
     public DatabaseConnection(String url,String user,String password){
         try {
@@ -23,14 +23,14 @@ public class DatabaseConnection {
     public void getTable(String table){
 
         try {
-            statement = connection.prepareStatement("SELECT * FROM " + table);
+            statement = connection.prepareStatement("SELECT * FROM Products");
             ResultSet rs = statement.executeQuery();
-            ArrayList<Product> products = new ArrayList<>();
+            ArrayList<Product> persons = new ArrayList<>();
             while (rs.next()) {
                 String name = rs.getString("name");
                 int stock = rs.getInt("stock");
                 int categoryID = rs.getInt("categoryID");
-                products.add(new Product(name,null,categoryID,stock,false,null,0));
+                persons.add(new Product(name,null,categoryID,stock,false,null,0));
             }
         } catch (SQLException e) {
             e.printStackTrace();

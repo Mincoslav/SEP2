@@ -3,7 +3,7 @@ package viewmodel;
 import view.ViewHomePage;
 import mediator.Model;
 
-public class ViewModelHomePage {
+public class ViewModel {
 
 	private ViewHomePage view;
 

@@ -5,15 +5,14 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="viewmodel.ViewModelHomePage">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="viewmodel.ViewModel">
    <children>
-      <ImageView fitHeight="167.0" fitWidth="231.0" layoutX="69.0" layoutY="65.0" pickOnBounds="true" preserveRatio="true" />
-      <Label layoutX="69.0" layoutY="244.0" text="Item Name" />
-      <Label layoutX="69.0" layoutY="272.0" text="Description" />
-      <Label layoutX="69.0" layoutY="298.0" text="Price" />
-      <Button layoutX="327.0" layoutY="331.0" mnemonicParsing="false" text="Add to Wishlist" />
-      <Button layoutX="438.0" layoutY="331.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="97.0" text="Add to bag" />
-      <Button layoutX="483.0" layoutY="53.0" mnemonicParsing="false" text="Return" />
+      <ImageView fx:id="image" fitHeight="167.0" fitWidth="231.0" layoutX="69.0" layoutY="65.0" pickOnBounds="true" preserveRatio="true" />
+      <Label fx:id="name" layoutX="69.0" layoutY="244.0" text="Item Name" />
+      <Label fx:id="description" layoutX="69.0" layoutY="272.0" text="Description" />
+      <Label fx:id="price" layoutX="69.0" layoutY="298.0" text="Price" />
+      <Button fx:id="wishlist" layoutX="327.0" layoutY="331.0" mnemonicParsing="false" onAction="#addToWishPressed" text="Add to Wishlist" />
+      <Button fx:id="bag" layoutX="438.0" layoutY="331.0" mnemonicParsing="false" onAction="#addToBagPressed" prefHeight="25.0" prefWidth="97.0" text="Add to bag" />
+      <Button fx:id="returnHomePage" layoutX="483.0" layoutY="53.0" mnemonicParsing="false" text="Return" />
    </children>
 </AnchorPane>
