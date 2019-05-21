@@ -84,7 +84,7 @@ public class Product implements Serializable {
 	}
 
 	public void setPurchasedQuantity(int i) {
-		purchasedQuantity = i;
+		this.purchasedQuantity = i;
 	}
 
 	public int getPurchasedQuantity() {
