@@ -6,6 +6,12 @@ import domain.Product;
 import domain.*;
 
 import java.util.ArrayList;
+import domain.ShoppingBag;
+import domain.Wishlist;
+
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
+import java.util.ArrayList;
 
 public class ModelManager implements Model {
 
@@ -14,10 +20,15 @@ public class ModelManager implements Model {
 	private Products productsList;
 	private Categories category;
 	private Order order;
-	private ShoppingBag shoppingBag;
-	private Wishlist wishlist;
+	private Wishlist wish;
+	private ShoppingBag bag;
+    private PropertyChangeSupport changeSupport;
 
-
+	public ModelManager(){
+        changeSupport = new PropertyChangeSupport(this);
+        wish = new Wishlist();
+        bag = new ShoppingBag();
+    }
 
 
 	@Override
@@ -53,26 +64,35 @@ public class ModelManager implements Model {
 
 	@Override
 	public void addToWishlist(Product product) {
-
+		wish.addProduct(product);
+        changeSupport.firePropertyChange("AddWish",product,product.getName());
 	}
 
 	@Override
 	public void addToShoppingbag(Product product) {
-
+	    bag.addProduct(product);
+        changeSupport.firePropertyChange("AddBag",product,product.getName());
 	}
 
 	@Override
 	public void removeFromWishlist(Product product) {
-
+	    wish.removeProduct(product);
+        changeSupport.firePropertyChange("RemoveWish",product,product.getName());
 	}
 
 	@Override
 	public void removeFromShoppingBag(Product product) {
-
+        bag.removeProduct(product);
+        changeSupport.firePropertyChange("RemoveBag",product,product.getName());
 	}
 
 	@Override
 	public void purchase() {
 
-	}
+    }
+
+    @Override
+    public void addListener(String eventName, PropertyChangeListener listener) {
+        changeSupport.addPropertyChangeListener(eventName,listener);
+    }
 }

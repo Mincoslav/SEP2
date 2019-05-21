@@ -1,10 +1,10 @@
 package view;
 
-import viewmodel.ViewModelHomePage;
+import viewmodel.ViewModel;
 
 public class ViewHomePage {
 
-	private ViewModelHomePage viewModel;
+	private ViewModel viewModel;
 
 
 

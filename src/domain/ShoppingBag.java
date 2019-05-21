@@ -39,5 +39,9 @@ public class ShoppingBag implements Serializable {
 		return total;
 	}
 
+	public void   emptyBag() {
+		products.clear();
+	}
+
 
 }

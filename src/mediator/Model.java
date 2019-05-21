@@ -3,6 +3,8 @@ package mediator;
 import domain.Categories;
 import domain.Product;
 
+import java.beans.PropertyChangeListener;
+
 import java.util.ArrayList;
 
 public interface Model {
@@ -15,7 +17,7 @@ public interface Model {
     void removeFromWishlist(Product product);
     void removeFromShoppingBag(Product product);
     void purchase();
-    
 
 
+    void addListener(String eventName, PropertyChangeListener listener);
 }
