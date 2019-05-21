@@ -24,6 +24,18 @@ public class Categories implements Serializable {
 		categoryProducts.remove(product);
 	}
 
+	public ArrayList<Product> getCategoryProducts() {
+		return categoryProducts;
+	}
+
+	public int getCategoryID() {
+		return categoryID;
+	}
+
+	public String getCategoryName() {
+		return categoryName;
+	}
+
 	public int size(){
 		return categoryProducts.size();
 	}

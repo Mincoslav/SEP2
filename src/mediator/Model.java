@@ -3,9 +3,12 @@ package mediator;
 import domain.Categories;
 import domain.Product;
 
+import java.util.ArrayList;
+
 public interface Model {
 
-    Product getProducts(int amount);
+    ArrayList<Product> getProducts(int amount);
+    Product getProduct(Product product);
     Categories getCategory(Categories category);
     void addToWishlist(Product product);
     void addToShoppingbag(Product product);

@@ -7,6 +7,9 @@ public class Product implements Serializable {
 
 	private String name;
 	private String imageLocation;
+
+	private int productID;
+
 	private int categoryID;
 	private int quantity;
 	private int purchasedQuantity;
@@ -14,10 +17,10 @@ public class Product implements Serializable {
 	private String description;
 	private int price;
 
-
-	public Product(String name, String imageLocation, int categoryID, int quantity, boolean onSale, String description,int purchasedQuantity) {
+	public Product(String name, String imageLocation,int productID, int categoryID, int quantity, boolean onSale, String description,int purchasedQuantity) {
 		this.name = name;
 		this.imageLocation = imageLocation;
+		this.productID = productID;
 		this.categoryID = categoryID;
 		this.price = price;
 		this.quantity = quantity;
@@ -34,6 +37,10 @@ public class Product implements Serializable {
 
 	public String getName() {
 		return name;
+	}
+
+	public int getProductID() {
+		return productID;
 	}
 
 	public void setName(String name) {
