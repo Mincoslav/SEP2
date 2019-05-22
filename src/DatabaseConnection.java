@@ -30,7 +30,7 @@ public class DatabaseConnection {
                 String name = rs.getString("name");
                 int stock = rs.getInt("stock");
                 int categoryID = rs.getInt("categoryID");
-                persons.add(new Product(name,null,categoryID,stock,false,null,0));
+                persons.add(new Product(name,null,0,categoryID,0,stock,false,null,0));
             }
         } catch (SQLException e) {
             e.printStackTrace();

@@ -87,8 +87,10 @@ public class ModelManager implements Model {
 	}
 
 	@Override
-	public void purchase() {
-
+	public void purchase( String name, String adress, int phone) {
+		order =  new Order(bag,name,adress,phone);
+		changeSupport.firePropertyChange("Purchase",order,order.getOrderID());
+		bag.emptyBag();
     }
 
     @Override

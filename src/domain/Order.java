@@ -10,9 +10,9 @@ public class Order implements Serializable {
 	private String adress;
 	private int phone;
 
-	public Order(ShoppingBag shoppingBag, int orderID, String costumerName, String adress, int phone) {
+	public Order(ShoppingBag shoppingBag, String costumerName, String adress, int phone) {
 		this.shoppingBag = shoppingBag;
-		this.orderID = orderID;
+		this.orderID = 0;
 		this.costumerName = costumerName;
 		this.adress = adress;
 		this.phone = phone;

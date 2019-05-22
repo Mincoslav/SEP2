@@ -16,8 +16,7 @@ public interface Model {
     void addToShoppingbag(Product product);
     void removeFromWishlist(Product product);
     void removeFromShoppingBag(Product product);
-    void purchase();
-
+    void purchase(String name, String adress, int phone);
 
     void addListener(String eventName, PropertyChangeListener listener);
 }
