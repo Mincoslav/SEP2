@@ -15,8 +15,8 @@ import static junit.framework.TestCase.assertEquals;
 
 public class ShoppingBagTest {
 
-    Product product1 = new Product("Tshirt", "www.com", 2,2 ,5, false, "shitty", 2);
-    Product product0 = new Product("bluse", "www.", 3, 3,100, true, "cool", 12);
+    Product product1 = new Product("Tshirt", "www.com", 2,0,2 ,5, false, "shitty", 2);
+    Product product0 = new Product("bluse", "www.", 30,0, 3,100, true, "cool", 12);
     List<Product> expected = new ArrayList<Product>();
     ShoppingBag bag = new ShoppingBag();
 
