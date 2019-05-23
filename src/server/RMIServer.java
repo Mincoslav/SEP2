@@ -48,9 +48,11 @@ public class RMIServer implements RServer {
 		manager.removeFromShoppingBag(product);
 	}
 
+
+
 	@Override
-	public void purchase() {
-		manager.purchase();
+	public void purchase(String name, String adress, int phone) {
+		manager.purchase(name,adress,phone);
 	}
 
 	@Override

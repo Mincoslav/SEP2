@@ -18,7 +18,8 @@ public interface RServer extends Remote {
 
     public void removeFromShoppingBag(Product product) throws RemoteException;
 
-    public void purchase() throws RemoteException;
+
+    void purchase(String name, String adress, int phone);
 
     public Order getOrderByID(int orderID) throws RemoteException;
 

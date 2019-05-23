@@ -28,7 +28,7 @@ public class Order implements Serializable {
 	}
 
 	public void setOrderID(){
-		orderID = getRandomIntegerBetweenRange(1000,100000);
+		//orderID = getRandomIntegerBetweenRange(1000,100000);
 	}
 
 	public String getCostumerName() {

@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public class JDBCTest {
     public static void main(String[] args) throws SQLException {
         DriverManager.registerDriver(new Driver());
-        Connection connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/sep", "postgres", "password");
+        Connection connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres", "postgres", "password");
         try {
             PreparedStatement statement = connection.prepareStatement("SELECT * FROM Products");
             ResultSet rs = statement.executeQuery();

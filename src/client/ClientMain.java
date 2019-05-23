@@ -15,7 +15,7 @@ public class ClientMain {
         try {
             RMIClient client = new RMIClient();
             ShoppingBag shoppingBag = new ShoppingBag();
-            Product product = new Product("shoe","location", 1234,1,10,false,"some description", 1);
+            Product product = new Product("shoe","location", 0,1234,1,10,false,"some description", 1);
             shoppingBag.addProduct(product);
             Order order = new Order(shoppingBag,"","",0);
             order.setOrderID();
