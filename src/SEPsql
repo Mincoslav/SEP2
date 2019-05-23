@@ -1,0 +1,54 @@
+
+CREATE TABLE Orders (
+                        orderID int,
+                        date DATE,
+                        price float,
+                        name VARCHAR(100),
+                        adress VARCHAR(200),
+                        phone int,
+                        PRIMARY KEY (orderID)
+);
+
+CREATE TABLE Category (
+                          categoryID int,
+                          name VARCHAR(50),
+                          PRIMARY KEY (categoryID)
+);
+
+CREATE TABLE Products (
+                          productID int,
+                          stock int,
+                          price float,
+                          name VARCHAR(50),
+                          categoryID int,
+                          description VARCHAR(800),
+                          onSale boolean,
+                          FOREIGN KEY (categoryID) references Category(categoryID),
+                          PRIMARY KEY (productID)
+);
+
+CREATE TABLE OrderItem (
+                           orderID int,
+                           productID int,
+                           quantity int,
+                           FOREIGN KEY (productID) references Products(productID),
+                           FOREIGN KEY (orderID) references Orders(orderID),
+                           PRIMARY KEY (productID,orderID)
+);
+
+Insert into Category
+Values (4,'Pants');
+
+Insert into Products
+Values (122,22,2,'Blue Thingy',4,'Its pretty much what the name says',true);
+
+Insert into Products
+Values (162,22,2,'Yellow Thingy',4,'Its pretty much what the name says',false);
+
+Insert into Orders
+Values (1,'25/04/2019',10,'Manel','RUa João',923123231);
+
+Insert into OrderItem
+Values(1,122,2);
+
+select * from orderItem;
