@@ -2,17 +2,12 @@ package viewmodel;
 
 import domain.Categories;
 import domain.Product;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
-import javafx.event.ActionEvent;
-import view.ViewHomePage;
 import mediator.Model;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
-import java.util.Locale;
 
 public class ViewModel implements PropertyChangeListener {
 
@@ -39,8 +34,8 @@ public class ViewModel implements PropertyChangeListener {
         product.set(wished);
     }
 
-    public Categories getCategories(Categories categories){
-	   return model.getCategory(categories);
+    public ArrayList<Product> getCategories(Categories categories){
+	   return model.getCategory(categories).getCategoryProducts();
     }
 
     public void addToWishList(Product product){
