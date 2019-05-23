@@ -13,6 +13,7 @@ public class Order implements Serializable {
 
 	public Order(ShoppingBag shoppingBag, String costumerName, String adress, int phone) {
 		this.shoppingBag = shoppingBag;
+		this.orderID = 0;
 		this.costumerName = costumerName;
 		this.adress = adress;
 		this.phone = phone;
@@ -42,10 +43,6 @@ public class Order implements Serializable {
 		return phone;
 	}
 
-	public static int getRandomIntegerBetweenRange(int min, int max){
-		int x = (int)(Math.random()*((max-min)+1))+min;
-		return x;
-	}
 
 	@Override
 	public String toString() {

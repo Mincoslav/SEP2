@@ -43,6 +43,8 @@ public class ViewItemPage {
 
     public void addToWishPressed(ActionEvent actionEvent) {
 
+
+
     }
 
     public void addToBagPressed(ActionEvent actionEvent) {

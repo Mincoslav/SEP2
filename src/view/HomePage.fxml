@@ -14,43 +14,17 @@
    <children>
       <TabPane layoutX="36.0" layoutY="70.0" prefHeight="331.0" prefWidth="572.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
-          <Tab text="Untitled Tab 1">
-            <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="322.0" prefWidth="502.0" />
-            </content>
+          <Tab text="Jackets">
+              <fx:include source="Tabs/jackets.fxml" fx:id="jacketsTab"/>
           </Tab>
-          <Tab text="Untitled Tab 2">
-            <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-            </content>
-          </Tab>
-            <Tab text="Untitled Tab">
-              <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-              </content>
+            <Tab text="Pants">
+              <fx:include source="Tabs/pants.fxml" fx:id="pantsTab"/>
             </Tab>
-            <Tab text="Untitled Tab">
-              <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-              </content>
+            <Tab text="Shoes">
+                <fx:include source="Tabs/shoes.fxml" fx:id="shoesTab"/>
             </Tab>
-            <Tab text="Shirts">
-              <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="301.0" prefWidth="503.0">
-                     <children>
-                        <Pane layoutX="14.0" layoutY="14.0" prefHeight="145.0" prefWidth="158.0">
-                           <children>
-                              <Label layoutX="9.0" layoutY="115.0" text="Green Shirt by Ed Sheeran" />
-                              <ImageView fitHeight="98.0" fitWidth="107.0" layoutX="25.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../../../../Desktop/SEP2/dork-260nw-86110885.jpg" />
-                                 </image>
-                              </ImageView>
-                           </children>
-                        </Pane>
-                     </children>
-                  </AnchorPane>
-              </content>
+            <Tab text="T-Shirts">
+                <fx:include source="Tabs/tshirts.fxml" fx:id="tshirtsTab"/>
             </Tab>
         </tabs>
       </TabPane>

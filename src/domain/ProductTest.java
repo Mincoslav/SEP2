@@ -9,8 +9,8 @@ import static org.junit.Assert.*;
 
 public class ProductTest {
 
-    Product product = new Product("Tshirt", "www.com", 2,2, 5, false, "shitty", 2);
-    Product product0 = new Product("bluse", "www.",2,23, 100, true, "cool", 12);
+    Product product = new Product("Tshirt", "www.com", 2,3,5, 0, false, "shitty", 2);
+    Product product0 = new Product("bluse", "www.",2,3,100, 0, true, "cool", 12);
     List<Product> expected = new ArrayList<Product>();
 
     @Test
