@@ -18,7 +18,7 @@ public class JDBCTest {
                 String name = rs.getString("name");
                 int stock = rs.getInt("stock");
                 int categoryID = rs.getInt("categoryID");
-                persons.add(new Product(name,null,categoryID,stock,false,null,0));
+                persons.add(new Product(name,null,00,categoryID,stock,false,null,0));
             }
             System.out.println(persons);
             /*int salary = 150000;

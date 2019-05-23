@@ -1,6 +1,7 @@
 package domain;
 
 import java.io.Serializable;
+import java.util.Random;
 
 public class Order implements Serializable {
 
@@ -10,9 +11,8 @@ public class Order implements Serializable {
 	private String adress;
 	private int phone;
 
-	public Order(ShoppingBag shoppingBag, int orderID, String costumerName, String adress, int phone) {
+	public Order(ShoppingBag shoppingBag, String costumerName, String adress, int phone) {
 		this.shoppingBag = shoppingBag;
-		this.orderID = orderID;
 		this.costumerName = costumerName;
 		this.adress = adress;
 		this.phone = phone;
@@ -24,6 +24,10 @@ public class Order implements Serializable {
 
 	public int getOrderID() {
 		return orderID;
+	}
+
+	public void setOrderID(){
+		orderID = getRandomIntegerBetweenRange(1000,100000);
 	}
 
 	public String getCostumerName() {
@@ -38,5 +42,19 @@ public class Order implements Serializable {
 		return phone;
 	}
 
+	public static int getRandomIntegerBetweenRange(int min, int max){
+		int x = (int)(Math.random()*((max-min)+1))+min;
+		return x;
+	}
 
+	@Override
+	public String toString() {
+		return "Order{" +
+				"shoppingBag=" + shoppingBag +
+				", orderID=" + orderID +
+				", costumerName='" + costumerName + '\'' +
+				", adress='" + adress + '\'' +
+				", phone=" + phone +
+				'}';
+	}
 }

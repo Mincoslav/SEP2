@@ -5,16 +5,17 @@ import domain.Order;
 import domain.Product;
 
 import java.rmi.Remote;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 public interface RemoteClient extends Remote {
 
-    public Product getProduct(Product product);
-    public ArrayList<Product> getAllProducts();
+    Product getProduct(Product product) throws RemoteException;
+    ArrayList<Product> getProducts(int amount) throws RemoteException;
 
-    public Categories getCategory(Categories category);
+    Categories getCategory(Categories category) throws RemoteException;
 
-    public Order getOrder(Order order);
-    public void getOrderByID(int orderID);
+    Order getOrderByID(int orderID) throws RemoteException;
+    int getOrderID(Order order) throws RemoteException;
 
 }

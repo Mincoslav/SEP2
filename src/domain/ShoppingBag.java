@@ -43,5 +43,10 @@ public class ShoppingBag implements Serializable {
 		products.clear();
 	}
 
-
+	@Override
+	public String toString() {
+		return "ShoppingBag{" +
+				"products=" + products +
+				'}';
+	}
 }

@@ -1,6 +1,8 @@
 package mediator;
 
+import com.sun.org.apache.xpath.internal.operations.Or;
 import domain.Categories;
+import domain.Order;
 import domain.Product;
 
 import java.beans.PropertyChangeListener;
@@ -12,6 +14,10 @@ public interface Model {
     ArrayList<Product> getProducts(int amount);
     Product getProduct(Product product);
     Categories getCategory(Categories category);
+    int getOrderID(Order order);
+
+    Order getOrderByID(int ID);
+
     void addToWishlist(Product product);
     void addToShoppingbag(Product product);
     void removeFromWishlist(Product product);

@@ -1,6 +1,6 @@
 package mediator;
 
-import client.Client;
+import client.RemoteClient;
 import domain.Categories;
 import domain.Product;
 import domain.*;
@@ -11,11 +11,10 @@ import domain.Wishlist;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
-import java.util.ArrayList;
 
 public class ModelManager implements Model {
 
-	private Client client;
+	private RemoteClient client;
 	private Product product;
 	private Products productsList;
 	private Categories category;
@@ -28,6 +27,7 @@ public class ModelManager implements Model {
         changeSupport = new PropertyChangeSupport(this);
         wish = new Wishlist();
         bag = new ShoppingBag();
+        order =  new Order(bag,"","",0);
     }
 
 
@@ -60,7 +60,25 @@ public class ModelManager implements Model {
 		return temp_category;
 	}
 
+	@Override
+	public int getOrderID(Order order) {
+		return order.getOrderID();
+	}
 
+	@Override
+	public Order getOrderByID(int ID) {
+		ShoppingBag empty_shoppingBag = new ShoppingBag();
+		Order empty_order = new Order(empty_shoppingBag,"","",0);
+
+		if (!(order.getOrderID() == ID)){
+			System.out.println("Order with this ID doesn't exist");
+			return empty_order;
+		}
+		else {
+			return order;
+		}
+
+	}
 
 	@Override
 	public void addToWishlist(Product product) {

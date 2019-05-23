@@ -30,28 +30,41 @@ public class RMIServer implements RServer {
 
 	@Override
 	public ArrayList<Product> getProducts(int amount) {
-
-		return null;
+		return manager.getProducts(amount);
 	}
 
 	@Override
 	public Categories getCategory(Categories category) {
-		return null;
+		return manager.getCategory(category);
 	}
 
 	@Override
-	public void addCategory(Categories category) {
-
+	public void addProductToShoppingBag(ShoppingBag shoppingBag, Product product) {
+		manager.addToShoppingbag(product);
 	}
 
 	@Override
-	public Order getOrder(Order order) {
-		return null;
+	public void removeFromShoppingBag(Product product) {
+		manager.removeFromShoppingBag(product);
 	}
 
 	@Override
-	public void getOrderByID(int orderID) {
+	public void purchase() {
+		manager.purchase();
+	}
 
+	@Override
+	public Order getOrderByID(int orderID) {
+		Order temp_order = manager.getOrderByID(orderID);
+
+		ShoppingBag empty_shoppingBag = new ShoppingBag();
+		Order empty_order = new Order(empty_shoppingBag,"","",0);
+
+		if (temp_order == null){
+			System.out.println("The order doesn't exist.");
+			return empty_order;
+		}
+		return temp_order;
 	}
 /*
 	@Override
@@ -75,21 +88,5 @@ public class RMIServer implements RServer {
 	}
 */
 
-	public static void main(String[] args) {
-		try {
-			System.out.println("Starting server...");
 
-			//Locating the port and creating the server instance
-			Registry registry = LocateRegistry.createRegistry(1099);
-			RServer server = new RMIServer();
-			Naming.rebind("shopping", server);
-
-			System.out.println("Server started.\nReady for clients.");
-
-		} catch (RemoteException e) {
-			e.printStackTrace();
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
-		}
-	}
 }
