@@ -17,7 +17,6 @@ public class DatabaseConnection {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
     }
 
     public void getTable(String table){
