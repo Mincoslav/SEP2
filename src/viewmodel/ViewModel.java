@@ -3,6 +3,8 @@ package viewmodel;
 import domain.Categories;
 import domain.Product;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import mediator.Model;
 
 import java.beans.PropertyChangeEvent;
@@ -13,6 +15,14 @@ public class ViewModel implements PropertyChangeListener {
 
 	private Model model;
 	private SimpleObjectProperty<Product> product;
+	private StringProperty label_1;
+    private StringProperty label_2;
+    private StringProperty label_3;
+    private StringProperty label_4;
+    private StringProperty label_5;
+    private StringProperty label_6;
+
+
 
 	public ViewModel(Model model){
 	    this.model = model;
@@ -21,6 +31,12 @@ public class ViewModel implements PropertyChangeListener {
         model.addListener("AddBag",this::updateWishList);
         model.addListener("RemoveBag",this::updateWishList);
         product = new SimpleObjectProperty<>();
+        label_1 = new SimpleStringProperty();
+        label_2 = new SimpleStringProperty();
+        label_3 = new SimpleStringProperty();
+        label_4 = new SimpleStringProperty();
+        label_5 = new SimpleStringProperty();
+        label_6 = new SimpleStringProperty();
     }
 
 
@@ -58,6 +74,67 @@ public class ViewModel implements PropertyChangeListener {
 	    return product;
     }
 
+    public void getProductsPerPagePerCategory(Categories categories,int page) {
+	    page = page * 6 - 6;
+        ArrayList<Product> listOfProducts = null;
+        ArrayList<Product> displayedProducts = null;
+
+        listOfProducts = categories.getCategoryProducts();
+
+        for (int i = 0; i + page < 6 + page && i < listOfProducts.size(); i++) {
+            displayedProducts.add(listOfProducts.get(i));
+        }
+
+        for (int i = 0; i < displayedProducts.size(); i++) {
+            if (!displayedProducts.get(i).equals(null)) {
+                switch (i) {
+                    case 0:
+                        label_1.setValue(displayedProducts.remove(i).getName());
+                        break;
+                    case 1:
+                        label_2.setValue(displayedProducts.remove(i).getName());
+                        break;
+                    case 2:
+                        label_3.setValue(displayedProducts.remove(i).getName());
+                        break;
+                    case 3:
+                        label_4.setValue(displayedProducts.remove(i).getName());
+                        break;
+                    case 4:
+                        label_5.setValue(displayedProducts.remove(i).getName());
+                        break;
+                    case 5:
+                        label_6.setValue(displayedProducts.remove(i).getName());
+                        break;
+                }
+            }
+        }
+    }
+
+    public StringProperty label_1Property() {
+        return label_1;
+	}
 
 
+    public StringProperty label_2Property() {
+        return label_2;
+    }
+
+    public StringProperty label_3Property() {
+        return label_3;
+    }
+
+
+    public StringProperty label_4Property() {
+        return label_4;
+    }
+
+
+    public StringProperty label_5Property() {
+        return label_5;
+    }
+
+    public StringProperty label_6Property() {
+        return label_6;
+    }
 }

@@ -57,7 +57,6 @@ public class JacketsTab {
         }
         if(!displayedProducts.get(0).equals(null))
         label1.setText(displayedProducts.get(0).getName());
-        image1.setImage();
 
 
     }
