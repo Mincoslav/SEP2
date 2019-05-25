@@ -48,11 +48,7 @@ public class JacketsTab {
     private Button previousButt;
     @FXML
     private Button nextButt;
-
-
-
-
-
+    private boolean buttons;
 
 
     @FXML
@@ -67,13 +63,31 @@ public class JacketsTab {
         label5.textProperty().bind(viewModel.label_5Property());
         label6.textProperty().bind(viewModel.label_6Property());
 
-        boolean buttons = (page == 1);
+        buttons = (page == 1);
         previousButt.setDisable(buttons);
     }
 
     public void prevPressed(ActionEvent actionEvent) {
+        page--;
+        previousButt.setDisable(buttons);
+        viewModel.getProductsPerPagePerCategory(new Categories(1,"Jackets"),page);
+        label1.textProperty().bind(viewModel.label_1Property());
+        label2.textProperty().bind(viewModel.label_2Property());
+        label3.textProperty().bind(viewModel.label_3Property());
+        label4.textProperty().bind(viewModel.label_4Property());
+        label5.textProperty().bind(viewModel.label_5Property());
+        label6.textProperty().bind(viewModel.label_6Property());
     }
 
     public void nextPressed(ActionEvent actionEvent) {
+        page--;
+        previousButt.setDisable(buttons);
+        viewModel.getProductsPerPagePerCategory(new Categories(1,"Jackets"),page);
+        label1.textProperty().bind(viewModel.label_1Property());
+        label2.textProperty().bind(viewModel.label_2Property());
+        label3.textProperty().bind(viewModel.label_3Property());
+        label4.textProperty().bind(viewModel.label_4Property());
+        label5.textProperty().bind(viewModel.label_5Property());
+        label6.textProperty().bind(viewModel.label_6Property());
     }
 }
