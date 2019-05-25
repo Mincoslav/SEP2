@@ -8,7 +8,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.Pane?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="521.0" prefWidth="652.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<Pane fx:controller="view.ViewHomePage" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="521.0" prefWidth="652.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1 ">
    <children>
       <TabPane layoutX="-5.0" layoutY="68.0" prefHeight="449.0" prefWidth="659.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
@@ -33,9 +33,9 @@
       </ImageView>
       <ButtonBar layoutX="214.0" layoutY="18.0" prefHeight="40.0" prefWidth="394.0">
         <buttons>
-          <Button mnemonicParsing="false" text="Wishlist" />
-            <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="113.0" text="Shopping Bag" />
-            <Button mnemonicParsing="false" text="Previous Orders" />
+          <Button fx:id="wishlistButton" mnemonicParsing="false" onAction="#clickWishlist" text="Wishlist" />
+            <Button fx:id="bagButton" mnemonicParsing="false" onAction="#clickBagButton" prefHeight="26.0" prefWidth="113.0" text="Shopping Bag" />
+            <Button fx:id="prevOrderButton" mnemonicParsing="false" onAction="#oldOrdersButton" text="Previous Orders" />
         </buttons>
       </ButtonBar>
    </children>

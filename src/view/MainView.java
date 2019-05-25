@@ -40,8 +40,34 @@ public class MainView {
             ViewItemPage view = loader.getController();
             view.init(viewModel);
             stage.setTitle("Item Page");
-
         }
+
+        if(("Purchase").equals(viewToOpen)){
+            loader.setLocation(getClass().getResource("purchasePage.fxml"));
+            root = loader.load();
+            ViewItemPage view = loader.getController();
+            view.init(viewModel);
+            stage.setTitle("Checkout");
+        }
+
+        if(("WishList").equals(viewToOpen)){
+            loader.setLocation(getClass().getResource("wishlistPage.fxml"));
+            root = loader.load();
+            ViewItemPage view = loader.getController();
+            view.init(viewModel);
+            stage.setTitle("WishList");
+        }
+
+        if(("ShoppingBag").equals(viewToOpen)){
+            loader.setLocation(getClass().getResource("bagPage.fxml"));
+            root = loader.load();
+            ViewItemPage view = loader.getController();
+            view.init(viewModel);
+            stage.setTitle("Shopping Bag");
+        }
+
+
+
 
         scene = new Scene(root);
         stage.setScene(scene);

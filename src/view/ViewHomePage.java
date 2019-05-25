@@ -1,11 +1,14 @@
 package view;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import view.Tabs.JacketsTab;
 import view.Tabs.PantsTab;
 import view.Tabs.ShoesTab;
 import view.Tabs.TshirtsTab;
 import viewmodel.ViewModel;
+
+import java.io.IOException;
 
 public class ViewHomePage {
 
@@ -15,6 +18,8 @@ public class ViewHomePage {
 	private JacketsTab jackets;
 	private ShoesTab shoes;
 	private TshirtsTab tshirts;
+
+
 
 	@FXML
 	public void initialize(MainView mainView,ViewModel viewModel) {
@@ -27,13 +32,27 @@ public class ViewHomePage {
 	}
 
 
+    public void clickWishlist(ActionEvent actionEvent) {
+		try {
+			mainView.openView("WishList");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 
+    public void clickBagButton(ActionEvent actionEvent) {
+		try {
+			mainView.openView("ShoppingBag");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+    }
 
-
-
-
-
-
-
-
+    public void oldOrdersButton(ActionEvent actionEvent) {
+		try {
+			mainView.openView("Orders");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+    }
 }
