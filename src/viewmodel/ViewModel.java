@@ -2,9 +2,10 @@ package viewmodel;
 
 import domain.Categories;
 import domain.Product;
-import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
+import domain.ShoppingBag;
+import javafx.beans.property.*;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import mediator.Model;
 
 import java.beans.PropertyChangeEvent;
@@ -21,6 +22,7 @@ public class ViewModel implements PropertyChangeListener {
     private StringProperty label_4;
     private StringProperty label_5;
     private StringProperty label_6;
+    private SimpleListProperty<Product> list;
 
 
 
@@ -37,6 +39,8 @@ public class ViewModel implements PropertyChangeListener {
         label_4 = new SimpleStringProperty();
         label_5 = new SimpleStringProperty();
         label_6 = new SimpleStringProperty();
+        list = new SimpleListProperty<>(FXCollections.observableArrayList());
+
     }
 
 
@@ -53,6 +57,16 @@ public class ViewModel implements PropertyChangeListener {
     public ArrayList<Product> getCategories(Categories categories){
 	   return model.getCategory(categories).getCategoryProducts();
     }
+
+    public ArrayList<Product> getWishlist() {
+	    return model.getWishlist();
+    }
+
+    public ShoppingBag getBag() {
+        return model.getShoppingBag();
+    }
+
+
 
     public void addToWishList(Product product){
         model.addToWishlist(product);
@@ -115,7 +129,6 @@ public class ViewModel implements PropertyChangeListener {
         return label_1;
 	}
 
-
     public StringProperty label_2Property() {
         return label_2;
     }
@@ -124,11 +137,9 @@ public class ViewModel implements PropertyChangeListener {
         return label_3;
     }
 
-
     public StringProperty label_4Property() {
         return label_4;
     }
-
 
     public StringProperty label_5Property() {
         return label_5;
@@ -137,4 +148,12 @@ public class ViewModel implements PropertyChangeListener {
     public StringProperty label_6Property() {
         return label_6;
     }
+
+    public SimpleListProperty<Product> simpleListProperty(){
+	    list.set((ObservableList<Product>) model.getShoppingBag().getAllProducts());
+	    return list;
+    }
+
+
+
 }

@@ -81,6 +81,26 @@ public class ModelManager implements Model {
 	}
 
 	@Override
+	public ArrayList<Product> getArrayOfWishlist() {
+		return wish.getAllProducts();
+	}
+
+	@Override
+	public ArrayList<Product> getWishlist() {
+		return null;
+	}
+
+	@Override
+	public ShoppingBag getShoppingBag() {
+		return bag;
+	}
+
+	@Override
+	public ArrayList<Product> getBag() {
+		return bag.getAllProducts();
+	}
+
+	@Override
 	public void addToWishlist(Product product) {
 		wish.addProduct(product);
         changeSupport.firePropertyChange("AddWish",product,product.getName());

@@ -59,7 +59,7 @@ public class MainView {
         }
 
         if(("ShoppingBag").equals(viewToOpen)){
-            loader.setLocation(getClass().getResource("bagPage.fxml"));
+            loader.setLocation(getClass().getResource("shoppingBagPage.fxml"));
             root = loader.load();
             ViewItemPage view = loader.getController();
             view.init(viewModel);

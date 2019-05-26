@@ -4,6 +4,7 @@ import com.sun.org.apache.xpath.internal.operations.Or;
 import domain.Categories;
 import domain.Order;
 import domain.Product;
+import domain.ShoppingBag;
 
 import java.beans.PropertyChangeListener;
 
@@ -17,6 +18,14 @@ public interface Model {
     int getOrderID(Order order);
 
     Order getOrderByID(int ID);
+
+    ArrayList<Product> getArrayOfWishlist();
+
+    ArrayList<Product> getWishlist();
+
+    ShoppingBag getShoppingBag();
+
+    ArrayList<Product> getBag();
 
     void addToWishlist(Product product);
     void addToShoppingbag(Product product);

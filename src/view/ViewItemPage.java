@@ -36,9 +36,7 @@ public class ViewItemPage {
         this.viewModel = viewModel;
       /*  theList.itemsProperty().bind(messagesViewModel.listProperty());
         textArea.textProperty().bind(messagesViewModel.msgProperty());*/
-
-
-    }
+ }
 
 
     public void addToWishPressed(ActionEvent actionEvent) {
