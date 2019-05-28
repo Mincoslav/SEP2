@@ -2,10 +2,11 @@ package domain;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Wishlist implements Serializable {
 
-	private ArrayList<Product> products;
+	private List<Product> products;
 
 	public Wishlist() {
 		products = new ArrayList<>();
@@ -27,7 +28,7 @@ public class Wishlist implements Serializable {
 		return products.get(index);
 	}
 
-	public ArrayList<Product> getAllProducts() {
+	public List<Product> getAllProducts() {
 		return products;
 	}
 }

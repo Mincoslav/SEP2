@@ -3,6 +3,9 @@ package server;
 import domain.*;
 import mediator.Model;
 import mediator.ModelManager;
+import server.database.Database;
+import server.database.DatabaseCon;
+import server.database.DatabaseConnection;
 
 import java.net.MalformedURLException;
 import java.rmi.Naming;
@@ -10,21 +13,33 @@ import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
-public class RMIServer implements RServer {
+public class RMIServer implements RServer, DatabaseCon {
 
 	private Model manager;
+	private Database database;
+
 
 	public RMIServer() throws RemoteException {
+		database = new Database();
 		manager = new ModelManager();
+
 		UnicastRemoteObject.exportObject(this,0);
 	}
 
 	@Override
-	public Product getProduct(Product product) {
-		Product temp_product = manager.getProduct(product);
-
+	public Product getProduct(Product product) throws SQLException {
+		String tempProductName = product.getName();
+		PreparedStatement statement = database.connect().prepareStatement("SELECT * FROM products WHERE name ="+ tempProductName);
+		ResultSet resultSet = statement.executeQuery();
+		String name = resultSet.getString("name");
+		int stock = resultSet.getInt("stock");
+		int categoryID = resultSet.getInt("categoryID");
 		return temp_product;
 	}
 
@@ -49,7 +64,7 @@ public class RMIServer implements RServer {
 	}
 
 
-
+	//creates order in the database and reduces the amounts in stock
 	@Override
 	public void purchase(String name, String adress, int phone) {
 		manager.purchase(name,adress,phone);
@@ -67,6 +82,21 @@ public class RMIServer implements RServer {
 			return empty_order;
 		}
 		return temp_order;
+	}
+
+	@Override
+	public List<Product> getProducts() throws RemoteException, ClassNotFoundException, SQLException {
+		return null;
+	}
+
+	@Override
+	public List<Order> getOrders() throws RemoteException {
+		return null;
+	}
+
+	@Override
+	public List<Categories> getCategory() throws RemoteException {
+		return null;
 	}
 /*
 	@Override

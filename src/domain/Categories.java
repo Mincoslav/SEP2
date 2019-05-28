@@ -2,11 +2,12 @@ package domain;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Categories implements Serializable {
 
 
-	ArrayList<Product> categoryProducts;
+	List<Product> categoryProducts;
 	int categoryID;
 	String categoryName;
 
@@ -24,7 +25,7 @@ public class Categories implements Serializable {
 		categoryProducts.remove(product);
 	}
 
-	public ArrayList<Product> getCategoryProducts() {
+	public List<Product> getCategoryProducts() {
 		return categoryProducts;
 	}
 

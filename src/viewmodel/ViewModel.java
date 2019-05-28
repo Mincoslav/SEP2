@@ -11,6 +11,7 @@ import mediator.Model;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
+import java.util.List;
 
 public class ViewModel implements PropertyChangeListener {
 
@@ -64,7 +65,7 @@ public class ViewModel implements PropertyChangeListener {
     }
 
 
-    public ArrayList<Product> getCategories(Categories categories){
+    public List<Product> getCategories(Categories categories){
 	   return model.getCategory(categories).getCategoryProducts();
     }
 
@@ -104,7 +105,7 @@ public class ViewModel implements PropertyChangeListener {
         ArrayList<Product> displayedProducts = new ArrayList<>();
 
 
-        listOfProducts = model.getCategory(categories).getCategoryProducts();
+        listOfProducts = (ArrayList<Product>) model.getCategory(categories).getCategoryProducts();
 
         for (int i = 0; i + page < 6 + page && i < listOfProducts.size(); i++) {
             displayedProducts.add(listOfProducts.get(i));

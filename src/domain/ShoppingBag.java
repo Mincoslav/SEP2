@@ -2,10 +2,11 @@ package domain;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 public class ShoppingBag implements Serializable {
 
-	private ArrayList<Product> products;
+	private List<Product> products;
 
 	public ShoppingBag() {
 		products = new ArrayList<>();
@@ -43,7 +44,7 @@ public class ShoppingBag implements Serializable {
 		products.clear();
 	}
 
-	public ArrayList<Product> getAllProducts() {
+	public List<Product> getAllProducts() {
 		return products;
 	}
 

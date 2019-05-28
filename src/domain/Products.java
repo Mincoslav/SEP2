@@ -2,18 +2,24 @@ package domain;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Products implements Serializable {
 
-    private ArrayList<Product> products;
+    private List<Product> products;
 
-    public Products(int amount) {
-        products = new ArrayList(amount);
+    public Products() {
+        products = new ArrayList();
     }
 
-    public void addProduct(Product product) {
+    public void addProduct(Product product){
         products.add(product);
     }
+
+    public void removeProduct(Product product){
+        products.remove(product);
+    }
+
 
     public Product getProduct(int index) {
         return products.get(index);
@@ -28,6 +34,5 @@ public class Products implements Serializable {
     public int size(){
         return products.size();
     }
-
 
 }

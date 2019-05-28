@@ -2,10 +2,11 @@ package domain;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Archive implements Serializable {
 
-    private ArrayList<Order> orders;
+    private List<Order> orders;
 
 
 
@@ -33,7 +34,7 @@ public class Archive implements Serializable {
 
 
 
-    public ArrayList<Order> getOrders() {
+    public List<Order> getOrders() {
         return orders;
     }
 }

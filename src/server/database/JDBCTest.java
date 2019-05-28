@@ -1,4 +1,4 @@
-
+package server.database;
 
 import domain.Product;
 import org.postgresql.Driver;

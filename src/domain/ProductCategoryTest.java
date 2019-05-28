@@ -13,7 +13,7 @@ public class ProductCategoryTest {
         System.out.println(categories.size());
         System.out.println("X");
 
-        //categories.removeProduct(product);
+        //c ategories.removeProduct(product);
 
         System.out.println("X2");
         System.out.println(categories.size());
