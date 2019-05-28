@@ -58,7 +58,7 @@ public class ShoppingBagTest {
     public  void changeQuantity(){
         bag.addProduct(product1);
         bag.changeQuantity(0,4);
-        assertEquals(bag.getProduct(0).getQuantity(), 4);
+        assertEquals(bag.getProduct(0).getPurchasedQuantity(), 4);
 
     }
 

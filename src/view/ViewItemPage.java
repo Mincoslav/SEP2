@@ -1,5 +1,7 @@
 package view;
 
+import domain.Product;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -28,7 +30,9 @@ public class ViewItemPage {
     public Label description;
 
     @FXML
-    public ImageView image;
+    private ImageView image;
+
+    private SimpleObjectProperty<Product> product;
 
     @FXML
     public void init(ViewModel viewModel) {
@@ -40,8 +44,6 @@ public class ViewItemPage {
 
 
     public void addToWishPressed(ActionEvent actionEvent) {
-
-
 
     }
 

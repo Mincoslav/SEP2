@@ -4,6 +4,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import view.PurchasePage.ViewPurchasePage;
+import view.ShoppingBagPage.ViewShoppingBagPage;
+import view.Tabs.JacketsTab;
 import viewmodel.ViewModel;
 
 import java.io.IOException;
@@ -18,7 +21,7 @@ public class MainView {
     }
 
     public void start() throws Exception{
-        openView("Home");
+        openView("ShoppingBag");
     }
 
     public void openView(String viewToOpen) throws IOException{
@@ -28,6 +31,7 @@ public class MainView {
 
         if(("Home").equals(viewToOpen)){
             loader.setLocation(getClass().getResource("HomePage.fxml"));
+            System.out.println(loader.getLocation());
             root = loader.load();
             ViewHomePage view = loader.getController();
             view.initialize(this,viewModel);
@@ -43,10 +47,10 @@ public class MainView {
         }
 
         if(("Purchase").equals(viewToOpen)){
-            loader.setLocation(getClass().getResource("purchasePage.fxml"));
+            loader.setLocation(getClass().getResource("PurchasePage/purchasePage.fxml"));
             root = loader.load();
-            ViewItemPage view = loader.getController();
-            view.init(viewModel);
+            ViewPurchasePage view = loader.getController();
+            view.init(viewModel,this);
             stage.setTitle("Checkout");
         }
 
@@ -59,10 +63,10 @@ public class MainView {
         }
 
         if(("ShoppingBag").equals(viewToOpen)){
-            loader.setLocation(getClass().getResource("shoppingBagPage.fxml"));
+            loader.setLocation(getClass().getResource("ShoppingBagPage/shoppingBagPage.fxml"));
             root = loader.load();
-            ViewItemPage view = loader.getController();
-            view.init(viewModel);
+            ViewShoppingBagPage view = loader.getController();
+            view.init(viewModel,this);
             stage.setTitle("Shopping Bag");
         }
 

@@ -13,7 +13,9 @@
       <TabPane layoutX="-5.0" layoutY="68.0" prefHeight="449.0" prefWidth="659.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
           <Tab text="Jackets">
+
               <fx:include fx:id="jacketsTab" source="Tabs/jackets.fxml" />
+
           </Tab>
             <Tab text="Pants">
               <fx:include fx:id="pantsTab" source="Tabs/pants.fxml" />
@@ -28,7 +30,7 @@
       </TabPane>
       <ImageView fitHeight="78.0" fitWidth="74.0" layoutX="56.0" layoutY="1.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../../Desktop/SEP2/broncostr_medium.png" />
+            <Image url="" />
          </image>
       </ImageView>
       <ButtonBar layoutX="214.0" layoutY="18.0" prefHeight="40.0" prefWidth="394.0">

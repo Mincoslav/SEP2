@@ -28,6 +28,7 @@ public class ModelManager implements Model {
         wish = new Wishlist();
         bag = new ShoppingBag();
         order =  new Order(bag,"","",0);
+        productsList = new Products(200);
     }
 
 
@@ -51,9 +52,9 @@ public class ModelManager implements Model {
 
 	@Override
 	public Categories getCategory(Categories category) {
-		Categories temp_category = new Categories(category.getCategoryID(),category.getCategoryName());
+		Categories temp_category = new Categories(category.getCategoryID(), category.getCategoryName());
 
-		for (int i = 0; i <productsList.size() ; i++) {
+		for (int i = 0; i < productsList.size(); i++) {
 			temp_category.addProduct(productsList.getProduct(i));
 		}
 
@@ -108,6 +109,7 @@ public class ModelManager implements Model {
 
 	@Override
 	public void addToShoppingbag(Product product) {
+		product.setPurchasedQuantity(1);
 	    bag.addProduct(product);
         changeSupport.firePropertyChange("AddBag",product,product.getName());
 	}
@@ -128,6 +130,9 @@ public class ModelManager implements Model {
 	public void purchase( String name, String adress, int phone) {
 		order =  new Order(bag,name,adress,phone);
 		changeSupport.firePropertyChange("Purchase",order,order.getOrderID());
+		for(int i = 0; i< order.getShoppingBag().size();i++){
+			productsList.getProduct(order.getShoppingBag().getProduct(i)).setQuantity(order.getShoppingBag().getProduct(i).getQuantity() -order.getShoppingBag().getProduct(i).getQuantity());
+		}
 		bag.emptyBag();
     }
 

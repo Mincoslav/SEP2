@@ -2,6 +2,8 @@ package view;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import view.Tabs.JacketsTab;
 import view.Tabs.PantsTab;
 import view.Tabs.ShoesTab;
@@ -12,12 +14,17 @@ import java.io.IOException;
 
 public class ViewHomePage {
 
-	private ViewModel viewModel;
+    public Button wishlistButton;
+    private ViewModel viewModel;
 	private MainView mainView;
-	private PantsTab pants;
-	private JacketsTab jackets;
-	private ShoesTab shoes;
-	private TshirtsTab tshirts;
+    @FXML
+	public PantsTab pantsTab;
+    @FXML
+	public JacketsTab jacketsTab;
+    @FXML
+	public ShoesTab shoesTab;
+    @FXML
+	public TshirtsTab tshirtsTab;
 
 
 
@@ -25,10 +32,10 @@ public class ViewHomePage {
 	public void initialize(MainView mainView,ViewModel viewModel) {
 		this.mainView = mainView;
 		this.viewModel = viewModel;
-		pants.init(viewModel);
-		jackets.init(viewModel);
-		shoes.init(viewModel);
-		tshirts.init(viewModel);
+	    jacketsTab.init(viewModel);
+        pantsTab.init(viewModel);
+        shoesTab.init(viewModel);
+        tshirtsTab.init(viewModel);
 	}
 
 

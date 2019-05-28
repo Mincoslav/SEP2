@@ -11,6 +11,10 @@ public class Products implements Serializable {
         products = new ArrayList(amount);
     }
 
+    public void addProduct(Product product) {
+        products.add(product);
+    }
+
     public Product getProduct(int index) {
         return products.get(index);
     }

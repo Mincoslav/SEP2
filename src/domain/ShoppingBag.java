@@ -28,7 +28,7 @@ public class ShoppingBag implements Serializable {
 	}
 
 	public  void changeQuantity(int index,int input){
-		getProduct(0).setQuantity(input);
+		getProduct(index).setPurchasedQuantity(input);
 	}
 
 	public int subTotal() {
