@@ -18,6 +18,10 @@ public class Archive implements Serializable {
         orders.add(order);
     }
 
+    public Order getOrderFromArchive(int index){
+        return orders.get(index);
+    }
+
     public void removeOrderFromArchive(Order order){
         orders.remove(order);
     }
