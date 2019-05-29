@@ -14,7 +14,7 @@ public class MainForNOW  extends Application {
     public void start(Stage primaryStage) throws Exception {
 
         Product algo = new Product("cool","url",23,1,25,2,true,"Amazing quality for th price",0);
-        Products novo = new Products(200);
+        Products novo = new Products();
         novo.addProduct(algo);
         Categories category = new Categories(1,"Jackets");
         category.addProduct(algo);

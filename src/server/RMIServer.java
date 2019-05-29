@@ -3,15 +3,9 @@ package server;
 import domain.*;
 import mediator.Model;
 import mediator.ModelManager;
-import server.database.Database;
-import server.database.DatabaseCon;
 import server.database.DatabaseConnection;
 
-import java.net.MalformedURLException;
-import java.rmi.Naming;
 import java.rmi.RemoteException;
-import java.rmi.registry.LocateRegistry;
-import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -19,14 +13,15 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RMIServer implements RServer, DatabaseCon {
+public class RMIServer implements RServer {
 
 	private Model manager;
-	private Database database;
+	private DatabaseConnection databaseConnection;
+
 
 
 	public RMIServer() throws RemoteException {
-		database = new Database();
+		databaseConnection = new DatabaseConnection();
 		manager = new ModelManager();
 
 		UnicastRemoteObject.exportObject(this,0);

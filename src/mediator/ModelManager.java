@@ -28,7 +28,7 @@ public class ModelManager implements Model {
         wish = new Wishlist();
         bag = new ShoppingBag();
         order =  new Order(bag,"","",0);
-        productsList = new Products(200);
+        productsList = new Products();
     }
 
 
@@ -83,7 +83,7 @@ public class ModelManager implements Model {
 
 	@Override
 	public ArrayList<Product> getArrayOfWishlist() {
-		return wish.getAllProducts();
+		return (ArrayList<Product>) wish.getAllProducts();
 	}
 
 	@Override
@@ -98,7 +98,7 @@ public class ModelManager implements Model {
 
 	@Override
 	public ArrayList<Product> getBag() {
-		return bag.getAllProducts();
+		return (ArrayList<Product>) bag.getAllProducts();
 	}
 
 	@Override

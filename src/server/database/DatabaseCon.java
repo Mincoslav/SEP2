@@ -7,11 +7,13 @@ import domain.ShoppingBag;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
 public interface DatabaseCon extends Remote {
 
+    public Connection connect() throws RemoteException,SQLException;
     public List<Product> getProducts() throws RemoteException, ClassNotFoundException, SQLException;
     public List<Order> getOrders() throws RemoteException, SQLException;
     public List<Categories> getCategory(Categories category) throws RemoteException, SQLException;
