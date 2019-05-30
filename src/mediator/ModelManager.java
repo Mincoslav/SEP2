@@ -1,16 +1,11 @@
 package mediator;
 
 import client.RemoteClient;
-import domain.Categories;
-import domain.Product;
 import domain.*;
-
-import java.util.ArrayList;
-import domain.ShoppingBag;
-import domain.Wishlist;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
+import java.util.ArrayList;
 
 public class ModelManager implements Model {
 
