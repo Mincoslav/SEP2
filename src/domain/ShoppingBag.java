@@ -54,4 +54,5 @@ public class ShoppingBag implements Serializable {
 				"products=" + products +
 				'}';
 	}
+
 }

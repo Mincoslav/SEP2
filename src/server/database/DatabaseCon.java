@@ -19,12 +19,14 @@ public interface DatabaseCon extends Remote {
     public List<Categories> getCategory(Categories category) throws RemoteException, SQLException;
     public Product getProduct(Product product) throws RemoteException, SQLException;
 
-    public void removeFromShoppingBag(Product product) throws RemoteException, SQLException;
+    void addProduct(Product product) throws RemoteException, SQLException;
+    void addOrder(Order order) throws RemoteException, SQLException;
+    void updateProduct(Product product, String columnToUpdate,String newValue) throws RemoteException, SQLException;
 
-    public void purchase(String name, String adress, int phone)throws RemoteException, SQLException;
+
+    public void purchase(int amount, Product product)throws RemoteException, SQLException;
 
     public Order getOrderByID(int orderID) throws RemoteException, SQLException;
 
-    public void addProductToShoppingBag(ShoppingBag shoppingBag, Product product) throws RemoteException, SQLException;
 
 }

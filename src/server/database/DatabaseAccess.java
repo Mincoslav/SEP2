@@ -14,10 +14,13 @@ import java.util.List;
 public class DatabaseAccess implements DatabaseCon {
 
     Connection connection;
-    private PreparedStatement statement ;
+    private PreparedStatement statement;
     private final String url = "jdbc:postgresql://localhost/dvdrental";
     private final String user = "postgres";
     private final String password = "postgres";
+    private List<Product> productTable;
+    private List<Order> orderTable;
+
 
 
     public DatabaseAccess(){
@@ -27,33 +30,55 @@ public class DatabaseAccess implements DatabaseCon {
         }
 
         catch (Exception e) {
-            e.printStackTrace();
+            System.out.println("Error");
         }
     }
 
+    public void getTable(String tableName){
 
-
-
-
-
-    public void getTable(String table){
-        table = table.toLowerCase();
+        tableName = tableName.toLowerCase();
         try {
             ResultSet rs;
 
-            if (table.equals("products")){
-                statement = connection.prepareStatement("SELECT * FROM " + table);
-                rs = statement.executeQuery();
-                ArrayList<Product> products = new ArrayList<>();
-                while (rs.next()) {
-                    String name = rs.getString("name");
-                    int stock = rs.getInt("stock");
-                    int categoryID = rs.getInt("categoryID");
-                    products.add(new Product(name,null,0,categoryID,0,stock,false,null,0));
-                }
+            if (tableName.equals("products")){
 
+                statement = connection.prepareStatement("SELECT * FROM " + tableName);
+                rs = statement.executeQuery();
+                productTable = new ArrayList<>();
+
+                while (rs.next()) {
+
+                    int productID = rs.getInt("productID");
+                    int stock = rs.getInt("stock");
+                    float price = rs.getFloat("price");
+                    String productName = rs.getString("name");
+                    int categoryID = rs.getInt("categoryID");
+                    String description = rs.getString("description");
+                    boolean onSale = rs.getBoolean("onSale");
+
+                    productTable.add(new Product(productName,null,productID,categoryID,0,stock,onSale,description,0));
+                }
             }
 
+            else if (tableName.equals("orders")){
+
+                statement = connection.prepareStatement("SELECT * FROM " + tableName);
+                rs = statement.executeQuery();
+                orderTable = new ArrayList<>();
+
+                while (rs.next()) {
+
+                    int orderID = rs.getInt("orderID");
+                    Date date = rs.getDate("date");
+                    float price = rs.getFloat("price");
+                    String name = rs.getString("name");
+                    String address = rs.getString("address");
+                    int phone = rs.getInt("phone");
+
+                    ShoppingBag shoppingBag = new ShoppingBag();
+                    orderTable.add(new Order(shoppingBag,name,address,phone));
+                }
+            }
         }
         catch (SQLException e) {
             System.out.println("Error: The table doesn't exist");
@@ -61,16 +86,12 @@ public class DatabaseAccess implements DatabaseCon {
         catch (NullPointerException e){
             System.out.println("Error: Null Pointer exception in 'Products' table");
         }
-
-
-
     }
-
-
 
     public void close() {
         try {
             connection.close();
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -90,39 +111,12 @@ public class DatabaseAccess implements DatabaseCon {
 
     @Override
     public List<Product> getProducts() throws ClassNotFoundException, SQLException {
-        List<Product> productList = new ArrayList<Product>();
-
-        Connection connection = DriverManager.getConnection("jdbc:postgresql://localhost:5433/postgres?currentSchema=sales_system",
-                "postgres", "password");
-
-
-        // JDBC driver name and database URL
-        String JDBC_DRIVER = "com.postgres.jdbc.Driver";
-        String DB_URL = "jdbc:postgresql://localhost:5433/postgres?currentSchema=sales_system";
-
-        DriverManager.registerDriver(new org.postgresql.Driver());
-
-        // Database credentials
-        String USER = "postgres";
-        String PASS = "password";
-
-        Connection conn = null;
-        Statement stmt = null;
-
-        //Register JDBC driver
-        Class.forName("com.mysql.jdbc.Driver");
-
-        //Open a connection
-        System.out.println("Connecting to a selected database...");
-        conn = DriverManager.getConnection(DB_URL, USER, PASS);
-        System.out.println("Connected database successfully...");
-
-        return null;
+        return productTable;
     }
 
     @Override
-    public ArrayList<Order> getOrders() throws RemoteException {
-        return null;
+    public List<Order> getOrders() throws RemoteException {
+        return orderTable;
     }
 
     @Override
@@ -132,29 +126,67 @@ public class DatabaseAccess implements DatabaseCon {
 
     @Override
     public Product getProduct(Product product) throws RemoteException {
-        return null;
+        int temp_index = 0;
+
+        for (int i = 0; i < productTable.size() ; i++) {
+            if (productTable.get(i).equals(product)) {
+                temp_index = productTable.indexOf(product);
+            }
+        }
+        return productTable.get(temp_index);
     }
 
     @Override
-    public void removeFromShoppingBag(Product product) throws RemoteException {
+    public void addProduct(Product product) throws RemoteException, SQLException {
 
+        PreparedStatement statement = connection.prepareStatement
+                ("INSERT INTO Products VALUES ("+ product.getProductID()+","
+                        +product.getQuantity()+","+product.getPrice()+","
+                        +product.getName()+","+product.getCategoryID()+","
+                        +product.getDescription()+","+product.isOnSale()+")");
+        statement.executeQuery();
     }
 
     @Override
-    public void purchase(String name, String adress, int phone) {
+    public void addOrder(Order order) throws RemoteException, SQLException {
+        PreparedStatement statement = connection.prepareStatement
+                ("INSERT INTO Orders VALUES ("+order.getOrderID()+","+ "CURRENT_DATE"
+                        +","+order.getShoppingBag().subTotal()+","+order.getCostumerName()
+                        +","+order.getAdress()+","+order.getPhone());
+        statement.executeQuery();
+    }
 
+    @Override
+    public void updateProduct(Product product, String columnToUpdate, String newValue) throws RemoteException, SQLException {
+        int id = product.getProductID();
+        PreparedStatement statement = connection.prepareStatement
+                ("UPDATE Products SET " + columnToUpdate + " = " + newValue
+                        + " WHERE " + "productID" + "=" + id);
+    }
+
+
+    @Override
+    public void purchase(int amount, Product product) throws RemoteException, SQLException {
+        int index = productTable.indexOf(getProduct(product));
+        productTable.get(index).setPurchasedQuantity(amount);
     }
 
     @Override
     public Order getOrderByID(int orderID) throws RemoteException {
-        return null;
+        ShoppingBag emptyShoppingBag = new ShoppingBag();
+        Order order = new Order(emptyShoppingBag,"","",0);
+
+        for (int i = 0; i < orderTable.size() ; i++) {
+            if (orderID == orderTable.get(i).getOrderID()) {
+                order = orderTable.get(i);
+            }
+            else {
+                System.out.println("This order doesn't exist.");
+            }
+        }
+
+        return order;
     }
-
-    @Override
-    public void addProductToShoppingBag(ShoppingBag shoppingBag, Product product) throws RemoteException {
-
-    }
-
 
 }
 
