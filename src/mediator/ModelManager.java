@@ -17,6 +17,7 @@ public class ModelManager implements Model {
 	private Wishlist wish;
 	private ShoppingBag bag;
     private PropertyChangeSupport changeSupport;
+    private ArrayList<Order> orders;
 
 	public ModelManager(){
         changeSupport = new PropertyChangeSupport(this);
@@ -24,6 +25,8 @@ public class ModelManager implements Model {
         bag = new ShoppingBag();
         order =  new Order(bag,"","",0);
         productsList = new Products();
+        productsList = new Products();
+        orders = new ArrayList<>();
     }
 
 
@@ -82,8 +85,8 @@ public class ModelManager implements Model {
 	}
 
 	@Override
-	public ArrayList<Product> getWishlist() {
-		return null;
+	public Wishlist getWishlist() {
+		return wish;
 	}
 
 	@Override
@@ -122,17 +125,42 @@ public class ModelManager implements Model {
 	}
 
 	@Override
+	public void increaseDecrease(String value, int index){
+		int temp = bag.getProduct(index).getPurchasedQuantity();
+		Product product = bag.getProduct(index);
+		if(temp == 1 && value.equals("decrease")){
+			bag.removeProduct(bag.getProduct(index));
+		}else if(value.equals("decrease")){
+			bag.changeQuantity(index,bag.getProduct(index).getPurchasedQuantity()-1);
+		}else if(value.equals("increase")){
+			bag.changeQuantity(index,bag.getProduct(index).getPurchasedQuantity()+1);
+		}
+		changeSupport.firePropertyChange("IncreaseDecrease",product,index);
+	}
+
+	@Override
 	public void purchase( String name, String adress, int phone) {
 		order =  new Order(bag,name,adress,phone);
+		orders.add(order);
 		changeSupport.firePropertyChange("Purchase",order,order.getOrderID());
 		for(int i = 0; i< order.getShoppingBag().size();i++){
-			productsList.getProduct(order.getShoppingBag().getProduct(i)).setQuantity(order.getShoppingBag().getProduct(i).getQuantity() -order.getShoppingBag().getProduct(i).getQuantity());
+			productsList.getProduct(order.getShoppingBag().getProduct(i)).setQuantity(order.getShoppingBag().getProduct(i).getQuantity() -order.getShoppingBag().getProduct(i).getPurchasedQuantity());
 		}
+		System.out.println(productsList.getProduct(0).getPurchasedQuantity());
+		System.out.println(productsList.getProduct(0).getQuantity());
 		bag.emptyBag();
+		System.out.println(bag.size());
     }
 
     @Override
     public void addListener(String eventName, PropertyChangeListener listener) {
         changeSupport.addPropertyChangeListener(eventName,listener);
     }
+
+	@Override
+	public void addProduct(Product product) {
+		productsList.addProduct(product);
+
+	}
+
 }

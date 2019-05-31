@@ -6,7 +6,6 @@ import mediator.ModelManager;
 import view.MainView;
 import viewmodel.ViewModel;
 
-import static javafx.application.Application.launch;
 
 public class MainForNOW  extends Application {
 
@@ -27,7 +26,9 @@ public class MainForNOW  extends Application {
         System.out.println(model.getBag().size());
 
         view.start();
+        model.addProduct(algo);
         model.addToShoppingbag(algo);
+        model.addToWishlist(algo);
     }
 
 

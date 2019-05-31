@@ -1,8 +1,6 @@
 package viewmodel;
 
-import domain.Categories;
-import domain.Product;
-import domain.ShoppingBag;
+import domain.*;
 import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -15,7 +13,8 @@ import java.util.List;
 
 public class ViewModel implements PropertyChangeListener {
 
-	private Model model;
+
+    private Model model;
 	private SimpleObjectProperty<Product> product;
 	private StringProperty label_1;
     private StringProperty label_2;
@@ -23,17 +22,22 @@ public class ViewModel implements PropertyChangeListener {
     private StringProperty label_4;
     private StringProperty label_5;
     private StringProperty label_6;
+    private StringProperty price;
     private SimpleListProperty<Product> list;
-    private SimpleListProperty<String> listString;
+    private SimpleListProperty<Product> listWish; //list For WishList
+    private SimpleListProperty<String> listWishString;
+    private SimpleListProperty<String> listString; //list  of Products from Shopping bag
 
 
 
 	public ViewModel(Model model){
 	    this.model = model;
         model.addListener("AddWish",this::updateWishList);
-        model.addListener("RemoveWish",this::updateWishList);
+        //model.addListener("RemoveWish",this::updateWishList);
         model.addListener("AddBag",this::updateBag);
-        model.addListener("RemoveBag",this::updateBag);
+        //model.addListener("RemoveBag",this::updateBag);
+        model.addListener("IncreaseDecrease",this::quantityUpdate);
+
         product = new SimpleObjectProperty<>();
         label_1 = new SimpleStringProperty();
         label_2 = new SimpleStringProperty();
@@ -41,7 +45,10 @@ public class ViewModel implements PropertyChangeListener {
         label_4 = new SimpleStringProperty();
         label_5 = new SimpleStringProperty();
         label_6 = new SimpleStringProperty();
+        price = new SimpleStringProperty();
         list = new SimpleListProperty<>(FXCollections.observableArrayList());
+        listWish = new SimpleListProperty<>(FXCollections.observableArrayList());
+        listWishString = new SimpleListProperty<>(FXCollections.observableArrayList());
         listString = new SimpleListProperty<>(FXCollections.observableArrayList());
 
     }
@@ -54,7 +61,10 @@ public class ViewModel implements PropertyChangeListener {
 
     public void updateWishList(PropertyChangeEvent evt) {
         Product wished = (Product) evt.getOldValue();
-        product.set(wished);
+        String name = (String) evt.getNewValue();
+        listWish.add(wished);
+        listWishString.add(name);
+
 
     }
     public void updateBag(PropertyChangeEvent evt) {
@@ -62,14 +72,29 @@ public class ViewModel implements PropertyChangeListener {
         String name = (String) evt.getNewValue();
         list.add(wished);
         listString.add(name + " Qnt:" + wished.getPurchasedQuantity()+ " Price: " + wished.getPrice());
+        price.setValue(model.getShoppingBag().subTotal()+"");
+
     }
 
+    //updates quantity in the shopping bag
+    public void quantityUpdate(PropertyChangeEvent evt) {
+        Product wished = (Product) evt.getOldValue();
+        int index = (int) evt.getNewValue();
+        System.out.println(list.get(0).getName());
+        list.set(index,wished);
+        listString.set(index,wished.getName() + " Qnt:" + wished.getPurchasedQuantity()+ " Price: " + wished.getPrice());
+        price.setValue(model.getShoppingBag().subTotal()+"");
+    }
+
+    public void purchase(String name,String adress,int phone){
+	    model.purchase(name,adress,phone);
+    }
 
     public List<Product> getCategories(Categories categories){
 	   return model.getCategory(categories).getCategoryProducts();
     }
 
-    public ArrayList<Product> getWishlist() {
+    public Wishlist getWishlist() {
 	    return model.getWishlist();
     }
 
@@ -93,6 +118,15 @@ public class ViewModel implements PropertyChangeListener {
 
     public void removeFromShoppingBag(Product product){
 	    model.removeFromShoppingBag(product);
+    }
+
+    public void increasePurchasedQuantity(int index) {
+        model.increaseDecrease("increase",index);
+    }
+
+    public void decreasePurchasedQuantity(int index) {
+        model.increaseDecrease("decrease",index);
+
     }
 
     public SimpleObjectProperty<Product> objectProperty() {
@@ -172,6 +206,8 @@ public class ViewModel implements PropertyChangeListener {
 	    return list;
     }
 
+
+
     public ListProperty<String> simpleListPropertyString(){
      //  for(int i = 0; i  < model.getShoppingBag().getAllProducts().size();i++){
      //      listString.add(model.getBag().get(i).getName());
@@ -179,6 +215,15 @@ public class ViewModel implements PropertyChangeListener {
         return listString;
     }
 
+    public ListProperty<String> simpleListPropertyStringWish(){
+        //  for(int i = 0; i  < model.getShoppingBag().getAllProducts().size();i++){
+        //      listString.add(model.getBag().get(i).getName());
+        //  }
+        return listWishString;
+    }
 
 
+    public StringProperty priceProperty() {
+        return price;
+    }
 }

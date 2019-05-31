@@ -6,7 +6,8 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import view.PurchasePage.ViewPurchasePage;
 import view.ShoppingBagPage.ViewShoppingBagPage;
-import view.Tabs.JacketsTab;
+
+import view.WishlistPage.ViewWishlistPage;
 import viewmodel.ViewModel;
 
 import java.io.IOException;
@@ -21,7 +22,7 @@ public class MainView {
     }
 
     public void start() throws Exception{
-        openView("ShoppingBag");
+        openView("Home");
     }
 
     public void openView(String viewToOpen) throws IOException{
@@ -30,11 +31,13 @@ public class MainView {
         Parent root = null;
 
         if(("Home").equals(viewToOpen)){
-            loader.setLocation(getClass().getResource("HomePage.fxml"));
-            System.out.println(loader.getLocation());
+            loader.setLocation(getClass().getResource("homeasdas.fxml"));
+            System.out.println(String.valueOf(loader.equals(null)));
             root = loader.load();
+
             ViewHomePage view = loader.getController();
             view.initialize(this,viewModel);
+
             stage.setTitle("Home Page");
         }
 
@@ -55,10 +58,10 @@ public class MainView {
         }
 
         if(("WishList").equals(viewToOpen)){
-            loader.setLocation(getClass().getResource("wishlistPage.fxml"));
+            loader.setLocation(getClass().getResource("WishlistPage/wishlistPage.fxml"));
             root = loader.load();
-            ViewItemPage view = loader.getController();
-            view.init(viewModel);
+            ViewWishlistPage view = loader.getController();
+            view.init(this,viewModel);
             stage.setTitle("WishList");
         }
 

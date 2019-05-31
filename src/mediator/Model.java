@@ -1,10 +1,6 @@
 package mediator;
 
-import com.sun.org.apache.xpath.internal.operations.Or;
-import domain.Categories;
-import domain.Order;
-import domain.Product;
-import domain.ShoppingBag;
+import domain.*;
 
 import java.beans.PropertyChangeListener;
 
@@ -21,7 +17,7 @@ public interface Model {
 
     ArrayList<Product> getArrayOfWishlist();
 
-    ArrayList<Product> getWishlist();
+    Wishlist getWishlist();
 
     ShoppingBag getShoppingBag();
 
@@ -31,7 +27,11 @@ public interface Model {
     void addToShoppingbag(Product product);
     void removeFromWishlist(Product product);
     void removeFromShoppingBag(Product product);
+
+    void increaseDecrease(String value, int index);
+
     void purchase(String name, String adress, int phone);
 
     void addListener(String eventName, PropertyChangeListener listener);
+    void addProduct(Product product);
 }

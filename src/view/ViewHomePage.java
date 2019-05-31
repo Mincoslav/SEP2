@@ -2,12 +2,12 @@ package view;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import view.Tabs.JacketsTab;
-import view.Tabs.PantsTab;
-import view.Tabs.ShoesTab;
-import view.Tabs.TshirtsTab;
+import javafx.scene.control.Tab;
+import view.Tabs.JacketsTabC;
+import view.Tabs.PantsTabC;
+import view.Tabs.ShoesTabC;
+import view.Tabs.TshirtsTabC;
 import viewmodel.ViewModel;
 
 import java.io.IOException;
@@ -15,16 +15,22 @@ import java.io.IOException;
 public class ViewHomePage {
 
     public Button wishlistButton;
-    private ViewModel viewModel;
+   
+	public Tab jackets;
+	public Tab pants;
+	public Tab shoes;
+	public Tab tshirts;
+	private ViewModel viewModel;
 	private MainView mainView;
+
     @FXML
-	public PantsTab pantsTab;
+	private PantsTabC pantsTabC;
     @FXML
-	public JacketsTab jacketsTab;
+	private JacketsTabC jacketsTabC;
     @FXML
-	public ShoesTab shoesTab;
+	private ShoesTabC shoesTabC;
     @FXML
-	public TshirtsTab tshirtsTab;
+	private TshirtsTabC tshirtsTabC;
 
 
 
@@ -32,10 +38,11 @@ public class ViewHomePage {
 	public void initialize(MainView mainView,ViewModel viewModel) {
 		this.mainView = mainView;
 		this.viewModel = viewModel;
-	    jacketsTab.init(viewModel);
-        pantsTab.init(viewModel);
-        shoesTab.init(viewModel);
-        tshirtsTab.init(viewModel);
+
+     	/*jacketsTabC.init(viewModel,this);
+     	pantsTabC.init(viewModel);
+     	shoesTabC.init(viewModel);
+     	tshirtsTabC.init(viewModel);*/
 	}
 
 

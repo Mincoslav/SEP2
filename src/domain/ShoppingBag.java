@@ -35,7 +35,7 @@ public class ShoppingBag implements Serializable {
 	public int subTotal() {
 		int total = 0;
 		for(int i = 0; i < size(); i++){
-			total += getProduct(i).getPrice();
+			total += getProduct(i).getPrice()*getProduct(i).getPurchasedQuantity();
 		}
 		return total;
 	}

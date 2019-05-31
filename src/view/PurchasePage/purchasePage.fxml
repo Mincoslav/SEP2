@@ -4,15 +4,12 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.PurchasePage.ViewPurchasePage">
    <children>
-      <Button layoutX="216.0" layoutY="310.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="162.0" text="Pay" />
-      <TextField layoutX="216.0" layoutY="57.0" promptText="Name" />
-      <TextField layoutX="216.0" layoutY="106.0" promptText="Address" />
-      <TextField layoutX="216.0" layoutY="159.0" promptText="Phone" />
+      <Button fx:id="pay" layoutX="216.0" layoutY="310.0" mnemonicParsing="false" onAction="#finnishPurchase" prefHeight="26.0" prefWidth="162.0" text="Pay" />
+      <TextField fx:id="name" layoutX="216.0" layoutY="57.0" onKeyReleased="#handleKeyReleased1" promptText="Name" />
+      <TextField fx:id="address" layoutX="216.0" layoutY="106.0" onKeyReleased="#handleKeyReleased2" promptText="Address" />
+      <TextField fx:id="phone" layoutX="216.0" layoutY="159.0" onKeyReleased="#handleKeyReleased3" promptText="Phone" />
+      <Button fx:id="backToBag" layoutX="514.0" layoutY="14.0" mnemonicParsing="false" onAction="#returnToBag" text="Return" />
    </children>
 </AnchorPane>
-
-
-
