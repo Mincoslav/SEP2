@@ -23,6 +23,7 @@ public class ModelManagerTest {
 
     @Test
     public void getProducts() {
+        assertEquals(3, modelManager.getProducts(3).size());
 
     }
 
