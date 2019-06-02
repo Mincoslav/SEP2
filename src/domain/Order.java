@@ -13,7 +13,7 @@ public class Order implements Serializable {
 
 	public Order(ShoppingBag shoppingBag, String costumerName, String adress, int phone) {
 		this.shoppingBag = shoppingBag;
-		this.orderID = 0;
+		this.orderID = getRandomIntegerBetweenRange(1000,100000);
 		this.costumerName = costumerName;
 		this.adress = adress;
 		this.phone = phone;
@@ -25,10 +25,6 @@ public class Order implements Serializable {
 
 	public int getOrderID() {
 		return orderID;
-	}
-
-	public void setOrderID(){
-		//orderID = getRandomIntegerBetweenRange(1000,100000);
 	}
 
 	public String getCostumerName() {

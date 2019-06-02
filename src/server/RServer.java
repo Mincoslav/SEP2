@@ -4,34 +4,31 @@ import domain.*;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
+import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.ArrayList;
+import java.util.List;
 
 public interface RServer extends Remote {
 
+    public void getTable(String tableName);
+    public Connection connect() throws RemoteException,SQLException;
+    public void close() throws RemoteException,SQLException;
+
     public Product getProduct(Product product) throws RemoteException, SQLException;
-    public ArrayList<Product> getProducts(int amount) throws RemoteException;
+    public Product getProduct(int index) throws RemoteException, SQLException;
+    public List<Product> getProducts() throws RemoteException, SQLException, ClassNotFoundException;
+    public List<Order> getOrders() throws RemoteException, SQLException;
 
-    public Categories getCategory(Categories category) throws RemoteException;
+    void addProduct(Product product) throws RemoteException, SQLException;
+    void addOrder(Order order) throws RemoteException, SQLException;
+    void updateProduct(Product product, String columnToUpdate,String newValue) throws RemoteException, SQLException;
 
-    public void removeFromShoppingBag(Product product) throws RemoteException;
+    void purchase(String name, String adress, int phone) throws RemoteException, SQLException;
 
-    void purchase(String name, String adress, int phone);
+    public Order getOrderByID(int orderID) throws RemoteException, SQLException;
 
-    public Order getOrderByID(int orderID) throws RemoteException;
-
-    public void addProductToShoppingBag(ShoppingBag shoppingBag, Product product) throws RemoteException;
+    public void addProductToShoppingBag(Product product) throws RemoteException;
 
 
-    /*
-        public void addOrderToArchive(Order order);
-        public Archive getAllOrdersFromArchive(Archive archive);
-        public void addProductToCategory(Categories category, Product product);
-
-        public ShoppingBag getContentsOfShoppingBag(ShoppingBag shoppingBag);
-        public void addProductToWishlist(Wishlist wishlist, Product product);
-        public Wishlist getWishlist(Wishlist wishlist);
-    */
-// public void addCategory(Categories category);
 
 }

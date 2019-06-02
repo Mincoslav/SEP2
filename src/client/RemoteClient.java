@@ -6,16 +6,17 @@ import domain.Product;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
-import java.util.ArrayList;
+import java.sql.SQLException;
+import java.util.List;
 
 public interface RemoteClient extends Remote {
 
-    Product getProduct(Product product) throws RemoteException;
-    ArrayList<Product> getProducts(int amount) throws RemoteException;
+    Product getProduct(Product product) throws RemoteException, SQLException;
+    List<Product> getProducts() throws RemoteException, ClassNotFoundException, SQLException;
 
-    Categories getCategory(Categories category) throws RemoteException;
+    Categories getCategory(Categories category) throws RemoteException, ClassNotFoundException, SQLException;
 
-    Order getOrderByID(int orderID) throws RemoteException;
+    Order getOrderByID(int orderID) throws RemoteException, SQLException;
     int getOrderID(Order order) throws RemoteException;
 
 }

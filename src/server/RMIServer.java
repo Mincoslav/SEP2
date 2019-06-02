@@ -3,12 +3,12 @@ package server;
 import domain.*;
 import mediator.Model;
 import mediator.ModelManager;
-import server.database.DatabaseConnection;
+import server.database.DatabaseAccess;
+import server.database.DatabaseCon;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,59 +16,76 @@ import java.util.List;
 public class RMIServer implements RServer {
 
 	private Model manager;
-	private DatabaseConnection databaseConnection;
+	private DatabaseCon databaseAccess;
 
 
 
 	public RMIServer() throws RemoteException {
-		databaseConnection = new DatabaseConnection();
+		databaseAccess = new DatabaseAccess();
 		manager = new ModelManager();
+
 
 		UnicastRemoteObject.exportObject(this,0);
 	}
 
 	@Override
-	public Product getProduct(Product product) throws SQLException {
-		String tempProductName = product.getName();
-		PreparedStatement statement = database.connect().prepareStatement("SELECT * FROM products WHERE name ="+ tempProductName);
-		ResultSet resultSet = statement.executeQuery();
-		String name = resultSet.getString("name");
-		int stock = resultSet.getInt("stock");
-		int categoryID = resultSet.getInt("categoryID");
+	public void getTable(String tableName) {
+		databaseAccess.getTable(tableName);
+	}
+
+	@Override
+	public Connection connect() throws RemoteException, SQLException {
+		Connection connection = databaseAccess.connect();
+
+		return connection;
+	}
+
+	@Override
+	public void close() throws RemoteException, SQLException {
+		databaseAccess.close();
+	}
+
+	@Override
+	public Product getProduct(Product product) throws SQLException, RemoteException {
+		Product temp_product =  databaseAccess.getProduct(product);
 		return temp_product;
 	}
 
 	@Override
-	public ArrayList<Product> getProducts(int amount) {
-		return manager.getProducts(amount);
+	public Product getProduct(int index) throws RemoteException, SQLException {
+		return databaseAccess.getProduct(index);
 	}
 
 	@Override
-	public Categories getCategory(Categories category) {
-		return manager.getCategory(category);
+	public List<Product> getProducts() throws SQLException, RemoteException, ClassNotFoundException {
+		List<Product> productList = databaseAccess.getProducts();
+		return productList;
 	}
 
 	@Override
-	public void addProductToShoppingBag(ShoppingBag shoppingBag, Product product) {
+	public void addProductToShoppingBag(Product product) {
 		manager.addToShoppingbag(product);
 	}
 
-	@Override
-	public void removeFromShoppingBag(Product product) {
-		manager.removeFromShoppingBag(product);
-	}
-
-
 	//creates order in the database and reduces the amounts in stock
 	@Override
-	public void purchase(String name, String adress, int phone) {
+	public void purchase(String name, String adress, int phone) throws RemoteException, SQLException {
+		ShoppingBag bag = manager.getShoppingBag();
+		Order order = new Order(bag,name,adress,phone);
+
+		ArrayList<Product> products = (ArrayList<Product>) bag.getAllProducts();
+		for (int i = 0; i < products.size(); i++) {
+			Product product = products.get(i);
+			int amount = product.getPurchasedQuantity();
+			databaseAccess.purchase(amount,product);
+		}
 		manager.purchase(name,adress,phone);
 	}
 
 	@Override
-	public Order getOrderByID(int orderID) {
-		Order temp_order = manager.getOrderByID(orderID);
+	public Order getOrderByID(int orderID) throws RemoteException, SQLException {
 
+		Order temp_order = databaseAccess.getOrderByID(orderID);
 		ShoppingBag empty_shoppingBag = new ShoppingBag();
 		Order empty_order = new Order(empty_shoppingBag,"","",0);
 
@@ -76,44 +93,28 @@ public class RMIServer implements RServer {
 			System.out.println("The order doesn't exist.");
 			return empty_order;
 		}
-		return temp_order;
+		else
+			return temp_order;
 	}
 
 	@Override
-	public List<Product> getProducts() throws RemoteException, ClassNotFoundException, SQLException {
-		return null;
+	public List<Order> getOrders() throws RemoteException, SQLException {
+		return databaseAccess.getOrders();
 	}
 
 	@Override
-	public List<Order> getOrders() throws RemoteException {
-		return null;
+	public void addProduct(Product product) throws RemoteException, SQLException {
+		databaseAccess.addProduct(product);
 	}
 
 	@Override
-	public List<Categories> getCategory() throws RemoteException {
-		return null;
-	}
-/*
-	@Override
-	public void addProductToShoppingBag(ShoppingBag shoppingBag, Product product) {
-
+	public void addOrder(Order order) throws RemoteException, SQLException {
+		databaseAccess.addOrder(order);
 	}
 
 	@Override
-	public ShoppingBag getContentsOfShoppingBag(ShoppingBag shoppingBag) {
-		return null;
+	public void updateProduct(Product product, String columnToUpdate, String newValue) throws RemoteException, SQLException {
+		databaseAccess.updateProduct(product,columnToUpdate,newValue);
 	}
-
-	@Override
-	public void addProductToWishlist(Wishlist wishlist, Product product) {
-
-	}
-
-	@Override
-	public Wishlist getWishlist(Wishlist wishlist) {
-		return null;
-	}
-*/
-
 
 }

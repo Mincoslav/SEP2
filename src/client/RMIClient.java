@@ -13,7 +13,9 @@ import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class RMIClient implements RemoteClient {
 
@@ -27,34 +29,30 @@ public class RMIClient implements RemoteClient {
 	}
 
 	@Override
-	public Product getProduct(Product product) {
-		return manager.getProduct(product);
+	public Product getProduct(Product product) throws RemoteException, SQLException {
+		return server.getProduct(product);
 	}
 
 	@Override
-	public ArrayList<Product> getProducts(int amount) {
-		return manager.getProducts(amount);
+	public List<Product> getProducts() throws RemoteException, ClassNotFoundException, SQLException {
+		return server.getProducts();
 	}
 
 
 	@Override
-	public Categories getCategory(Categories category) {
-		return manager.getCategory(category);
-	}
+	public Categories getCategory(Categories category) throws ClassNotFoundException, RemoteException, SQLException {
+		int id = category.getCategoryID();
 
-	@Override
-	public Order getOrderByID(int orderID) {
-		Order temp_order = manager.getOrderByID(orderID);
+		for (int i = 0; i < server.getProducts().size() ; i++) {
 
-		ShoppingBag empty_shoppingBag = new ShoppingBag();
-		Order empty_order = new Order(empty_shoppingBag,"","",0);
-
-		if (temp_order == null){
-			System.out.println("The order doesn't exist.");
-			return empty_order;
+			category.addProduct(server.getProduct(i));
 		}
-		else
-			return temp_order;
+		return category;
+	}
+
+	@Override
+	public Order getOrderByID(int orderID) throws RemoteException, SQLException {
+		return server.getOrderByID(orderID);
 	}
 
 	@Override

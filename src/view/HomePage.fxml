@@ -9,36 +9,36 @@
 <?import javafx.scene.layout.Pane?>
 
 <Pane fx:controller="view.ViewHomePage" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="521.0" prefWidth="652.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1 ">
-   <children>
-      <TabPane layoutX="-5.0" layoutY="68.0" prefHeight="449.0" prefWidth="659.0" tabClosingPolicy="UNAVAILABLE">
-        <tabs>
-          <Tab text="Jackets">
+    <children>
+        <TabPane layoutX="-5.0" layoutY="68.0" prefHeight="449.0" prefWidth="659.0" tabClosingPolicy="UNAVAILABLE">
+            <tabs>
+                <Tab  text="Jackets">
 
-              <fx:include fx:id="jacketsTab" source="Tabs/jackets.fxml" />
+                    <fx:include fx:id="jacketsTab" source="Tabs/JacketsTab.fxml" />
 
-          </Tab>
-            <Tab text="Pants">
-              <fx:include fx:id="pantsTab" source="Tabs/pants.fxml" />
-            </Tab>
-            <Tab text="Shoes">
-                <fx:include fx:id="shoesTab" source="Tabs/shoes.fxml" />
-            </Tab>
-            <Tab text="T-Shirts">
-                <fx:include fx:id="tshirtsTab" source="Tabs/tshirts.fxml" />
-            </Tab>
-        </tabs>
-      </TabPane>
-      <ImageView fitHeight="78.0" fitWidth="74.0" layoutX="56.0" layoutY="1.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="" />
-         </image>
-      </ImageView>
-      <ButtonBar layoutX="214.0" layoutY="18.0" prefHeight="40.0" prefWidth="394.0">
-        <buttons>
-          <Button fx:id="wishlistButton" mnemonicParsing="false" onAction="#clickWishlist" text="Wishlist" />
-            <Button fx:id="bagButton" mnemonicParsing="false" onAction="#clickBagButton" prefHeight="26.0" prefWidth="113.0" text="Shopping Bag" />
-            <Button fx:id="prevOrderButton" mnemonicParsing="false" onAction="#oldOrdersButton" text="Previous Orders" />
-        </buttons>
-      </ButtonBar>
-   </children>
+                </Tab>
+                <Tab  text="Pants">
+                    <fx:include fx:id="pantsTab" source="Tabs/PantsTab.fxml" />
+                </Tab>
+                <Tab  text="Shoes">
+                    <fx:include fx:id="shoesTab" source="Tabs/ShoesTab.fxml" />
+                </Tab>
+                <Tab text="T-Shirts">
+                    <fx:include fx:id="tshirtsTab" source="Tabs/TshirtsTab.fxml" />
+                </Tab>
+            </tabs>
+        </TabPane>
+        <ImageView fitHeight="78.0" fitWidth="74.0" layoutX="56.0" layoutY="1.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="" />
+            </image>
+        </ImageView>
+        <ButtonBar layoutX="214.0" layoutY="18.0" prefHeight="40.0" prefWidth="394.0">
+            <buttons>
+                <Button fx:id="wishlistButton" mnemonicParsing="false" onAction="#clickWishlist" text="Wishlist" />
+                <Button fx:id="bagButton" mnemonicParsing="false" onAction="#clickBagButton" prefHeight="26.0" prefWidth="113.0" text="Shopping Bag" />
+                <Button fx:id="prevOrderButton" mnemonicParsing="false" onAction="#oldOrdersButton" text="Previous Orders" />
+            </buttons>
+        </ButtonBar>
+    </children>
 </Pane>

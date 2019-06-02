@@ -13,11 +13,13 @@ import java.util.List;
 
 public interface DatabaseCon extends Remote {
 
+    public void close();
+    public void getTable(String tableName);
     public Connection connect() throws RemoteException,SQLException;
+    public Product getProduct(Product product) throws RemoteException, SQLException;
+    public Product getProduct(int index) throws RemoteException,SQLException;
     public List<Product> getProducts() throws RemoteException, ClassNotFoundException, SQLException;
     public List<Order> getOrders() throws RemoteException, SQLException;
-    public List<Categories> getCategory(Categories category) throws RemoteException, SQLException;
-    public Product getProduct(Product product) throws RemoteException, SQLException;
 
     void addProduct(Product product) throws RemoteException, SQLException;
     void addOrder(Order order) throws RemoteException, SQLException;
