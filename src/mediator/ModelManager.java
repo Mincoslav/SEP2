@@ -90,6 +90,11 @@ public class ModelManager implements Model {
 	}
 
 	@Override
+	public void getAProduct(Product product){
+		changeSupport.firePropertyChange("Product",product,product.getName());
+	}
+
+	@Override
 	public ShoppingBag getShoppingBag() {
 		return bag;
 	}

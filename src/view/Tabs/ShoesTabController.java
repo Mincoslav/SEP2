@@ -10,11 +10,10 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import viewmodel.ViewModel;
 
-public class PantsTabC {
-
+public class ShoesTabController {
 
     @FXML
-    private AnchorPane pantsTab;
+    private AnchorPane shoesTab;
     private ViewModel viewModel;
 
     @FXML
@@ -45,17 +44,15 @@ public class PantsTabC {
 
     @FXML
     private Button previousButt;
-
     @FXML
     private Button nextButt;
     private boolean buttons;
-
 
     @FXML
     public void init(ViewModel viewModel) {
         page = 1;
         this.viewModel = viewModel;
-        viewModel.getProductsPerPagePerCategory(new Categories(2,"Pants"),page);
+        viewModel.getProductsPerPagePerCategory(new Categories(3,"Shoes"),page);
         label1.textProperty().bind(viewModel.label_1Property());
         label2.textProperty().bind(viewModel.label_2Property());
         label3.textProperty().bind(viewModel.label_3Property());
@@ -70,7 +67,7 @@ public class PantsTabC {
     public void prevPressed(ActionEvent actionEvent) {
         page--;
         previousButt.setDisable(buttons);
-        viewModel.getProductsPerPagePerCategory(new Categories(2,"Pants"),page);
+        viewModel.getProductsPerPagePerCategory(new Categories(3,"Shoes"),page);
         label1.textProperty().bind(viewModel.label_1Property());
         label2.textProperty().bind(viewModel.label_2Property());
         label3.textProperty().bind(viewModel.label_3Property());
@@ -82,7 +79,7 @@ public class PantsTabC {
     public void nextPressed(ActionEvent actionEvent) {
         page--;
         previousButt.setDisable(buttons);
-        viewModel.getProductsPerPagePerCategory(new Categories(2,"Pants"),page);
+        viewModel.getProductsPerPagePerCategory(new Categories(3,"Shoes"),page);
         label1.textProperty().bind(viewModel.label_1Property());
         label2.textProperty().bind(viewModel.label_2Property());
         label3.textProperty().bind(viewModel.label_3Property());

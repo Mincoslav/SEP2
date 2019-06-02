@@ -16,7 +16,7 @@ public interface DatabaseCon extends Remote {
     public Connection connect() throws RemoteException,SQLException;
     public List<Product> getProducts() throws RemoteException, ClassNotFoundException, SQLException;
     public List<Order> getOrders() throws RemoteException, SQLException;
-    public List<Categories> getCategory(Categories category) throws RemoteException, SQLException;
+    public Categories getCategory(Categories category) throws RemoteException, SQLException;
     public Product getProduct(Product product) throws RemoteException, SQLException;
 
     void addProduct(Product product) throws RemoteException, SQLException;

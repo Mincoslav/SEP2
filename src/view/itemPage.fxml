@@ -13,6 +13,6 @@
       <Label fx:id="price" layoutX="69.0" layoutY="298.0" text="Price" />
       <Button fx:id="wishlist" layoutX="327.0" layoutY="331.0" mnemonicParsing="false" onAction="#addToWishPressed" text="Add to Wishlist" />
       <Button fx:id="bag" layoutX="438.0" layoutY="331.0" mnemonicParsing="false" onAction="#addToBagPressed" prefHeight="25.0" prefWidth="97.0" text="Add to bag" />
-      <Button fx:id="returnHomePage" layoutX="483.0" layoutY="53.0" mnemonicParsing="false" text="Return" />
+      <Button fx:id="returnHomePage" layoutX="483.0" layoutY="53.0" onAction="#returnToHome" mnemonicParsing="false" text="Return" />
    </children>
 </AnchorPane>

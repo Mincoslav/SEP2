@@ -3,8 +3,10 @@ package server;
 import domain.*;
 import mediator.Model;
 import mediator.ModelManager;
+import server.database.DatabaseCon;
 import server.database.DatabaseConnection;
 
+import java.net.DatagramSocket;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.sql.PreparedStatement;
@@ -17,7 +19,7 @@ public class RMIServer implements RServer {
 
 	private Model manager;
 	private DatabaseConnection databaseConnection;
-
+	private Product temp_product;
 
 
 	public RMIServer() throws RemoteException {
@@ -29,13 +31,14 @@ public class RMIServer implements RServer {
 
 	@Override
 	public Product getProduct(Product product) throws SQLException {
-		String tempProductName = product.getName();
+		/*String tempProductName = product.getName();
 		PreparedStatement statement = database.connect().prepareStatement("SELECT * FROM products WHERE name ="+ tempProductName);
 		ResultSet resultSet = statement.executeQuery();
 		String name = resultSet.getString("name");
 		int stock = resultSet.getInt("stock");
 		int categoryID = resultSet.getInt("categoryID");
-		return temp_product;
+		return temp_product;*/
+		return null;
 	}
 
 	@Override
@@ -79,12 +82,12 @@ public class RMIServer implements RServer {
 		return temp_order;
 	}
 
-	@Override
+	/*@Override
 	public List<Product> getProducts() throws RemoteException, ClassNotFoundException, SQLException {
 		return null;
 	}
-
-	@Override
+*/
+	/*@Override
 	public List<Order> getOrders() throws RemoteException {
 		return null;
 	}
@@ -92,7 +95,7 @@ public class RMIServer implements RServer {
 	@Override
 	public List<Categories> getCategory() throws RemoteException {
 		return null;
-	}
+	}*/
 /*
 	@Override
 	public void addProductToShoppingBag(ShoppingBag shoppingBag, Product product) {

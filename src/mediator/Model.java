@@ -19,6 +19,8 @@ public interface Model {
 
     Wishlist getWishlist();
 
+    void getAProduct(Product product);
+
     ShoppingBag getShoppingBag();
 
     ArrayList<Product> getBag();

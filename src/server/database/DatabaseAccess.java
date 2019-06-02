@@ -4,7 +4,6 @@ import domain.Categories;
 import domain.Order;
 import domain.Product;
 import domain.ShoppingBag;
-import org.postgresql.Driver;
 
 import java.rmi.RemoteException;
 import java.sql.*;
@@ -120,7 +119,7 @@ public class DatabaseAccess implements DatabaseCon {
     }
 
     @Override
-    public List<Categories> getCategory(Categories category) throws RemoteException {
+    public Categories getCategory(Categories category) throws RemoteException {
         return null;
     }
 
