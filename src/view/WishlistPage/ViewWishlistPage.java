@@ -3,6 +3,7 @@ package view.WishlistPage;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
+import javafx.scene.input.MouseEvent;
 import view.MainView;
 import viewmodel.ViewModel;
 
@@ -34,10 +35,26 @@ public class ViewWishlistPage {
         int index = listView.getSelectionModel().getSelectedIndex();
         listView.getItems().remove(index);
         viewModel.removeFromWishlist(viewModel.getWishlist().getProduct(index));
+
     }
 
     public void addToBag(ActionEvent actionEvent) {
         int index = listView.getSelectionModel().getSelectedIndex();
         viewModel.addToShoppinBag(viewModel.getWishlist().getProduct(index));
+    }
+
+    public void mouseClick(MouseEvent mouseEvent) {
+        int i = mouseEvent.getClickCount();
+        if(i==2 && !(listView.getSelectionModel().isEmpty())){
+            int index = listView.getSelectionModel().getSelectedIndex();
+            viewModel.getAProduct(viewModel.getWishlist().getProduct(index));
+            try {
+                mainView.openView("Item");
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        }
     }
 }

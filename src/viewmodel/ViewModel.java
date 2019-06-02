@@ -3,7 +3,6 @@ package viewmodel;
 import domain.*;
 import javafx.beans.property.*;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import mediator.Model;
 
 import java.beans.PropertyChangeEvent;
@@ -14,8 +13,13 @@ import java.util.List;
 public class ViewModel implements PropertyChangeListener {
 
 
+    private  SimpleStringProperty priceItem;
+    private  SimpleStringProperty nameItem;
+
+
+    private  SimpleStringProperty descriptionItem;
     private Model model;
-	private SimpleObjectProperty<Product> product;
+	private Product product;
 	private StringProperty label_1;
     private StringProperty label_2;
     private StringProperty label_3;
@@ -27,18 +31,20 @@ public class ViewModel implements PropertyChangeListener {
     private SimpleListProperty<Product> listWish; //list For WishList
     private SimpleListProperty<String> listWishString;
     private SimpleListProperty<String> listString; //list  of Products from Shopping bag
+    private SimpleStringProperty orderID;
 
 
-
-	public ViewModel(Model model){
+    public ViewModel(Model model){
 	    this.model = model;
         model.addListener("AddWish",this::updateWishList);
         //model.addListener("RemoveWish",this::updateWishList);
         model.addListener("AddBag",this::updateBag);
         //model.addListener("RemoveBag",this::updateBag);
         model.addListener("IncreaseDecrease",this::quantityUpdate);
+        model.addListener("Product",this::propertyChange);
+        model.addListener("Purchase",this::purchaseChange);
 
-        product = new SimpleObjectProperty<>();
+        orderID = new SimpleStringProperty();
         label_1 = new SimpleStringProperty();
         label_2 = new SimpleStringProperty();
         label_3 = new SimpleStringProperty();
@@ -46,6 +52,10 @@ public class ViewModel implements PropertyChangeListener {
         label_5 = new SimpleStringProperty();
         label_6 = new SimpleStringProperty();
         price = new SimpleStringProperty();
+        priceItem = new SimpleStringProperty();
+        nameItem = new SimpleStringProperty();
+        descriptionItem = new SimpleStringProperty();
+
         list = new SimpleListProperty<>(FXCollections.observableArrayList());
         listWish = new SimpleListProperty<>(FXCollections.observableArrayList());
         listWishString = new SimpleListProperty<>(FXCollections.observableArrayList());
@@ -53,10 +63,19 @@ public class ViewModel implements PropertyChangeListener {
 
     }
 
+    private void purchaseChange(PropertyChangeEvent propertyChangeEvent) {
+        int id = (int) propertyChangeEvent.getNewValue();
+        orderID.setValue( "Your ORDER ID: #" + id);
+    }
+
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-
+        Product wished = (Product) evt.getOldValue();
+        String name = (String) evt.getNewValue();
+        nameItem.setValue("Product: " + name);
+        priceItem.setValue("Price: " + wished.getPrice()+"");
+        descriptionItem.setValue("Description: " + wished.getDescription());
     }
 
     public void updateWishList(PropertyChangeEvent evt) {
@@ -129,7 +148,7 @@ public class ViewModel implements PropertyChangeListener {
 
     }
 
-    public SimpleObjectProperty<Product> objectProperty() {
+    public Product objectProperty() {
 	    return product;
     }
 
@@ -225,5 +244,31 @@ public class ViewModel implements PropertyChangeListener {
 
     public StringProperty priceProperty() {
         return price;
+    }
+
+    public void getAProduct(Product product){
+	    this.product = product;
+	    model.getAProduct(product);
+    }
+
+
+    public SimpleStringProperty priceItemProperty() {
+        return priceItem;
+    }
+
+
+
+    public SimpleStringProperty nameItemProperty() {
+        return nameItem;
+    }
+
+
+
+    public SimpleStringProperty descriptionItemProperty() {
+        return descriptionItem;
+    }
+
+    public SimpleStringProperty orderIDProperty() {
+        return orderID;
     }
 }

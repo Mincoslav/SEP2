@@ -9,6 +9,7 @@ import javafx.scene.control.Label;
 import viewmodel.ViewModel;
 
 import javax.swing.text.html.ImageView;
+import java.io.IOException;
 
 public class ViewItemPage {
 
@@ -32,22 +33,41 @@ public class ViewItemPage {
     @FXML
     private ImageView image;
 
-    private SimpleObjectProperty<Product> product;
+    public MainView mainView;
+
+    private Product product;
 
     @FXML
-    public void init(ViewModel viewModel) {
+    public void init(ViewModel viewModel,MainView mainView) {
 //        textArea.setEditable(false);
+        this.mainView = mainView;
         this.viewModel = viewModel;
+        product = viewModel.objectProperty();
+        name.textProperty().bind(viewModel.nameItemProperty());
+        price.textProperty().bind(viewModel.priceItemProperty());
+        description.textProperty().bind(viewModel.descriptionItemProperty());
+
+
       /*  theList.itemsProperty().bind(messagesViewModel.listProperty());
         textArea.textProperty().bind(messagesViewModel.msgProperty());*/
  }
 
 
     public void addToWishPressed(ActionEvent actionEvent) {
-
+        Product product1 = product;
+        viewModel.addToWishList(product1);
     }
 
     public void addToBagPressed(ActionEvent actionEvent) {
+        Product product1 = product;
+        viewModel.addToShoppinBag(product1);
+    }
 
+    public void returnToHome(ActionEvent actionEvent) {
+        try {
+            mainView.openView("Home");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

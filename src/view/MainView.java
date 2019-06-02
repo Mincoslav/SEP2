@@ -4,6 +4,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import view.PurchasePage.ViewMessagePage;
 import view.PurchasePage.ViewPurchasePage;
 import view.ShoppingBagPage.ViewShoppingBagPage;
 
@@ -45,7 +46,7 @@ public class MainView {
             loader.setLocation(getClass().getResource("itemPage.fxml"));
             root = loader.load();
             ViewItemPage view = loader.getController();
-            view.init(viewModel);
+            view.init(viewModel,this);
             stage.setTitle("Item Page");
         }
 
@@ -71,6 +72,14 @@ public class MainView {
             ViewShoppingBagPage view = loader.getController();
             view.init(viewModel,this);
             stage.setTitle("Shopping Bag");
+        }
+
+        if(("End").equals(viewToOpen)){
+            loader.setLocation(getClass().getResource("PurchasePage/messagePage.fxml"));
+            root = loader.load();
+            ViewMessagePage view = loader.getController();
+            view.init(viewModel,this);
+            stage.setTitle("Finished");
         }
 
 

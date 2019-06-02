@@ -4,33 +4,42 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Tab;
-import view.Tabs.JacketsTabC;
-import view.Tabs.PantsTabC;
-import view.Tabs.ShoesTabC;
-import view.Tabs.TshirtsTabC;
+import javafx.stage.Window;
+import view.Tabs.JacketsTabController;
+import view.Tabs.PantsTabController;
+import view.Tabs.ShoesTabController;
+import view.Tabs.TshirtsTabController;
 import viewmodel.ViewModel;
+
 
 import java.io.IOException;
 
 public class ViewHomePage {
 
     public Button wishlistButton;
-   
-	public Tab jackets;
-	public Tab pants;
-	public Tab shoes;
-	public Tab tshirts;
 	private ViewModel viewModel;
 	private MainView mainView;
 
+	@FXML
+	private Window pantsTab;
+
+	@FXML
+	private Window jacketsTab;
+	@FXML
+	private Window shoesTab;
+	@FXML
+	private Window tshirtsTab;
+
+    /*@FXML
+	private PantsTabController pantsTabController;
     @FXML
-	private PantsTabC pantsTabC;
+	private JacketsTabController jacketsTabController;
     @FXML
-	private JacketsTabC jacketsTabC;
+	private ShoesTabController shoesTabController;
     @FXML
-	private ShoesTabC shoesTabC;
-    @FXML
-	private TshirtsTabC tshirtsTabC;
+	private TshirtsTabController tshirtsTabController;*/
+
+
 
 
 
@@ -39,10 +48,10 @@ public class ViewHomePage {
 		this.mainView = mainView;
 		this.viewModel = viewModel;
 
-     	/*jacketsTabC.init(viewModel,this);
-     	pantsTabC.init(viewModel);
-     	shoesTabC.init(viewModel);
-     	tshirtsTabC.init(viewModel);*/
+     	/*jacketsTabController.init(viewModel,this);
+     	pantsTabController.init(viewModel);
+     	shoesTabController.init(viewModel);
+     	tshirtsTabController.init(viewModel);*/
 	}
 
 

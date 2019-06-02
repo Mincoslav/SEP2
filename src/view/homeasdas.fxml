@@ -14,18 +14,25 @@
           <TabPane layoutY="69.0" prefHeight="449.0" prefWidth="659.0" tabClosingPolicy="UNAVAILABLE">
               <tabs>
                   <Tab text="Jackets">
-          
-                      <fx:include fx:id="jacketsTab" source="Tabs/JacketsTab.fxml" />
+                  <fx:define>
+                      <fx:include fx:id="jacketsTabController" source="Tabs/JacketsTab.fxml" />
+                  </fx:define>
           
                   </Tab>
                   <Tab text="Pants">
-                      <fx:include fx:id="pantsTab" source="Tabs/PantsTab.fxml" />
+                      <fx:define>
+                      <fx:include fx:id="pantsTabController" source="Tabs/PantsTab.fxml" />
+                  </fx:define>
                   </Tab>
                   <Tab text="Shoes">
-                      <fx:include fx:id="shoesTab" source="Tabs/ShoesTab.fxml" />
+                      <fx:define>
+                      <fx:include fx:id="shoesTabController" source="Tabs/ShoesTab.fxml" />
+                  </fx:define>
                   </Tab>
                   <Tab text="T-Shirts">
-                      <fx:include fx:id="tshirtsTab" source="Tabs/TshirtsTab.fxml" />
+                      <fx:define>
+                      <fx:include fx:id="tshirtsTabController" source="Tabs/TshirtsTab.fxml" />
+                  </fx:define>
                   </Tab>
               </tabs>
           </TabPane>

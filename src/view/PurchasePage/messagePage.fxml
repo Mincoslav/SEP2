@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane onMouseClicked="#mouseClick" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.PurchasePage.ViewMessagePage">
+   <children>
+      <Label fx:id="orderID" layoutX="244.0" layoutY="111.0" text="Label">
+         <font>
+            <Font size="48.0" />
+         </font>
+      </Label>
+      <Label layoutX="85.0" layoutY="261.0" text="Your purchase is complete!">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

@@ -30,8 +30,9 @@ public class ViewPurchasePage {
     public void finnishPurchase(ActionEvent actionEvent) {
         String coName = name.getText();
         String coAddress = address.getText();
-        int coPhone = Integer.parseInt(phone.getText());
+        int coPhone = 0;
         try {
+            coPhone = Integer.parseInt(phone.getText());
             System.out.println(coPhone);
         } catch (NumberFormatException e) {
             System.out.println("NumberFormatException is handled");}
@@ -42,7 +43,7 @@ public class ViewPurchasePage {
         address.clear();
         phone.clear();
         try {
-            mainView.openView("Home");
+            mainView.openView("End");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -68,7 +69,7 @@ public class ViewPurchasePage {
 
     public void returnToBag(ActionEvent actionEvent) {
         try {
-            mainView.openView("ShoppingBag");
+            mainView.openView("End");
         } catch (IOException e) {
             e.printStackTrace();
         }
