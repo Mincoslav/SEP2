@@ -11,6 +11,8 @@ import view.MainView;
 import view.ViewHomePage;
 import viewmodel.ViewModel;
 
+import java.rmi.RemoteException;
+import java.sql.SQLException;
 
 
 public class JacketsTabController {
@@ -62,7 +64,15 @@ public class JacketsTabController {
       page = 1;
       this.viwHomePage = viewHomePage;
       this.viewModel = viewModel;
-      viewModel.getProductsPerPagePerCategory(new Categories(1,"Jackets"),page);
+        try {
+            viewModel.getProductsPerPagePerCategory(new Categories(1,"Jackets"),page);
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
 
     /*  label1.textProperty().bind(viewModel.label_1Property());
 
@@ -83,7 +93,15 @@ public class JacketsTabController {
     public void prevPressed(ActionEvent actionEvent) {
         page--;
         previousButt.setDisable(buttons);
-        viewModel.getProductsPerPagePerCategory(new Categories(1,"Jackets"),page);
+        try {
+            viewModel.getProductsPerPagePerCategory(new Categories(1,"Jackets"),page);
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
         label1.textProperty().bind(viewModel.label_1Property());
         label2.textProperty().bind(viewModel.label_2Property());
         label3.textProperty().bind(viewModel.label_3Property());
@@ -95,7 +113,15 @@ public class JacketsTabController {
     public void nextPressed(ActionEvent actionEvent) {
         page--;
         previousButt.setDisable(buttons);
-        viewModel.getProductsPerPagePerCategory(new Categories(1,"Jackets"),page);
+        try {
+            viewModel.getProductsPerPagePerCategory(new Categories(1,"Jackets"),page);
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
         label1.textProperty().bind(viewModel.label_1Property());
         label2.textProperty().bind(viewModel.label_2Property());
         label3.textProperty().bind(viewModel.label_3Property());

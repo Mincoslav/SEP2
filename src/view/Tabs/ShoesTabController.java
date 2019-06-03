@@ -10,6 +10,9 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import viewmodel.ViewModel;
 
+import java.rmi.RemoteException;
+import java.sql.SQLException;
+
 public class ShoesTabController {
 
     @FXML
@@ -52,7 +55,15 @@ public class ShoesTabController {
     public void init(ViewModel viewModel) {
         page = 1;
         this.viewModel = viewModel;
-        viewModel.getProductsPerPagePerCategory(new Categories(3,"Shoes"),page);
+        try {
+            viewModel.getProductsPerPagePerCategory(new Categories(3,"Shoes"),page);
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
         label1.textProperty().bind(viewModel.label_1Property());
         label2.textProperty().bind(viewModel.label_2Property());
         label3.textProperty().bind(viewModel.label_3Property());
@@ -67,7 +78,15 @@ public class ShoesTabController {
     public void prevPressed(ActionEvent actionEvent) {
         page--;
         previousButt.setDisable(buttons);
-        viewModel.getProductsPerPagePerCategory(new Categories(3,"Shoes"),page);
+        try {
+            viewModel.getProductsPerPagePerCategory(new Categories(3,"Shoes"),page);
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
         label1.textProperty().bind(viewModel.label_1Property());
         label2.textProperty().bind(viewModel.label_2Property());
         label3.textProperty().bind(viewModel.label_3Property());
@@ -79,7 +98,15 @@ public class ShoesTabController {
     public void nextPressed(ActionEvent actionEvent) {
         page--;
         previousButt.setDisable(buttons);
-        viewModel.getProductsPerPagePerCategory(new Categories(3,"Shoes"),page);
+        try {
+            viewModel.getProductsPerPagePerCategory(new Categories(3,"Shoes"),page);
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
         label1.textProperty().bind(viewModel.label_1Property());
         label2.textProperty().bind(viewModel.label_2Property());
         label3.textProperty().bind(viewModel.label_3Property());

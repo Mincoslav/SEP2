@@ -21,14 +21,16 @@ public class MainForNOW  extends Application {
         Model model = new ModelManager() ;
         ViewModel viewModel = new ViewModel(model);
         MainView view = new MainView(primaryStage,viewModel);
-        model.getCategory(category).addProduct(algo);
 
-        System.out.println(model.getBag().size());
+
+        /*model.getCategory(category).addProduct(algo);
+
+        System.out.println(model.getBag().size());*/
 
         view.start();
-        model.addProduct(algo);
+        /*model.addProduct(algo);
         model.addToShoppingbag(algo);
-        model.addToWishlist(algo);
+        model.addToWishlist(algo);*/
     }
 
 

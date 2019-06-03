@@ -7,12 +7,29 @@ import domain.ShoppingBag;
 import org.junit.Test;
 
 import java.beans.PropertyChangeListener;
+import java.net.MalformedURLException;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
+import java.sql.SQLException;
 
 import static org.junit.Assert.*;
 
 public class ModelManagerTest {
 
-    private ModelManager modelManager = new ModelManager();
+    private ModelManager modelManager;
+
+    {
+        try {
+            modelManager = new ModelManager();
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        } catch (NotBoundException e) {
+            e.printStackTrace();
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+    }
+
     private Product product = new Product("This Sweater", "www.com", 3, 6, 100, 200, false, "long", 1);
     private Categories category = new Categories(1,"Shoes");
     private ShoppingBag bag = new ShoppingBag();
@@ -23,28 +40,60 @@ public class ModelManagerTest {
 
     @Test
     public void getProducts() {
-        assertEquals(3, modelManager.getProducts(3).size());
+        try {
+            assertEquals(3, modelManager.getProducts().size());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
 
     }
 
     @Test
     public void getProduct() {
-        assertEquals(product, modelManager.getProduct(product));
+        try {
+            assertEquals(product, modelManager.getProduct(product));
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Test
     public void getCategory() {
-        assertEquals(category, modelManager.getCategory(category));
+        try {
+            assertEquals(category, modelManager.getCategory(category));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     @Test
     public void getOrderID() {
-        assertEquals(order.getOrderID(), modelManager.getOrderID(order));
+        try {
+            assertEquals(order.getOrderID(), modelManager.getOrderID(order));
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
     }
 
     @Test
     public void getOrderByID() {
-        assertEquals("", modelManager.getOrderByID(0).getAdress());
+        try {
+            assertEquals("", modelManager.getOrderByID(0).getAdress());
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Test
@@ -95,7 +144,13 @@ public class ModelManagerTest {
 
     @Test
     public void purchase() {
-        modelManager.purchase("John", "My Street", 123);
+        try {
+            modelManager.purchase("John", "My Street", 123);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         assertEquals(0, modelManager.getShoppingBag().size());
     }
 

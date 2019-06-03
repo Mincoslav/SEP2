@@ -15,7 +15,7 @@ public class DatabaseAccess implements DatabaseCon {
 
     Connection connection;
     private PreparedStatement statement;
-    private final String url = "jdbc:postgresql://localhost/dvdrental";
+    private final String url = "jdbc:postgresql://localhost/postgres";
     private final String user = "postgres";
     private final String password = "postgres";
     private List<Product> productTable;
@@ -30,7 +30,7 @@ public class DatabaseAccess implements DatabaseCon {
         }
 
         catch (Exception e) {
-            System.out.println("Error");
+            e.printStackTrace();
         }
     }
 

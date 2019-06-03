@@ -13,8 +13,8 @@ import java.util.List;
 
 public interface DatabaseCon extends Remote {
 
-    public void close();
-    public void getTable(String tableName);
+    public void close() throws RemoteException;
+    public void getTable(String tableName) throws RemoteException;
     public Connection connect() throws RemoteException,SQLException;
     public Product getProduct(Product product) throws RemoteException, SQLException;
     public Product getProduct(int index) throws RemoteException,SQLException;

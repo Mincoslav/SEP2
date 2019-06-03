@@ -7,6 +7,8 @@ import mediator.Model;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.rmi.RemoteException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -105,11 +107,11 @@ public class ViewModel implements PropertyChangeListener {
         price.setValue(model.getShoppingBag().subTotal()+"");
     }
 
-    public void purchase(String name,String adress,int phone){
+    public void purchase(String name,String adress,int phone) throws RemoteException, SQLException {
 	    model.purchase(name,adress,phone);
     }
 
-    public List<Product> getCategories(Categories categories){
+    public List<Product> getCategories(Categories categories) throws ClassNotFoundException, SQLException, RemoteException {
 	   return model.getCategory(categories).getCategoryProducts();
     }
 
@@ -152,7 +154,7 @@ public class ViewModel implements PropertyChangeListener {
 	    return product;
     }
 
-    public void getProductsPerPagePerCategory(Categories categories,int page) {
+    public void getProductsPerPagePerCategory(Categories categories,int page) throws ClassNotFoundException, SQLException, RemoteException {
 	    page = page * 6 - 6;
         ArrayList<Product> listOfProducts = null;
         ArrayList<Product> displayedProducts = new ArrayList<>();

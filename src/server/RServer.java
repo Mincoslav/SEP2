@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface RServer extends Remote {
 
-    public void getTable(String tableName);
+    public void getTable(String tableName) throws RemoteException;
     public Connection connect() throws RemoteException,SQLException;
     public void close() throws RemoteException,SQLException;
 
@@ -27,7 +27,6 @@ public interface RServer extends Remote {
 
     public Order getOrderByID(int orderID) throws RemoteException, SQLException;
 
-    public void addProductToShoppingBag(Product product) throws RemoteException;
 
 
 

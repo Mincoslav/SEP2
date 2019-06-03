@@ -9,6 +9,8 @@ import view.MainView;
 import viewmodel.ViewModel;
 
 import java.io.IOException;
+import java.rmi.RemoteException;
+import java.sql.SQLException;
 
 public class ViewPurchasePage {
 
@@ -38,7 +40,13 @@ public class ViewPurchasePage {
             System.out.println("NumberFormatException is handled");}
 
 
-        viewModel.purchase(coName,coAddress,coPhone);
+        try {
+            viewModel.purchase(coName,coAddress,coPhone);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         name.clear();
         address.clear();
         phone.clear();

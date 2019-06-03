@@ -13,18 +13,19 @@ import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class RMIClient implements RemoteClient {
 
-	private Model manager;
-
 	private RServer server;
 
 	public RMIClient() throws RemoteException, MalformedURLException, NotBoundException {
-		server = (RServer) Naming.lookup("rmi://localhost:1099/shopping");
+		//Registry registry = LocateRegistry.getRegistry("localhost",1099);
+		server = (RServer) Naming.lookup("rmi://localhost:1099/abc");
 	}
 
 	@Override

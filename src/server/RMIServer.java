@@ -21,21 +21,17 @@ public class RMIServer implements RServer {
 
 	private Model manager;
 	private DatabaseCon databaseAccess;
-	private RemoteClient client;
 
 
 
 	public RMIServer() throws RemoteException, MalformedURLException, NotBoundException {
-		databaseAccess = new DatabaseAccess();
-		client = new RMIClient();
-		manager = new ModelManager();
-
-
 		UnicastRemoteObject.exportObject(this,0);
+		databaseAccess = new DatabaseAccess();
+
 	}
 
 	@Override
-	public void getTable(String tableName) {
+	public void getTable(String tableName) throws RemoteException {
 		databaseAccess.getTable(tableName);
 	}
 
@@ -66,11 +62,6 @@ public class RMIServer implements RServer {
 	public List<Product> getProducts() throws SQLException, RemoteException, ClassNotFoundException {
 		List<Product> productList = databaseAccess.getProducts();
 		return productList;
-	}
-
-	@Override
-	public void addProductToShoppingBag(Product product) {
-		manager.addToShoppingbag(product);
 	}
 
 	//creates order in the database and reduces the amounts in stock
