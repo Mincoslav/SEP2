@@ -19,4 +19,6 @@ public interface RemoteClient extends Remote {
     Order getOrderByID(int orderID) throws RemoteException, SQLException;
     int getOrderID(Order order) throws RemoteException;
 
+    void purchase(Order order) throws RemoteException, SQLException;
+
 }

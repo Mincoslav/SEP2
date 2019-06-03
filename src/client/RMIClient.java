@@ -24,7 +24,6 @@ public class RMIClient implements RemoteClient {
 	private RServer server;
 
 	public RMIClient() throws RemoteException, MalformedURLException, NotBoundException {
-		manager = new ModelManager();
 		server = (RServer) Naming.lookup("rmi://localhost:1099/shopping");
 	}
 
@@ -58,6 +57,11 @@ public class RMIClient implements RemoteClient {
 	@Override
 	public int getOrderID(Order order) throws RemoteException {
 		return order.getOrderID();
+	}
+
+	@Override
+	public void purchase(Order order) throws RemoteException, SQLException {
+		server.purchase(order);
 	}
 
 }

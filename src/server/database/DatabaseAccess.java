@@ -61,7 +61,7 @@ public class DatabaseAccess implements DatabaseCon {
                     String description = rs.getString("description");
                     boolean onSale = rs.getBoolean("onSale");
 
-                    productTable.add(new Product(productName,null,productID,categoryID,0,stock,onSale,description,0));
+                    productTable.add(new Product(productName,"",productID,categoryID,0,stock,onSale,description,0));
                 }
             }
 
@@ -179,7 +179,8 @@ public class DatabaseAccess implements DatabaseCon {
     @Override
     public void purchase(int amount, Product product) throws RemoteException, SQLException {
         int index = productTable.indexOf(getProduct(product));
-        productTable.get(index).setPurchasedQuantity(amount);
+        int amountInStock = product.getQuantity() - amount;
+        productTable.get(index).setPurchasedQuantity(amountInStock);
         product = productTable.get(index);
         int quantity = product.getQuantity();
         int productID = product.getProductID();

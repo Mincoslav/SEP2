@@ -13,12 +13,11 @@ public class ClientMain {
 
     public static void main(String[] args) {
         try {
-            RMIClient client = new RMIClient();
+            RemoteClient client = new RMIClient();
             ShoppingBag shoppingBag = new ShoppingBag();
             Product product = new Product("shoe","location", 0,1234,1,10,false,"some description", 1);
             shoppingBag.addProduct(product);
             Order order = new Order(shoppingBag,"","",0);
-            order.setOrderID();
             int ID = order.getOrderID();
             System.out.println(ID);
             System.out.println(client.getOrderID(order));

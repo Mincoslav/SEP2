@@ -1,11 +1,17 @@
 package mediator;
 
+import client.RMIClient;
 import client.RemoteClient;
 import domain.*;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
+import java.net.MalformedURLException;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class ModelManager implements Model {
 
@@ -19,69 +25,51 @@ public class ModelManager implements Model {
     private PropertyChangeSupport changeSupport;
     private ArrayList<Order> orders;
 
-	public ModelManager(){
+	public ModelManager() throws RemoteException, NotBoundException, MalformedURLException {
         changeSupport = new PropertyChangeSupport(this);
         wish = new Wishlist();
         bag = new ShoppingBag();
         order =  new Order(bag,"","",0);
         productsList = new Products();
-        productsList = new Products();
         orders = new ArrayList<>();
+        client = new RMIClient();
     }
 
 
 	@Override
-	public ArrayList<Product> getProducts(int amount) {
-		ArrayList<Product> temp_products = new ArrayList<>(amount);
-
-		for (int i = 0; i <= amount ; i++) {
-			temp_products.add(productsList.getProduct(i));
-		}
+	public List<Product> getProducts() throws SQLException, RemoteException, ClassNotFoundException {
+		List<Product> temp_products = client.getProducts();
 
 		return temp_products;
 	}
 
 	@Override
-	public Product getProduct(Product product) {
-		Product temp_product = productsList.getProduct(product);
+	public Product getProduct(Product product) throws RemoteException, SQLException {
+		Product temp_product = client.getProduct(product);
 
 		return temp_product;
 	}
 
 	@Override
-	public Categories getCategory(Categories category) {
-		Categories temp_category = new Categories(category.getCategoryID(), category.getCategoryName());
-
-		for (int i = 0; i < productsList.size(); i++) {
-			temp_category.addProduct(productsList.getProduct(i));
-		}
+	public Categories getCategory(Categories category) throws SQLException, RemoteException, ClassNotFoundException {
+		Categories temp_category = client.getCategory(category);
 
 		return temp_category;
 	}
 
 	@Override
-	public int getOrderID(Order order) {
-		return order.getOrderID();
+	public int getOrderID(Order order) throws RemoteException {
+		return	client.getOrderID(order);
 	}
 
 	@Override
-	public Order getOrderByID(int ID) {
-		ShoppingBag empty_shoppingBag = new ShoppingBag();
-		Order empty_order = new Order(empty_shoppingBag,"","",0);
-
-		if (!(order.getOrderID() == ID)){
-			System.out.println("Order with this ID doesn't exist");
-			return empty_order;
-		}
-		else {
-			return order;
-		}
-
+	public Order getOrderByID(int ID) throws RemoteException, SQLException {
+		return client.getOrderByID(ID);
 	}
 
 	@Override
-	public ArrayList<Product> getArrayOfWishlist() {
-		return (ArrayList<Product>) wish.getAllProducts();
+	public List<Product> getArrayOfWishlist() {
+		return wish.getAllProducts();
 	}
 
 	@Override
@@ -100,8 +88,8 @@ public class ModelManager implements Model {
 	}
 
 	@Override
-	public ArrayList<Product> getBag() {
-		return (ArrayList<Product>) bag.getAllProducts();
+	public List<Product> getBag() {
+		return bag.getAllProducts();
 	}
 
 	@Override
@@ -144,12 +132,15 @@ public class ModelManager implements Model {
 	}
 
 	@Override
-	public void purchase( String name, String adress, int phone) {
+	public void purchase( String name, String adress, int phone) throws RemoteException, SQLException {
 		order =  new Order(bag,name,adress,phone);
 		orders.add(order);
+		client.purchase(order);
 		changeSupport.firePropertyChange("Purchase",order,order.getOrderID());
 		for(int i = 0; i< order.getShoppingBag().size();i++){
-			productsList.getProduct(order.getShoppingBag().getProduct(i)).setQuantity(order.getShoppingBag().getProduct(i).getQuantity() -order.getShoppingBag().getProduct(i).getPurchasedQuantity());
+			productsList.getProduct(order.getShoppingBag().getProduct(i)).setQuantity
+					(order.getShoppingBag().getProduct(i).getQuantity()
+					-order.getShoppingBag().getProduct(i).getPurchasedQuantity());
 		}
 		System.out.println(productsList.getProduct(0).getPurchasedQuantity());
 		System.out.println(productsList.getProduct(0).getQuantity());
@@ -165,7 +156,6 @@ public class ModelManager implements Model {
 	@Override
 	public void addProduct(Product product) {
 		productsList.addProduct(product);
-
 	}
 
 }

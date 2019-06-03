@@ -1,11 +1,15 @@
 package server;
 
+import client.RMIClient;
+import client.RemoteClient;
 import domain.*;
 import mediator.Model;
 import mediator.ModelManager;
 import server.database.DatabaseAccess;
 import server.database.DatabaseCon;
 
+import java.net.MalformedURLException;
+import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.sql.Connection;
@@ -17,11 +21,13 @@ public class RMIServer implements RServer {
 
 	private Model manager;
 	private DatabaseCon databaseAccess;
+	private RemoteClient client;
 
 
 
-	public RMIServer() throws RemoteException {
+	public RMIServer() throws RemoteException, MalformedURLException, NotBoundException {
 		databaseAccess = new DatabaseAccess();
+		client = new RMIClient();
 		manager = new ModelManager();
 
 
@@ -69,17 +75,15 @@ public class RMIServer implements RServer {
 
 	//creates order in the database and reduces the amounts in stock
 	@Override
-	public void purchase(String name, String adress, int phone) throws RemoteException, SQLException {
-		ShoppingBag bag = manager.getShoppingBag();
-		Order order = new Order(bag,name,adress,phone);
+	public void purchase(Order order) throws RemoteException, SQLException {
 
-		ArrayList<Product> products = (ArrayList<Product>) bag.getAllProducts();
+		ArrayList<Product> products = (ArrayList<Product>) order.getShoppingBag().getAllProducts();
 		for (int i = 0; i < products.size(); i++) {
 			Product product = products.get(i);
 			int amount = product.getPurchasedQuantity();
 			databaseAccess.purchase(amount,product);
 		}
-		manager.purchase(name,adress,phone);
+
 	}
 
 	@Override

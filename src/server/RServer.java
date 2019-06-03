@@ -23,7 +23,7 @@ public interface RServer extends Remote {
     void addOrder(Order order) throws RemoteException, SQLException;
     void updateProduct(Product product, String columnToUpdate,String newValue) throws RemoteException, SQLException;
 
-    void purchase(String name, String adress, int phone) throws RemoteException, SQLException;
+    void purchase(Order order) throws RemoteException, SQLException;
 
     public Order getOrderByID(int orderID) throws RemoteException, SQLException;
 
