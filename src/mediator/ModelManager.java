@@ -31,6 +31,7 @@ public class ModelManager implements Model {
         bag = new ShoppingBag();
         order =  new Order(bag,"","",0);
         productsList = new Products();
+        productsList = new Products();
         orders = new ArrayList<>();
         client = new RMIClient();
     }
@@ -132,20 +133,31 @@ public class ModelManager implements Model {
 	}
 
 	@Override
-	public void purchase( String name, String adress, int phone) throws RemoteException, SQLException {
-		order =  new Order(bag,name,adress,phone);
+	public void purchase( String name, String adress, int phone) {
+		ShoppingBag orderBag ;
+		orderBag = bag.copy();
+		order =  new Order(orderBag,name,adress,phone);
+
 		orders.add(order);
-		client.purchase(order);
+		try {
+			client.purchase(order);
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		changeSupport.firePropertyChange("Purchase",order,order.getOrderID());
-		for(int i = 0; i< order.getShoppingBag().size();i++){
-			productsList.getProduct(order.getShoppingBag().getProduct(i)).setQuantity
+		/*for(int i = 0; i< order.getShoppingBag().size();i++){
+			productsList.getProduct(order.getShoppingBag().getProduct(i))
+					.setQuantity
 					(order.getShoppingBag().getProduct(i).getQuantity()
 					-order.getShoppingBag().getProduct(i).getPurchasedQuantity());
-		}
-		System.out.println(productsList.getProduct(0).getPurchasedQuantity());
-		System.out.println(productsList.getProduct(0).getQuantity());
+			}*/
+		/*System.out.println(productsList.getProduct(0).getPurchasedQuantity());
+		System.out.println(productsList.getProduct(0).getQuantity());*/
 		bag.emptyBag();
 		System.out.println(bag.size());
+		System.out.println(orderBag.subTotal());
     }
 
     @Override

@@ -144,13 +144,7 @@ public class ModelManagerTest {
 
     @Test
     public void purchase() {
-        try {
-            modelManager.purchase("John", "My Street", 123);
-        } catch (RemoteException e) {
-            e.printStackTrace();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        modelManager.purchase("John", "My Street", 123);
         assertEquals(0, modelManager.getShoppingBag().size());
     }
 

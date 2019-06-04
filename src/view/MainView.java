@@ -4,6 +4,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import view.PreviousOrdersPAge.ViewPreviousOrders;
 import view.PurchasePage.ViewMessagePage;
 import view.PurchasePage.ViewPurchasePage;
 import view.ShoppingBagPage.ViewShoppingBagPage;
@@ -32,11 +33,10 @@ public class MainView {
         Parent root = null;
 
         if(("Home").equals(viewToOpen)){
-            loader.setLocation(getClass().getResource("homeasdas.fxml"));
-            System.out.println(String.valueOf(loader.equals(null)));
+            loader.setLocation(getClass().getResource("alternateHomePage.fxml"));
             root = loader.load();
 
-            ViewHomePage view = loader.getController();
+            ViewAlternativeHomePage view = loader.getController();
             view.initialize(this,viewModel);
 
             stage.setTitle("Home Page");
@@ -81,6 +81,14 @@ public class MainView {
             view.init(viewModel,this);
             stage.setTitle("Finished");
         }
+        if(("Orders").equals(viewToOpen)){
+            loader.setLocation(getClass().getResource("PreviousOrdersPAge/PreviousOrders.fxml"));
+            root = loader.load();
+            ViewPreviousOrders view = loader.getController();
+            view.init(viewModel,this);
+            stage.setTitle("Previous Orders");
+        }
+
 
 
 

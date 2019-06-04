@@ -119,13 +119,16 @@ public class DatabaseAccess implements DatabaseCon {
     //Returns the 'Products' table from database in form of List
     @Override
     public List<Product> getProducts() throws ClassNotFoundException, SQLException {
+        getTable("products");
         return productTable;
     }
     //Returns the 'Orders' table from database in form of List
     @Override
     public List<Order> getOrders() throws RemoteException {
+        getTable("orders");
         return orderTable;
     }
+
     //Return individual product from 'productTable' List.
     @Override
     public Product getProduct(Product product) throws RemoteException {
@@ -191,6 +194,7 @@ public class DatabaseAccess implements DatabaseCon {
     //Returns an order based on the 'orderID' variable.
     @Override
     public Order getOrderByID(int orderID) throws RemoteException {
+        getTable("orders");
         ShoppingBag emptyShoppingBag = new ShoppingBag();
         Order order = new Order(emptyShoppingBag,"","",0);
 

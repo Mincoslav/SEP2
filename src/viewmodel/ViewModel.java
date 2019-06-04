@@ -154,7 +154,7 @@ public class ViewModel implements PropertyChangeListener {
 	    return product;
     }
 
-    public void getProductsPerPagePerCategory(Categories categories,int page) throws ClassNotFoundException, SQLException, RemoteException {
+    public List<Product> getProductsPerPagePerCategory(Categories categories,int page) throws ClassNotFoundException, SQLException, RemoteException {
 	    page = page * 6 - 6;
         ArrayList<Product> listOfProducts = null;
         ArrayList<Product> displayedProducts = new ArrayList<>();
@@ -167,8 +167,6 @@ public class ViewModel implements PropertyChangeListener {
         }
 
         System.out.println(displayedProducts.size());
-        displayedProducts.add(0,new Product("hey",null,0,0,0,0,false,"",0));
-                             System.out.println(displayedProducts.size());
 
         for (int i = 0; i < displayedProducts.size(); i++) {
             if (!(displayedProducts.get(i).equals(null))) {
@@ -194,6 +192,7 @@ public class ViewModel implements PropertyChangeListener {
                 }
             }
         }
+        return displayedProducts;
     }
 
     public StringProperty label_1Property() {
@@ -272,5 +271,11 @@ public class ViewModel implements PropertyChangeListener {
 
     public SimpleStringProperty orderIDProperty() {
         return orderID;
+    }
+
+    public Order finOrderByID(int id) throws RemoteException, SQLException {
+
+            return model.getOrderByID(id);
+
     }
 }

@@ -1,3 +1,5 @@
+import client.RMIClient;
+import client.RemoteClient;
 import domain.*;
 import javafx.application.Application;
 import javafx.stage.Stage;
@@ -17,6 +19,7 @@ public class MainForNOW  extends Application {
         novo.addProduct(algo);
         Categories category = new Categories(1,"Jackets");
         category.addProduct(algo);
+
         Wishlist ness = new Wishlist();
         Model model = new ModelManager() ;
         ViewModel viewModel = new ViewModel(model);

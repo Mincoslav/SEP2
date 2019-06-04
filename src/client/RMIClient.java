@@ -43,10 +43,12 @@ public class RMIClient implements RemoteClient {
 	public Categories getCategory(Categories category) throws ClassNotFoundException, RemoteException, SQLException {
 		int id = category.getCategoryID();
 
-		for (int i = 0; i < server.getProducts().size() ; i++) {
-
+		List<Product> temp_list = server.getProducts();
+		System.out.println(temp_list.size());
+		if(temp_list.size() >0 ){
+		for (int i = 0; i < temp_list.size() ; i++) {
 			category.addProduct(server.getProduct(i));
-		}
+		}}
 		return category;
 	}
 

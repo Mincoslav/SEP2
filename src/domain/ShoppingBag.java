@@ -44,6 +44,14 @@ public class ShoppingBag implements Serializable {
 		products.clear();
 	}
 
+	public ShoppingBag copy() {
+		ShoppingBag bag = new ShoppingBag();
+		for(int i = 0;i<size();i++){
+			bag.addProduct(getProduct(i));
+		}
+		return bag;
+	}
+
 	public List<Product> getAllProducts() {
 		return products;
 	}

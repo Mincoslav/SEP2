@@ -31,7 +31,7 @@ public class Products implements Serializable {
 
     public Product getProduct(Product product){
         int index = products.indexOf(product);
-
+        System.out.println(index);
         return products.get(index);
     }
 
