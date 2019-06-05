@@ -5,7 +5,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane fx:id="jacketsTab" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.Tabs.JacketsTabController">
+<AnchorPane  prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" >
    <children>
       <ImageView fx:id="image1" fitHeight="104.0" fitWidth="139.0" layoutX="53.0" layoutY="36.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="53.0" />
       <Label fx:id="label6" layoutX="466.0" layoutY="322.0" text="Label" />
@@ -19,7 +19,7 @@
       <ImageView fx:id="image4" fitHeight="104.0" fitWidth="139.0" layoutX="53.0" layoutY="218.0" pickOnBounds="true" preserveRatio="true" />
       <Label fx:id="label1" layoutX="94.0" layoutY="146.0" text="Label" />
       <Label fx:id="label5" layoutX="285.0" layoutY="322.0" text="Label" />
-      <Button fx:id="previousButt" layoutX="430.0" layoutY="360.0" mnemonicParsing="false" onAction="#prevPressed" text="Previous" />
-      <Button fx:id="nextButt" layoutX="494.0" layoutY="359.0" mnemonicParsing="false" onAction="#nextPressed" prefHeight="26.0" prefWidth="61.0" text="Next" />
+      <Button fx:id="previousButt" layoutX="430.0" layoutY="360.0" mnemonicParsing="false"  text="Previous" />
+      <Button fx:id="nextButt" layoutX="494.0" layoutY="359.0" mnemonicParsing="false"  prefHeight="26.0" prefWidth="61.0" text="Next" />
    </children>
 </AnchorPane>

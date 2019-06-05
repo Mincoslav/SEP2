@@ -29,7 +29,7 @@ public class ViewPreviousOrders {
     }
 
     public void findOrderAct(ActionEvent actionEvent) {
-        int id = Integer.parseInt(fieldz.getText());
+        int id = Integer.parseInt(fieldz.getText().trim());
         try{
             name.setText("Costumer:  " + viewModel.finOrderByID(id).getCostumerName());
             price.setText("Price:  " + viewModel.finOrderByID(id).getShoppingBag().subTotal());

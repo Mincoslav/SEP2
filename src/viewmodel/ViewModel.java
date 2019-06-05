@@ -3,6 +3,7 @@ package viewmodel;
 import domain.*;
 import javafx.beans.property.*;
 import javafx.collections.FXCollections;
+import javafx.scene.image.Image;
 import mediator.Model;
 
 import java.beans.PropertyChangeEvent;
@@ -15,6 +16,13 @@ import java.util.List;
 public class ViewModel implements PropertyChangeListener {
 
 
+
+    private ObjectProperty<javafx.scene.image.Image> image_1 ;
+    private ObjectProperty<javafx.scene.image.Image> image_2 ;
+    private ObjectProperty<javafx.scene.image.Image> image_3;
+    private ObjectProperty<javafx.scene.image.Image> image_4 ;
+    private ObjectProperty<javafx.scene.image.Image> image_5 ;
+    private ObjectProperty<javafx.scene.image.Image> image_6 ;
     private  SimpleStringProperty priceItem;
     private  SimpleStringProperty nameItem;
 
@@ -34,7 +42,7 @@ public class ViewModel implements PropertyChangeListener {
     private SimpleListProperty<String> listWishString;
     private SimpleListProperty<String> listString; //list  of Products from Shopping bag
     private SimpleStringProperty orderID;
-
+    private ObjectProperty<javafx.scene.image.Image> imageProperty ;
 
     public ViewModel(Model model){
 	    this.model = model;
@@ -57,6 +65,14 @@ public class ViewModel implements PropertyChangeListener {
         priceItem = new SimpleStringProperty();
         nameItem = new SimpleStringProperty();
         descriptionItem = new SimpleStringProperty();
+        imageProperty = new SimpleObjectProperty<>();
+        image_1 = new SimpleObjectProperty<>();
+        image_2 = new SimpleObjectProperty<>();
+        image_3 = new SimpleObjectProperty<>();
+        image_4 = new SimpleObjectProperty<>();
+        image_5 = new SimpleObjectProperty<>();
+        image_6 = new SimpleObjectProperty<>();
+
 
         list = new SimpleListProperty<>(FXCollections.observableArrayList());
         listWish = new SimpleListProperty<>(FXCollections.observableArrayList());
@@ -75,6 +91,7 @@ public class ViewModel implements PropertyChangeListener {
     public void propertyChange(PropertyChangeEvent evt) {
         Product wished = (Product) evt.getOldValue();
         String name = (String) evt.getNewValue();
+        imageProperty.setValue(wished.getImage());
         nameItem.setValue("Product: " + name);
         priceItem.setValue("Price: " + wished.getPrice()+"");
         descriptionItem.setValue("Description: " + wished.getDescription());
@@ -155,7 +172,7 @@ public class ViewModel implements PropertyChangeListener {
     }
 
     public List<Product> getProductsPerPagePerCategory(Categories categories,int page) throws ClassNotFoundException, SQLException, RemoteException {
-	    page = page * 6 - 6;
+	    page = (page * 6 ) - 6;
         ArrayList<Product> listOfProducts = null;
         ArrayList<Product> displayedProducts = new ArrayList<>();
 
@@ -166,32 +183,34 @@ public class ViewModel implements PropertyChangeListener {
             displayedProducts.add(listOfProducts.get(i));
         }
 
-        System.out.println(displayedProducts.size());
+        System.out.println("Displayed" + displayedProducts.size());
 
         for (int i = 0; i < displayedProducts.size(); i++) {
             if (!(displayedProducts.get(i).equals(null))) {
-                switch (i) {
-                    case 0:
-                        label_1.setValue(displayedProducts.remove(i).getName());
-                        break;
-                    case 1:
-                        label_2.setValue(displayedProducts.remove(i).getName());
-                        break;
-                    case 2:
-                        label_3.setValue(displayedProducts.remove(i).getName());
-                        break;
-                    case 3:
-                        label_4.setValue(displayedProducts.remove(i).getName());
-                        break;
-                    case 4:
-                        label_5.setValue(displayedProducts.remove(i).getName());
-                        break;
-                    case 5:
-                        label_6.setValue(displayedProducts.remove(i).getName());
-                        break;
+                if (i == 0) {
+                    label_1.setValue(displayedProducts.get(i).getName());
+                    image_1.setValue(displayedProducts.get(i).getImage());
+
+                } else if (i == 1) {
+                    label_2.setValue(displayedProducts.get(i).getName());
+                    image_2.setValue(displayedProducts.get(i).getImage());
+                }
+                else if (i ==2) {
+                    label_3.setValue(displayedProducts.get(i).getName());
+                    image_3.setValue(displayedProducts.get(i).getImage());
+                }else if (i == 3) {
+                    label_4.setValue(displayedProducts.get(i).getName());
+                    image_4.setValue(displayedProducts.get(i).getImage());
+                }else if (i == 4) {
+                    label_5.setValue(displayedProducts.get(i).getName());
+                    image_5.setValue(displayedProducts.get(i).getImage());
+                }else if (i == 5) {
+                    label_6.setValue(displayedProducts.get(i).getName());
+                    image_6.setValue(displayedProducts.get(i).getImage());
                 }
             }
-        }
+            }
+
         return displayedProducts;
     }
 
@@ -217,6 +236,10 @@ public class ViewModel implements PropertyChangeListener {
 
     public StringProperty label_6Property() {
         return label_6;
+    }
+
+    public ObjectProperty<Image> imageProperty() {
+        return imageProperty;
     }
 
     public SimpleListProperty<Product> simpleListProperty(){
@@ -278,4 +301,39 @@ public class ViewModel implements PropertyChangeListener {
             return model.getOrderByID(id);
 
     }
+
+
+
+
+    public ObjectProperty<Image> image_1Property() {
+        return image_1;
+    }
+
+
+
+    public ObjectProperty<Image> image_2Property() {
+        return image_2;
+    }
+
+
+    public ObjectProperty<Image> image_3Property() {
+        return image_3;
+    }
+
+
+
+    public ObjectProperty<Image> image_4Property() {
+        return image_4;
+    }
+
+
+    public ObjectProperty<Image> image_5Property() {
+        return image_5;
+    }
+
+
+    public ObjectProperty<Image> image_6Property() {
+        return image_6;
+    }
+
 }

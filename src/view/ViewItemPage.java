@@ -1,7 +1,6 @@
 package view;
 
 import domain.Product;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -12,6 +11,10 @@ import javax.swing.text.html.ImageView;
 import java.io.IOException;
 
 public class ViewItemPage {
+
+    @FXML
+    private javafx.scene.image.ImageView picture;
+
 
     private ViewModel viewModel;
 
@@ -30,9 +33,6 @@ public class ViewItemPage {
     @FXML
     public Label description;
 
-    @FXML
-    private ImageView image;
-
     public MainView mainView;
 
     private Product product;
@@ -46,7 +46,7 @@ public class ViewItemPage {
         name.textProperty().bind(viewModel.nameItemProperty());
         price.textProperty().bind(viewModel.priceItemProperty());
         description.textProperty().bind(viewModel.descriptionItemProperty());
-
+        picture.imageProperty().bind(viewModel.imageProperty());
 
       /*  theList.itemsProperty().bind(messagesViewModel.listProperty());
         textArea.textProperty().bind(messagesViewModel.msgProperty());*/

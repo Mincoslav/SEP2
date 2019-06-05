@@ -60,8 +60,9 @@ public class DatabaseAccess implements DatabaseCon {
                     int categoryID = rs.getInt("categoryID");
                     String description = rs.getString("description");
                     boolean onSale = rs.getBoolean("onSale");
+                    String imageUrl = rs.getString("url");
 
-                    productTable.add(new Product(productName,"",productID,categoryID,0,stock,onSale,description,0));
+                    productTable.add(new Product(productName,imageUrl,productID,categoryID,stock,price,onSale,description,0));
                 }
             }
 
@@ -163,8 +164,9 @@ public class DatabaseAccess implements DatabaseCon {
     public void addOrder(Order order) throws RemoteException, SQLException {
         PreparedStatement statement = connection.prepareStatement
                 ("INSERT INTO Orders VALUES ("+order.getOrderID()+","+ "CURRENT_DATE"
-                        +","+order.getShoppingBag().subTotal()+","+order.getCostumerName()
-                        +","+order.getAdress()+","+order.getPhone()+";");
+                        +","+order.getShoppingBag().subTotal()+",'"+order.getCostumerName()
+                        +"','"+order.getAdress()+"',"+order.getPhone()+";");
+
         statement.executeQuery();
     }
     //Updates individual product in the database based on the column name that is inputted.
@@ -174,6 +176,12 @@ public class DatabaseAccess implements DatabaseCon {
         PreparedStatement statement = connection.prepareStatement
                 ("UPDATE Products SET " + columnToUpdate + " = " + newValue
                         + " WHERE " + "productID" + "=" + id + ";");
+        /*
+        PreparedStatement statement =
+        connection.prepareStatement("UPDATE Products SET " + columnToUpdate + " = ? WHERE productID = ?");
+        statement.setString(1, newValue);
+        statement.setInt(2, id);
+         */
         statement.executeQuery();
     }
 

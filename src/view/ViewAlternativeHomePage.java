@@ -82,6 +82,15 @@ public class ViewAlternativeHomePage {
         label4.textProperty().bind(viewModel.label_4Property());
         label5.textProperty().bind(viewModel.label_5Property());
         label6.textProperty().bind(viewModel.label_6Property());
+
+        image1.imageProperty().bind(viewModel.image_1Property());
+        image1.imageProperty().bind(viewModel.image_2Property());
+        image1.imageProperty().bind(viewModel.image_3Property());
+        image1.imageProperty().bind(viewModel.image_4Property());
+        image1.imageProperty().bind(viewModel.image_5Property());
+        image1.imageProperty().bind(viewModel.image_6Property());
+
+
         buttons = (page == 1);
 
     }
@@ -136,12 +145,7 @@ public class ViewAlternativeHomePage {
         current_Category_ID = 4;
         viewModel.getProductsPerPagePerCategory(new Categories(current_Category_ID,current_Category),page);
 
-        label1.textProperty().bind(viewModel.label_1Property());
-        label2.textProperty().bind(viewModel.label_2Property());
-        label3.textProperty().bind(viewModel.label_3Property());
-        label4.textProperty().bind(viewModel.label_4Property());
-        label5.textProperty().bind(viewModel.label_5Property());
-        label6.textProperty().bind(viewModel.label_6Property());
+
     }
 
     public void shoesPage(ActionEvent actionEvent) throws RemoteException, SQLException, ClassNotFoundException {
@@ -149,12 +153,7 @@ public class ViewAlternativeHomePage {
          current_Category_ID = 3;
          viewModel.getProductsPerPagePerCategory(new Categories(current_Category_ID,current_Category),page);
 
-        label1.textProperty().bind(viewModel.label_1Property());
-        label2.textProperty().bind(viewModel.label_2Property());
-        label3.textProperty().bind(viewModel.label_3Property());
-        label4.textProperty().bind(viewModel.label_4Property());
-        label5.textProperty().bind(viewModel.label_5Property());
-        label6.textProperty().bind(viewModel.label_6Property());
+
     }
 
     public void tshirtsPage(ActionEvent actionEvent) throws RemoteException, SQLException, ClassNotFoundException {
@@ -193,4 +192,85 @@ public class ViewAlternativeHomePage {
             e.printStackTrace();
         }
     }
+    public void labelClick2(MouseEvent mouseEvent) {
+        try {
+            viewModel.getAProduct(viewModel.getProductsPerPagePerCategory(new Categories(current_Category_ID,current_Category),page).get(1));
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+        try {
+            mainView.openView("Item");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    public void labelClick3(MouseEvent mouseEvent) {
+        try {
+            viewModel.getAProduct(viewModel.getProductsPerPagePerCategory(new Categories(current_Category_ID,current_Category),page).get(2));
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+        try {
+            mainView.openView("Item");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    } public void labelClick4(MouseEvent mouseEvent) {
+        try {
+            viewModel.getAProduct(viewModel.getProductsPerPagePerCategory(new Categories(current_Category_ID,current_Category),page).get(3));
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+        try {
+            mainView.openView("Item");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    public void labelClick5(MouseEvent mouseEvent) {
+        try {
+            viewModel.getAProduct(viewModel.getProductsPerPagePerCategory(new Categories(current_Category_ID,current_Category),page).get(4));
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+        try {
+            mainView.openView("Item");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    public void labelClick6(MouseEvent mouseEvent) {
+        try {
+            viewModel.getAProduct(viewModel.getProductsPerPagePerCategory(new Categories(current_Category_ID,current_Category),page).get(5));
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+        try {
+            mainView.openView("Item");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
 }
