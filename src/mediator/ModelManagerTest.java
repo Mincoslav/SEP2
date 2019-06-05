@@ -4,9 +4,10 @@ import domain.Categories;
 import domain.Order;
 import domain.Product;
 import domain.ShoppingBag;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
-import java.beans.PropertyChangeListener;
 import java.net.MalformedURLException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
@@ -31,17 +32,25 @@ public class ModelManagerTest {
     }
 
     private Product product = new Product("This Sweater", "www.com", 3, 6, 100, 200, false, "long", 1);
-    private Categories category = new Categories(1,"Shoes");
+    private Categories category = new Categories(1, "Shoes");
     private ShoppingBag bag = new ShoppingBag();
     private Order order = new Order(bag, "Max", "Main Street", 123);
-    private PropertyChangeListener propertyChangeListener = evt -> {
 
-    };
+    @Before
+    public void connect() {
+
+    }
+
+    @After
+    public void close() {
+
+    }
 
     @Test
     public void getProducts() {
         try {
-            assertEquals(3, modelManager.getProducts().size());
+            modelManager.addProduct(product);
+            assertNotNull(modelManager.getProducts());
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (RemoteException e) {
@@ -55,6 +64,7 @@ public class ModelManagerTest {
     @Test
     public void getProduct() {
         try {
+            modelManager.addProduct(product);
             assertEquals(product, modelManager.getProduct(product));
         } catch (RemoteException e) {
             e.printStackTrace();
@@ -85,16 +95,6 @@ public class ModelManagerTest {
         }
     }
 
-    @Test
-    public void getOrderByID() {
-        try {
-            assertEquals("", modelManager.getOrderByID(0).getAdress());
-        } catch (RemoteException e) {
-            e.printStackTrace();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
 
     @Test
     public void getArrayOfWishlist() {
@@ -103,6 +103,7 @@ public class ModelManagerTest {
 
     @Test
     public void getWishlist() {
+        modelManager.addToWishlist(product);
         assertNull(modelManager.getWishlist());
     }
 
@@ -144,12 +145,8 @@ public class ModelManagerTest {
 
     @Test
     public void purchase() {
-        modelManager.purchase("John", "My Street", 123);
-        assertEquals(0, modelManager.getShoppingBag().size());
-    }
+            modelManager.purchase("John", "My Street", 123);
+            assertEquals(0, modelManager.getShoppingBag().size());
 
-    @Test
-    public void addListener() {
-        modelManager.addListener("Purchase", propertyChangeListener);
     }
-};
+}
