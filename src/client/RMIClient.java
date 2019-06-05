@@ -64,6 +64,11 @@ public class RMIClient implements RemoteClient {
 	}
 
 	@Override
+	public void addProduct(Product product) throws RemoteException, SQLException {
+		server.addProduct(product);
+	}
+
+	@Override
 	public void purchase(Order order) throws RemoteException, SQLException {
 		server.purchase(order);
 	}

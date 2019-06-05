@@ -10,6 +10,9 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ *
+ */
 public class DatabaseAccess implements DatabaseCon {
 
     Connection connection;
@@ -33,8 +36,9 @@ public class DatabaseAccess implements DatabaseCon {
         }
     }
 
-    /* Method for closing the connection.
-       Recommended to use after getting the tables or updating them.
+    /**
+     * Method for closing the connection.
+     * Recommended to use after getting the tables or updating them.
      */
     @Override
     public void close() {
@@ -46,6 +50,11 @@ public class DatabaseAccess implements DatabaseCon {
         }
     }
 
+    /**
+     * @return 'List<Order>'
+     * @throws RemoteException
+     * @throws SQLException
+     */
     @Override
     public List<Order> getOrdersTable() throws RemoteException, SQLException {
         connect();
@@ -72,6 +81,11 @@ public class DatabaseAccess implements DatabaseCon {
         return orderTable;
     }
 
+    /**
+     * @return 'List<Product>'
+     * @throws RemoteException
+     * @throws SQLException
+     */
     @Override
     public List<Product> getProductTable() throws RemoteException, SQLException {
         connect();
@@ -97,7 +111,12 @@ public class DatabaseAccess implements DatabaseCon {
         return productTable;
     }
 
-    //Force connect method in case of error during object initialization
+    /**
+     *     Force connect method in case of error during object initialization
+     * @return
+     * @throws RemoteException
+     * @throws SQLException
+     */
     @Override
     public Connection connect() throws RemoteException, SQLException {
         try {
@@ -110,7 +129,11 @@ public class DatabaseAccess implements DatabaseCon {
         return connection;
     }
 
-    //Return individual product from 'productTable' List.
+    /**
+     * @param product
+     * @return Return individual product from 'productTable' List.
+     * @throws RemoteException
+     */
     @Override
     public Product getProduct(Product product) throws RemoteException {
         int temp_index = 0;
@@ -123,12 +146,23 @@ public class DatabaseAccess implements DatabaseCon {
         return productTable.get(temp_index);
     }
 
+    /**
+     * @param index
+     * @return Returns product based on its index in the 'productTable' List.
+     * @throws RemoteException
+     * @throws SQLException
+     */
     @Override
     public Product getProduct(int index) throws RemoteException, SQLException {
         return productTable.get(index);
     }
 
-    //Adds individual product to the database table of "Products".
+    /**
+     * Adds individual product to the database table of "Products".
+     * @param product
+     * @throws RemoteException
+     * @throws SQLException
+     */
     @Override
     public void addProduct(Product product) throws RemoteException, SQLException {
         connect();
@@ -144,9 +178,14 @@ public class DatabaseAccess implements DatabaseCon {
 
         statement.executeQuery();
         close();
-
     }
-    //Adds individual product to the database table of "Orders".
+
+    /**
+     * Adds individual product to the database table of "Orders".
+     * @param order
+     * @throws RemoteException
+     * @throws SQLException
+     */
     @Override
     public void addOrder(Order order) throws RemoteException, SQLException {
         connect();
@@ -160,7 +199,15 @@ public class DatabaseAccess implements DatabaseCon {
         statement.executeUpdate();
         close();
     }
-    //Updates individual product in the database based on the column name that is inputted.
+
+    /**
+     * Updates individual product in the database based on the column name that is inputted.
+     * @param product
+     * @param columnToUpdate
+     * @param newValue
+     * @throws RemoteException
+     * @throws SQLException
+     */
     @Override
     public void updateProduct(Product product, String columnToUpdate, String newValue) throws RemoteException, SQLException {
         connect();
@@ -172,8 +219,23 @@ public class DatabaseAccess implements DatabaseCon {
         close();
     }
 
-    //Decreases the 'stock' field for product based on its 'productID' value.
-    //Possible connect()/close() missing
+    @Override
+    public void removeProduct(Product product) throws RemoteException, SQLException {
+        connect();
+        int id = product.getProductID();
+        PreparedStatement statement = connection.prepareStatement("DELETE FROM products WHERE ?;");
+        statement.setInt(1, id);
+        statement.executeUpdate();
+        close();
+    }
+
+    /**
+     * Decreases the 'stock' field for product based on its 'productID' value.
+     * @param amount
+     * @param product
+     * @throws RemoteException
+     * @throws SQLException
+     */
     @Override
     public void purchase(int amount, Product product) throws RemoteException, SQLException {
         connect();
@@ -191,7 +253,13 @@ public class DatabaseAccess implements DatabaseCon {
 
         close();
     }
-    //Returns an order based on the 'orderID' variable.
+
+    /**
+     * @param orderID
+     * @return Returns an order based on the 'orderID' variable.
+     * @throws RemoteException
+     * @throws SQLException
+     */
     @Override
     public Order getOrderByID(int orderID) throws RemoteException, SQLException {
         getOrdersTable();
