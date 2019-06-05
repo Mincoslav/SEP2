@@ -10,14 +10,13 @@ import java.util.List;
 
 public interface RServer extends Remote {
 
-    public void getTable(String tableName) throws RemoteException;
     public Connection connect() throws RemoteException,SQLException;
     public void close() throws RemoteException,SQLException;
 
     public Product getProduct(Product product) throws RemoteException, SQLException;
     public Product getProduct(int index) throws RemoteException, SQLException;
-    public List<Product> getProducts() throws RemoteException, SQLException, ClassNotFoundException;
-    public List<Order> getOrders() throws RemoteException, SQLException;
+    public List<Product> getProductsTable() throws RemoteException, SQLException, ClassNotFoundException;
+    public List<Order> getOrdersTable() throws RemoteException, SQLException;
 
     void addProduct(Product product) throws RemoteException, SQLException;
     void addOrder(Order order) throws RemoteException, SQLException;

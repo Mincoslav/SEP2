@@ -1,10 +1,7 @@
 package server;
 
-import client.RMIClient;
-import client.RemoteClient;
 import domain.*;
 import mediator.Model;
-import mediator.ModelManager;
 import server.database.DatabaseAccess;
 import server.database.DatabaseCon;
 
@@ -19,7 +16,6 @@ import java.util.List;
 
 public class RMIServer implements RServer {
 
-	private Model manager;
 	private DatabaseCon databaseAccess;
 
 
@@ -31,8 +27,13 @@ public class RMIServer implements RServer {
 	}
 
 	@Override
-	public void getTable(String tableName) throws RemoteException {
-		databaseAccess.getTable(tableName);
+	public List<Product> getProductsTable() throws RemoteException, SQLException {
+		return databaseAccess.getProductTable();
+	}
+
+	@Override
+	public List<Order> getOrdersTable() throws RemoteException, SQLException {
+		return databaseAccess.getOrdersTable();
 	}
 
 	@Override
@@ -58,21 +59,16 @@ public class RMIServer implements RServer {
 		return databaseAccess.getProduct(index);
 	}
 
-	@Override
-	public List<Product> getProducts() throws SQLException, RemoteException, ClassNotFoundException {
-		List<Product> productList = databaseAccess.getProducts();
-		return productList;
-	}
-
 	//creates order in the database and reduces the amounts in stock
 	@Override
 	public void purchase(Order order) throws RemoteException, SQLException {
-
 		ArrayList<Product> products = (ArrayList<Product>) order.getShoppingBag().getAllProducts();
 		for (int i = 0; i < products.size(); i++) {
+
 			Product product = products.get(i);
 			int amount = product.getPurchasedQuantity();
 			databaseAccess.purchase(amount,product);
+			databaseAccess.addOrder(order);
 		}
 
 	}
@@ -84,17 +80,13 @@ public class RMIServer implements RServer {
 		ShoppingBag empty_shoppingBag = new ShoppingBag();
 		Order empty_order = new Order(empty_shoppingBag,"","",0);
 
-		if (temp_order == null){
+		if (temp_order.getOrderID() == orderID){
+			return temp_order;
+		}
+		else {
 			System.out.println("The order doesn't exist.");
 			return empty_order;
 		}
-		else
-			return temp_order;
-	}
-
-	@Override
-	public List<Order> getOrders() throws RemoteException, SQLException {
-		return databaseAccess.getOrders();
 	}
 
 	@Override

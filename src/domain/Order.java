@@ -6,11 +6,12 @@ import java.util.Random;
 public class Order implements Serializable {
 
 	private ShoppingBag shoppingBag;
+
 	private int orderID;
+
 	private String costumerName;
 	private String adress;
 	private int phone;
-
 	public Order(ShoppingBag shoppingBag, String costumerName, String adress, int phone) {
 		this.shoppingBag = shoppingBag;
 		this.orderID = getRandomIntegerBetweenRange(1000,100000);
@@ -25,6 +26,10 @@ public class Order implements Serializable {
 
 	public int getOrderID() {
 		return orderID;
+	}
+
+	public void setOrderID(int orderID) {
+		this.orderID = orderID;
 	}
 
 	public String getCostumerName() {

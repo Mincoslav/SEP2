@@ -4,7 +4,6 @@ import domain.Categories;
 import domain.Order;
 import domain.Product;
 import domain.ShoppingBag;
-import org.postgresql.Driver;
 
 import java.rmi.RemoteException;
 import java.sql.*;
@@ -25,7 +24,7 @@ public class DatabaseAccess implements DatabaseCon {
 
     public DatabaseAccess(){
         try {
-            connection = DriverManager.getConnection(url, user, password);
+            //connection = DriverManager.getConnection(url, user, password);
             System.out.println("Connected to the PostgreSQL server successfully.");
         }
 
@@ -34,65 +33,6 @@ public class DatabaseAccess implements DatabaseCon {
         }
     }
 
-    /*Requirement for every other method to have data to work with
-      Creates List based on the input.
-      The legal input is "Products" or "Orders".
-    */
-    @Override
-    public void getTable(String tableName){
-
-        tableName = tableName.toLowerCase();
-        try {
-            ResultSet rs;
-
-            if (tableName.equals("products")){
-
-                statement = connection.prepareStatement("SELECT * FROM " + tableName+ ";");
-                rs = statement.executeQuery();
-                productTable = new ArrayList<>();
-
-                while (rs.next()) {
-
-                    int productID = rs.getInt("productID");
-                    int stock = rs.getInt("stock");
-                    float price = rs.getFloat("price");
-                    String productName = rs.getString("name");
-                    int categoryID = rs.getInt("categoryID");
-                    String description = rs.getString("description");
-                    boolean onSale = rs.getBoolean("onSale");
-                    String imageUrl = rs.getString("url");
-
-                    productTable.add(new Product(productName,imageUrl,productID,categoryID,stock,price,onSale,description,0));
-                }
-            }
-
-            else if (tableName.equals("orders")){
-
-                statement = connection.prepareStatement("SELECT * FROM " + tableName +";");
-                rs = statement.executeQuery();
-                orderTable = new ArrayList<>();
-
-                while (rs.next()) {
-
-                    int orderID = rs.getInt("orderID");
-                    Date date = rs.getDate("date");
-                    float price = rs.getFloat("price");
-                    String name = rs.getString("name");
-                    String address = rs.getString("address");
-                    int phone = rs.getInt("phone");
-
-                    ShoppingBag shoppingBag = new ShoppingBag();
-                    orderTable.add(new Order(shoppingBag,name,address,phone));
-                }
-            }
-        }
-        catch (SQLException e) {
-            System.out.println("Error: The table doesn't exist");
-        }
-        catch (NullPointerException e){
-            System.out.println("Error: Null Pointer exception in 'Products' table");
-        }
-    }
     /* Method for closing the connection.
        Recommended to use after getting the tables or updating them.
      */
@@ -105,6 +45,58 @@ public class DatabaseAccess implements DatabaseCon {
             e.printStackTrace();
         }
     }
+
+    @Override
+    public List<Order> getOrdersTable() throws RemoteException, SQLException {
+        connect();
+        ResultSet rs;
+        statement = connection.prepareStatement("SELECT * FROM orders;");
+        rs = statement.executeQuery();
+        orderTable = new ArrayList<>();
+
+        while (rs.next()) {
+
+            int orderID = rs.getInt("orderID");
+            Date date = rs.getDate("date");
+            float price = rs.getFloat("price");
+            String name = rs.getString("name");
+            String address = rs.getString("address");
+            int phone = rs.getInt("phone");
+            close();
+
+            ShoppingBag shoppingBag = new ShoppingBag();
+            Order order = new Order(shoppingBag,name,address,phone);
+            order.setOrderID(orderID);
+            orderTable.add(order);
+    }
+        return orderTable;
+    }
+
+    @Override
+    public List<Product> getProductTable() throws RemoteException, SQLException {
+        connect();
+        ResultSet rs;
+        statement = connection.prepareStatement("SELECT * FROM products;");
+        rs = statement.executeQuery();
+        productTable = new ArrayList<>();
+
+        while (rs.next()) {
+
+            int productID = rs.getInt("productID");
+            int stock = rs.getInt("stock");
+            float price = rs.getFloat("price");
+            String productName = rs.getString("name");
+            int categoryID = rs.getInt("categoryID");
+            String description = rs.getString("description");
+            boolean onSale = rs.getBoolean("onSale");
+            String imageUrl = rs.getString("url");
+            close();
+
+            productTable.add(new Product(productName, imageUrl, productID, categoryID, stock, price, onSale, description, 0));
+        }
+        return productTable;
+    }
+
     //Force connect method in case of error during object initialization
     @Override
     public Connection connect() throws RemoteException, SQLException {
@@ -116,18 +108,6 @@ public class DatabaseAccess implements DatabaseCon {
         }
 
         return connection;
-    }
-    //Returns the 'Products' table from database in form of List
-    @Override
-    public List<Product> getProducts() throws ClassNotFoundException, SQLException {
-        getTable("products");
-        return productTable;
-    }
-    //Returns the 'Orders' table from database in form of List
-    @Override
-    public List<Order> getOrders() throws RemoteException {
-        getTable("orders");
-        return orderTable;
     }
 
     //Return individual product from 'productTable' List.
@@ -151,58 +131,70 @@ public class DatabaseAccess implements DatabaseCon {
     //Adds individual product to the database table of "Products".
     @Override
     public void addProduct(Product product) throws RemoteException, SQLException {
-
+        connect();
         PreparedStatement statement = connection.prepareStatement
-                ("INSERT INTO Products VALUES ("+ product.getProductID()+","
-                        +product.getQuantity()+","+product.getPrice()+","
-                        +product.getName()+","+product.getCategoryID()+","
-                        +product.getDescription()+","+product.isOnSale()+");");
+                ("INSERT INTO Products VALUES (?,?,?,?,?,?,?);");
+        statement.setInt(1, product.getProductID());
+        statement.setInt(2, product.getQuantity());
+        statement.setDouble(3, product.getPrice());
+        statement.setString(4, product.getName());
+        statement.setInt(5, product.getCategoryID());
+        statement.setString(6, product.getDescription());
+        statement.setBoolean(7, product.isOnSale());
+
         statement.executeQuery();
+        close();
+
     }
     //Adds individual product to the database table of "Orders".
     @Override
     public void addOrder(Order order) throws RemoteException, SQLException {
-        PreparedStatement statement = connection.prepareStatement
-                ("INSERT INTO Orders VALUES ("+order.getOrderID()+","+ "CURRENT_DATE"
-                        +","+order.getShoppingBag().subTotal()+",'"+order.getCostumerName()
-                        +"','"+order.getAdress()+"',"+order.getPhone()+";");
+        connect();
+        PreparedStatement statement = connection.prepareStatement("INSERT INTO Orders VALUES (?,CURRENT_DATE,?,?,?,?);");
+        statement.setInt(1, order.getOrderID());
+        statement.setInt(2, order.getShoppingBag().subTotal());
+        statement.setString(3, order.getCostumerName());
+        statement.setString(4, order.getAdress());
+        statement.setInt(5,order.getPhone());
 
-        statement.executeQuery();
+        statement.executeUpdate();
+        close();
     }
     //Updates individual product in the database based on the column name that is inputted.
     @Override
     public void updateProduct(Product product, String columnToUpdate, String newValue) throws RemoteException, SQLException {
+        connect();
         int id = product.getProductID();
-        PreparedStatement statement = connection.prepareStatement
-                ("UPDATE Products SET " + columnToUpdate + " = " + newValue
-                        + " WHERE " + "productID" + "=" + id + ";");
-        /*
-        PreparedStatement statement =
-        connection.prepareStatement("UPDATE Products SET " + columnToUpdate + " = ? WHERE productID = ?");
+        PreparedStatement statement = connection.prepareStatement("UPDATE Products SET " + columnToUpdate + " = ? WHERE productID = ?");
         statement.setString(1, newValue);
         statement.setInt(2, id);
-         */
-        statement.executeQuery();
+        statement.executeUpdate();
+        close();
     }
 
     //Decreases the 'stock' field for product based on its 'productID' value.
     //Possible connect()/close() missing
     @Override
     public void purchase(int amount, Product product) throws RemoteException, SQLException {
+        connect();
         int index = productTable.indexOf(getProduct(product));
-        int amountInStock = product.getQuantity() - amount;
+        int amountInStock = product.getQuantity() - product.getPurchasedQuantity();
         productTable.get(index).setPurchasedQuantity(amountInStock);
         product = productTable.get(index);
         int quantity = product.getQuantity();
         int productID = product.getProductID();
         PreparedStatement statement = connection.prepareStatement
-                ("UPDATE Products SET stock = " + quantity
-                        + " WHERE productID = " + productID+";");
+                ("UPDATE Products SET stock = ? WHERE productID = ?;");
+        statement.setInt(1, amountInStock);
+        statement.setInt(2, productID);
+        statement.executeUpdate();
+
+        close();
     }
     //Returns an order based on the 'orderID' variable.
     @Override
-    public Order getOrderByID(int orderID) throws RemoteException {
-        getTable("orders");
+    public Order getOrderByID(int orderID) throws RemoteException, SQLException {
+        getOrdersTable();
         ShoppingBag emptyShoppingBag = new ShoppingBag();
         Order order = new Order(emptyShoppingBag,"","",0);
 

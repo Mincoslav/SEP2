@@ -35,7 +35,7 @@ public class RMIClient implements RemoteClient {
 
 	@Override
 	public List<Product> getProducts() throws RemoteException, ClassNotFoundException, SQLException {
-		return server.getProducts();
+		return server.getProductsTable();
 	}
 
 
@@ -43,7 +43,7 @@ public class RMIClient implements RemoteClient {
 	public Categories getCategory(Categories category) throws ClassNotFoundException, RemoteException, SQLException {
 		int id = category.getCategoryID();
 
-		List<Product> temp_list = server.getProducts();
+		List<Product> temp_list = server.getProductsTable();
 		System.out.println(temp_list.size());
 		if(temp_list.size() >0 ){
 		for (int i = 0; i < temp_list.size() ; i++) {
