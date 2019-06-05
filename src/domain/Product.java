@@ -1,5 +1,7 @@
 package domain;
 
+import javafx.scene.image.Image;
+
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -15,9 +17,9 @@ public class Product implements Serializable {
 	private int purchasedQuantity;
 	private boolean onSale;
 	private String description;
-	private int price;
+	private double price;
 
-	public Product(String name, String imageLocation,int productID, int categoryID, int quantity,int price, boolean onSale, String description,int purchasedQuantity) {
+	public Product(String name, String imageLocation,int productID, int categoryID, int quantity,double price, boolean onSale, String description,int purchasedQuantity) {
 		this.name = name;
 		this.imageLocation = imageLocation;
 		this.productID = productID;
@@ -91,12 +93,17 @@ public class Product implements Serializable {
 		return purchasedQuantity;
 	}
 
-	public int getPrice() {
+	public double getPrice() {
 		return price;
 	}
 
 	public void setPrice(int price) {
 		this.price = price;
+	}
+
+	public Image getImage() {
+		Image image = new Image(imageLocation);
+		return  image;
 	}
 
 	@Override

@@ -7,8 +7,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import view.MainView;
-import view.ViewHomePage;
 import viewmodel.ViewModel;
 
 import java.rmi.RemoteException;
@@ -18,7 +16,8 @@ import java.sql.SQLException;
 public class JacketsTabController {
 
     @FXML
-    private AnchorPane jacketsTab;
+    private AnchorPane jacketsTabController;
+
 
     private ViewModel viewModel;
 
@@ -58,21 +57,20 @@ public class JacketsTabController {
 
 
     @FXML
-    public void init(ViewModel viewModel, ViewHomePage viewHomePage) {
+    public void init(ViewModel viewModel) {
 
 
       page = 1;
-      this.viwHomePage = viewHomePage;
+
       this.viewModel = viewModel;
-        try {
-            viewModel.getProductsPerPagePerCategory(new Categories(1,"Jackets"),page);
+        /*try { viewModel.getProductsPerPagePerCategory(new Categories(1,"Jackets"),page);
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (RemoteException e) {
             e.printStackTrace();
-        }
+        }*/
 
     /*  label1.textProperty().bind(viewModel.label_1Property());
 

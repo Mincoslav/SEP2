@@ -1,16 +1,12 @@
-package view;
+package view.Tabs;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.Tab;
 import javafx.scene.image.ImageView;
 import javafx.stage.Window;
-import view.Tabs.JacketsTabController;
-import view.Tabs.PantsTabController;
-import view.Tabs.ShoesTabController;
-import view.Tabs.TshirtsTabController;
+import view.MainView;
 import viewmodel.ViewModel;
 
 
@@ -47,14 +43,15 @@ public class ViewHomePage {
 	@FXML
 	private Window tshirtsTab;
 
-    /*@FXML
+    @FXML
 	private PantsTabController pantsTabController;
     @FXML
 	private JacketsTabController jacketsTabController;
     @FXML
 	private ShoesTabController shoesTabController;
     @FXML
-	private TshirtsTabController tshirtsTabController;*/
+	private TshirtsTabController tshirtsTabController;
+
 
 
 
@@ -65,10 +62,10 @@ public class ViewHomePage {
 		this.mainView = mainView;
 		this.viewModel = viewModel;
 
-     	/*jacketsTabController.init(viewModel,this);
+     	jacketsTabController.init(viewModel);
      	pantsTabController.init(viewModel);
      	shoesTabController.init(viewModel);
-     	tshirtsTabController.init(viewModel);*/
+     	tshirtsTabController.init(viewModel);
 	}
 
 

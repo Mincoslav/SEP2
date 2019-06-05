@@ -1,5 +1,3 @@
-import client.RMIClient;
-import client.RemoteClient;
 import domain.*;
 import javafx.application.Application;
 import javafx.stage.Stage;

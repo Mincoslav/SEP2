@@ -47,7 +47,8 @@ public class RMIClient implements RemoteClient {
 		System.out.println(temp_list.size());
 		if(temp_list.size() >0 ){
 		for (int i = 0; i < temp_list.size() ; i++) {
-			category.addProduct(server.getProduct(i));
+			if(category.getCategoryID() == server.getProduct(i).getCategoryID()){
+			category.addProduct(server.getProduct(i));}
 		}}
 		return category;
 	}

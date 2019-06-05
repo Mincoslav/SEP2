@@ -9,6 +9,9 @@ import view.PurchasePage.ViewMessagePage;
 import view.PurchasePage.ViewPurchasePage;
 import view.ShoppingBagPage.ViewShoppingBagPage;
 
+import view.Tabs.JacketsTabController;
+import view.Tabs.ViewHomePage;
+import view.ViewItemPage;
 import view.WishlistPage.ViewWishlistPage;
 import viewmodel.ViewModel;
 
@@ -34,6 +37,7 @@ public class MainView {
 
         if(("Home").equals(viewToOpen)){
             loader.setLocation(getClass().getResource("alternateHomePage.fxml"));
+            System.out.println(loader.getLocation());
             root = loader.load();
 
             ViewAlternativeHomePage view = loader.getController();
@@ -41,6 +45,16 @@ public class MainView {
 
             stage.setTitle("Home Page");
         }
+
+        /*if(("Test").equals(viewToOpen)){
+            loader.setLocation(getClass().getResource("Tabs/JacketsTab.fxml"));
+            root = loader.load();
+
+            JacketsTabController view = loader.getController();
+            view.init(viewModel);
+
+            stage.setTitle("Home Page");
+        }*/
 
         if(("Item").equals(viewToOpen)){
             loader.setLocation(getClass().getResource("itemPage.fxml"));

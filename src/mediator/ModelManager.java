@@ -16,7 +16,6 @@ import java.util.List;
 public class ModelManager implements Model {
 
 	private RemoteClient client;
-	private Product product;
 	private Products productsList;
 	private Categories category;
 	private Order order;
@@ -30,7 +29,6 @@ public class ModelManager implements Model {
         wish = new Wishlist();
         bag = new ShoppingBag();
         order =  new Order(bag,"","",0);
-        productsList = new Products();
         productsList = new Products();
         orders = new ArrayList<>();
         client = new RMIClient();
