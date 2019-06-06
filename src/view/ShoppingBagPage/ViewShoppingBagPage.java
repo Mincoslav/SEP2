@@ -54,6 +54,7 @@ public class ViewShoppingBagPage {
     }
 
     public void checkoutButton(ActionEvent actionEvent) {
+
         try {
             mainView.openView("Purchase");
         } catch (IOException e) {

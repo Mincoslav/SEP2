@@ -28,7 +28,7 @@ public class MainForNOW  extends Application {
 
         System.out.println(model.getBag().size());*/
 
-        view.start();
+        view.start("Home");
         /*model.addProduct(algo);
         model.addToShoppingbag(algo);
         model.addToWishlist(algo);*/

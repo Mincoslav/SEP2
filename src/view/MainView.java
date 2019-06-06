@@ -13,6 +13,7 @@ import view.Tabs.JacketsTabController;
 import view.Tabs.ViewHomePage;
 import view.ViewItemPage;
 import view.WishlistPage.ViewWishlistPage;
+import view.adminView.ViewAdminOnlyPage;
 import viewmodel.ViewModel;
 
 import java.io.IOException;
@@ -26,8 +27,8 @@ public class MainView {
         this.viewModel = viewModel;
     }
 
-    public void start() throws Exception{
-        openView("Home");
+    public void start(String viewToOpen) throws Exception{
+        openView(viewToOpen);
     }
 
     public void openView(String viewToOpen) throws IOException{
@@ -46,15 +47,17 @@ public class MainView {
             stage.setTitle("Home Page");
         }
 
-        /*if(("Test").equals(viewToOpen)){
-            loader.setLocation(getClass().getResource("Tabs/JacketsTab.fxml"));
+
+
+        if(("Test").equals(viewToOpen)) {
+            loader.setLocation(getClass().getResource("adminView/adminOnlyPage.fxml"));
             root = loader.load();
 
-            JacketsTabController view = loader.getController();
-            view.init(viewModel);
+            ViewAdminOnlyPage view = loader.getController();
+            view.initialize(viewModel);
 
-            stage.setTitle("Home Page");
-        }*/
+            stage.setTitle("Admin Page");
+        }
 
         if(("Item").equals(viewToOpen)){
             loader.setLocation(getClass().getResource("itemPage.fxml"));

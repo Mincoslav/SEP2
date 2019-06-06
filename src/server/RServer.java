@@ -20,13 +20,14 @@ public interface RServer extends Remote {
 
     void addProduct(Product product) throws RemoteException, SQLException;
     void addOrder(Order order) throws RemoteException, SQLException;
-    void updateProduct(Product product, String columnToUpdate,String newValue) throws RemoteException, SQLException;
 
     void purchase(Order order) throws RemoteException, SQLException;
 
     public Order getOrderByID(int orderID) throws RemoteException, SQLException;
 
 
+    void updateProduct(Product product) throws RemoteException, SQLException;
 
 
+    void removeProduct(Product product) throws RemoteException, SQLException;
 }

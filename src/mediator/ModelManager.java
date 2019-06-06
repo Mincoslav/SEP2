@@ -38,7 +38,22 @@ public class ModelManager implements Model {
 	@Override
 	public List<Product> getProducts() throws SQLException, RemoteException, ClassNotFoundException {
 		List<Product> temp_products = client.getProducts();
+		List<String> list = new ArrayList<>();
+		for (int i = 0; i < temp_products.size(); i++){
+			list.add(temp_products.get(i).getName());
+		}
+		changeSupport.firePropertyChange("UpdateAdminList",temp_products,list);
 
+
+		return temp_products;
+	}
+
+	@Override
+	public List<Product> getProductsNoListener() throws SQLException, RemoteException, ClassNotFoundException {
+		List<Product> temp_products = client.getProducts();
+		List<String> list = new ArrayList<>();
+		for (int i = 0; i < temp_products.size(); i++){
+			list.add(temp_products.get(i).getName());}
 		return temp_products;
 	}
 
@@ -164,8 +179,18 @@ public class ModelManager implements Model {
     }
 
 	@Override
-	public void addProduct(Product product) {
-		productsList.addProduct(product);
+	public void addProduct(Product product) throws RemoteException, SQLException {
+		client.addProduct(product);
 	}
+
+	@Override
+	public void removeProduct(Product product) throws RemoteException, SQLException {
+		client.removeProduct(product);
+	}
+
+
+
+
+
 
 }

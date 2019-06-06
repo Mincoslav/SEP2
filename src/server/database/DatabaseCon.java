@@ -23,7 +23,9 @@ public interface DatabaseCon extends Remote {
 
     void addProduct(Product product) throws RemoteException, SQLException;
     void addOrder(Order order) throws RemoteException, SQLException;
-    void updateProduct(Product product, String columnToUpdate,String newValue) throws RemoteException, SQLException;
+
+    void updateProduct(Product product) throws RemoteException, SQLException;
+
     void removeProduct(Product product) throws RemoteException,SQLException;
 
     public void purchase(int amount, Product product)throws RemoteException, SQLException;

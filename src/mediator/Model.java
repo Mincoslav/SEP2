@@ -12,6 +12,9 @@ import java.util.List;
 public interface Model {
 
     List<Product> getProducts() throws SQLException, RemoteException, ClassNotFoundException;
+
+    List<Product> getProductsNoListener() throws SQLException, RemoteException, ClassNotFoundException;
+
     Product getProduct(Product product) throws RemoteException, SQLException;
     Categories getCategory(Categories category) throws SQLException, RemoteException, ClassNotFoundException;
     int getOrderID(Order order) throws RemoteException;
@@ -38,5 +41,8 @@ public interface Model {
     void purchase(String name, String adress, int phone) throws RemoteException, SQLException;
 
     void addListener(String eventName, PropertyChangeListener listener);
-    void addProduct(Product product);
+    void addProduct(Product product) throws RemoteException, SQLException;
+
+
+    void removeProduct(Product product) throws RemoteException, SQLException;
 }

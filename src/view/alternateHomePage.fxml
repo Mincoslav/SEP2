@@ -13,18 +13,18 @@
       <AnchorPane layoutY="87.0" prefHeight="430.0" prefWidth="687.0">
          <children>
 
-                 <ImageView fx:id="image1"  fitHeight="104.0" fitWidth="139.0" layoutX="53.0" layoutY="36.0" onMouseClicked="#labelClick" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="53.0" />
-                 <Label fx:id="label6" onMouseClicked="#labelClick6" layoutX="466.0" layoutY="322.0" text="Label" />
-                 <ImageView fx:id="image2" fitHeight="104.0" fitWidth="139.0" layoutX="224.0" layoutY="36.0" onMouseClicked="#labelClick2" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="230.0" AnchorPane.rightAnchor="230.0" />
-                 <ImageView fx:id="image3" fitHeight="104.0" fitWidth="139.0" layoutX="411.0" layoutY="36.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="137.0" />
+                 <ImageView fx:id="image1" fitHeight="124.0" fitWidth="176.0" layoutX="26.0" layoutY="13.0" onMouseClicked="#labelClick" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="26.0" />
+                 <Label fx:id="label6" layoutX="466.0" layoutY="322.0" onMouseClicked="#labelClick6" text="Label" />
+                 <ImageView fx:id="image2" fitHeight="124.0" fitWidth="176.0" layoutX="216.0" layoutY="13.0" onMouseClicked="#labelClick2" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="216.0" AnchorPane.rightAnchor="295.0" />
+                 <ImageView fx:id="image3" fitHeight="124.0" fitWidth="176.0" layoutX="392.0" layoutY="13.0" onMouseClicked="#labelClick3" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="119.0" />
                  <Label fx:id="label2" layoutX="286.0" layoutY="146.0" onMouseClicked="#labelClick2" text="Label" />
                  <Label fx:id="label3" layoutX="466.0" layoutY="146.0" onMouseClicked="#labelClick3" text="Label" />
-                 <Label fx:id="label4" layoutX="108.0" layoutY="322.0" onMouseClicked="#labelClick4" text="Label" />
-                 <ImageView fx:id="image5" onMouseClicked="#labelClick5" fitHeight="104.0" fitWidth="139.0" layoutX="230.0" layoutY="218.0" pickOnBounds="true" preserveRatio="true" />
-                 <ImageView fx:id="image6" onMouseClicked="#labelClick6" fitHeight="104.0" fitWidth="139.0" layoutX="411.0" layoutY="218.0" pickOnBounds="true" preserveRatio="true" />
-                 <ImageView fx:id="image4" onMouseClicked="#labelClick4" fitHeight="104.0" fitWidth="139.0" layoutX="53.0" layoutY="218.0" pickOnBounds="true" preserveRatio="true" />
-                 <Label fx:id="label1"  layoutX="94.0" layoutY="146.0" onMouseClicked="#labelClick2" text="Label" />
-                 <Label fx:id="label5" onMouseClicked="#labelClick5" layoutX="285.0" layoutY="322.0" text="Label" />
+                 <Label fx:id="label4" layoutX="94.0" layoutY="322.0" onMouseClicked="#labelClick4" text="Label" />
+                 <ImageView fx:id="image5" fitHeight="124.0" fitWidth="176.0" layoutX="216.0" layoutY="198.0" onMouseClicked="#labelClick5" pickOnBounds="true" preserveRatio="true" />
+                 <ImageView fx:id="image6" fitHeight="124.0" fitWidth="176.0" layoutX="393.0" layoutY="198.0" onMouseClicked="#labelClick6" pickOnBounds="true" preserveRatio="true" />
+                 <ImageView fx:id="image4" fitHeight="124.0" fitWidth="176.0" layoutX="26.0" layoutY="198.0" onMouseClicked="#labelClick4" pickOnBounds="true" preserveRatio="true" />
+                 <Label fx:id="label1" layoutX="94.0" layoutY="146.0" onMouseClicked="#labelClick" text="Label" />
+                 <Label fx:id="label5" layoutX="285.0" layoutY="322.0" onMouseClicked="#labelClick5" text="Label" />
                  <Button fx:id="previousButt" layoutX="411.0" layoutY="403.0" mnemonicParsing="false" onAction="#prevPressed" text="Previous" />
                  <Button fx:id="nextButt" layoutX="481.0" layoutY="403.0" mnemonicParsing="false" onAction="#nextPressed" prefHeight="26.0" prefWidth="61.0" text="Next" />
             <Button fx:id="jacketsButton" layoutX="621.0" layoutY="36.0" mnemonicParsing="false" onAction="#jacketsPage" prefHeight="26.0" prefWidth="54.0" text="Jackets" />

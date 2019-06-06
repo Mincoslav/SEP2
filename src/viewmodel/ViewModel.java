@@ -2,7 +2,10 @@ package viewmodel;
 
 import domain.*;
 import javafx.beans.property.*;
+import javafx.beans.value.ObservableListValue;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.image.Image;
 import mediator.Model;
 
@@ -16,21 +19,21 @@ import java.util.List;
 public class ViewModel implements PropertyChangeListener {
 
 
-
-    private ObjectProperty<javafx.scene.image.Image> image_1 ;
-    private ObjectProperty<javafx.scene.image.Image> image_2 ;
+    private final SimpleListProperty<String> adminList;
+    private ObjectProperty<javafx.scene.image.Image> image_1;
+    private ObjectProperty<javafx.scene.image.Image> image_2;
     private ObjectProperty<javafx.scene.image.Image> image_3;
-    private ObjectProperty<javafx.scene.image.Image> image_4 ;
-    private ObjectProperty<javafx.scene.image.Image> image_5 ;
-    private ObjectProperty<javafx.scene.image.Image> image_6 ;
-    private  SimpleStringProperty priceItem;
-    private  SimpleStringProperty nameItem;
+    private ObjectProperty<javafx.scene.image.Image> image_4;
+    private ObjectProperty<javafx.scene.image.Image> image_5;
+    private ObjectProperty<javafx.scene.image.Image> image_6;
+    private SimpleStringProperty priceItem;
+    private SimpleStringProperty nameItem;
 
 
-    private  SimpleStringProperty descriptionItem;
+    private SimpleStringProperty descriptionItem;
     private Model model;
-	private Product product;
-	private StringProperty label_1;
+    private Product product;
+    private StringProperty label_1;
     private StringProperty label_2;
     private StringProperty label_3;
     private StringProperty label_4;
@@ -42,17 +45,18 @@ public class ViewModel implements PropertyChangeListener {
     private SimpleListProperty<String> listWishString;
     private SimpleListProperty<String> listString; //list  of Products from Shopping bag
     private SimpleStringProperty orderID;
-    private ObjectProperty<javafx.scene.image.Image> imageProperty ;
+    private ObjectProperty<javafx.scene.image.Image> imageProperty;
 
-    public ViewModel(Model model){
-	    this.model = model;
-        model.addListener("AddWish",this::updateWishList);
+    public ViewModel(Model model) {
+        this.model = model;
+        model.addListener("AddWish", this::updateWishList);
         //model.addListener("RemoveWish",this::updateWishList);
-        model.addListener("AddBag",this::updateBag);
+        model.addListener("AddBag", this::updateBag);
         //model.addListener("RemoveBag",this::updateBag);
-        model.addListener("IncreaseDecrease",this::quantityUpdate);
-        model.addListener("Product",this::propertyChange);
-        model.addListener("Purchase",this::purchaseChange);
+        model.addListener("IncreaseDecrease", this::quantityUpdate);
+        model.addListener("Product", this::propertyChange);
+        model.addListener("Purchase", this::purchaseChange);
+        model.addListener("UpdateAdminList",this::adminListUpdate);
 
         orderID = new SimpleStringProperty();
         label_1 = new SimpleStringProperty();
@@ -79,11 +83,15 @@ public class ViewModel implements PropertyChangeListener {
         listWishString = new SimpleListProperty<>(FXCollections.observableArrayList());
         listString = new SimpleListProperty<>(FXCollections.observableArrayList());
 
+        adminList = new SimpleListProperty<>(FXCollections.observableArrayList());
+
     }
+
+
 
     private void purchaseChange(PropertyChangeEvent propertyChangeEvent) {
         int id = (int) propertyChangeEvent.getNewValue();
-        orderID.setValue( "Your ORDER ID: #" + id);
+        orderID.setValue("Your ORDER ID: #" + id);
     }
 
 
@@ -93,7 +101,7 @@ public class ViewModel implements PropertyChangeListener {
         String name = (String) evt.getNewValue();
         imageProperty.setValue(wished.getImage());
         nameItem.setValue("Product: " + name);
-        priceItem.setValue("Price: " + wished.getPrice()+"");
+        priceItem.setValue("Price: " + wished.getPrice() + "");
         descriptionItem.setValue("Description: " + wished.getDescription());
     }
 
@@ -105,12 +113,13 @@ public class ViewModel implements PropertyChangeListener {
 
 
     }
+
     public void updateBag(PropertyChangeEvent evt) {
         Product wished = (Product) evt.getOldValue();
         String name = (String) evt.getNewValue();
         list.add(wished);
-        listString.add(name + " Qnt:" + wished.getPurchasedQuantity()+ " Price: " + wished.getPrice());
-        price.setValue(model.getShoppingBag().subTotal()+"");
+        listString.add(name + " Qnt:" + wished.getPurchasedQuantity() + " Price: " + wished.getPrice());
+        price.setValue(model.getShoppingBag().subTotal() + "");
 
     }
 
@@ -119,60 +128,59 @@ public class ViewModel implements PropertyChangeListener {
         Product wished = (Product) evt.getOldValue();
         int index = (int) evt.getNewValue();
         System.out.println(list.get(0).getName());
-        list.set(index,wished);
-        listString.set(index,wished.getName() + " Qnt:" + wished.getPurchasedQuantity()+ " Price: " + wished.getPrice());
-        price.setValue(model.getShoppingBag().subTotal()+"");
+        list.set(index, wished);
+        listString.set(index, wished.getName() + " Qnt:" + wished.getPurchasedQuantity() + " Price: " + wished.getPrice());
+        price.setValue(model.getShoppingBag().subTotal() + "");
     }
 
-    public void purchase(String name,String adress,int phone) throws RemoteException, SQLException {
-	    model.purchase(name,adress,phone);
+    public void purchase(String name, String adress, int phone) throws RemoteException, SQLException {
+        model.purchase(name, adress, phone);
     }
 
     public List<Product> getCategories(Categories categories) throws ClassNotFoundException, SQLException, RemoteException {
-	   return model.getCategory(categories).getCategoryProducts();
+        return model.getCategory(categories).getCategoryProducts();
     }
 
     public Wishlist getWishlist() {
-	    return model.getWishlist();
+        return model.getWishlist();
     }
 
     public ShoppingBag getBag() {
-        return model.getShoppingBag()   ;
+        return model.getShoppingBag();
     }
 
 
-
-    public void addToWishList(Product product){
+    public void addToWishList(Product product) {
         model.addToWishlist(product);
     }
 
-    public void removeFromWishlist(Product product){
-	    model.removeFromWishlist(product);
+    public void removeFromWishlist(Product product) {
+        model.removeFromWishlist(product);
     }
 
-    public void addToShoppinBag(Product product){
-	    model.addToShoppingbag(product);
+    public void addToShoppinBag(Product product) {
+        model.addToShoppingbag(product);
     }
 
-    public void removeFromShoppingBag(Product product){
-	    model.removeFromShoppingBag(product);
+    public void removeFromShoppingBag(Product product) {
+        model.removeFromShoppingBag(product);
     }
 
     public void increasePurchasedQuantity(int index) {
-        model.increaseDecrease("increase",index);
+        model.increaseDecrease("increase", index);
     }
 
     public void decreasePurchasedQuantity(int index) {
-        model.increaseDecrease("decrease",index);
+        model.increaseDecrease("decrease", index);
 
     }
 
     public Product objectProperty() {
-	    return product;
+        return product;
     }
 
-    public List<Product> getProductsPerPagePerCategory(Categories categories,int page) throws ClassNotFoundException, SQLException, RemoteException {
-	    page = (page * 6 ) - 6;
+    public List<Product> getProductsPerPagePerCategory(Categories categories, int page) throws ClassNotFoundException, SQLException, RemoteException {
+        page = (page * 6) - 6;
         ArrayList<Product> listOfProducts = null;
         ArrayList<Product> displayedProducts = new ArrayList<>();
 
@@ -190,33 +198,47 @@ public class ViewModel implements PropertyChangeListener {
                 if (i == 0) {
                     label_1.setValue(displayedProducts.get(i).getName());
                     image_1.setValue(displayedProducts.get(i).getImage());
-
+                    label_2.setValue("");
+                    label_3.setValue("");
+                    label_4.setValue("");
+                    label_5.setValue("");
+                    label_6.setValue("");
                 } else if (i == 1) {
                     label_2.setValue(displayedProducts.get(i).getName());
                     image_2.setValue(displayedProducts.get(i).getImage());
-                }
-                else if (i ==2) {
+                    label_3.setValue("");
+                    label_4.setValue("");
+                    label_5.setValue("");
+                    label_6.setValue("");
+                } else if (i == 2) {
                     label_3.setValue(displayedProducts.get(i).getName());
                     image_3.setValue(displayedProducts.get(i).getImage());
-                }else if (i == 3) {
+                    label_4.setValue("");
+                    label_5.setValue("");
+                    label_6.setValue("");
+                } else if (i == 3) {
                     label_4.setValue(displayedProducts.get(i).getName());
                     image_4.setValue(displayedProducts.get(i).getImage());
-                }else if (i == 4) {
+                    label_5.setValue("");
+                    label_6.setValue("");
+                } else if (i == 4) {
                     label_5.setValue(displayedProducts.get(i).getName());
                     image_5.setValue(displayedProducts.get(i).getImage());
-                }else if (i == 5) {
+
+                    label_6.setValue("");
+                } else if (i == 5) {
                     label_6.setValue(displayedProducts.get(i).getName());
                     image_6.setValue(displayedProducts.get(i).getImage());
                 }
             }
-            }
+        }
 
         return displayedProducts;
     }
 
     public StringProperty label_1Property() {
         return label_1;
-	}
+    }
 
     public StringProperty label_2Property() {
         return label_2;
@@ -242,23 +264,22 @@ public class ViewModel implements PropertyChangeListener {
         return imageProperty;
     }
 
-    public SimpleListProperty<Product> simpleListProperty(){
-        for(int i = 0; i  < model.getShoppingBag().getAllProducts().size();i++){
-           list.add(model.getBag().get(i));
+    public SimpleListProperty<Product> simpleListProperty() {
+        for (int i = 0; i < model.getShoppingBag().getAllProducts().size(); i++) {
+            list.add(model.getBag().get(i));
         }
-	    return list;
+        return list;
     }
 
 
-
-    public ListProperty<String> simpleListPropertyString(){
-     //  for(int i = 0; i  < model.getShoppingBag().getAllProducts().size();i++){
-     //      listString.add(model.getBag().get(i).getName());
-     //  }
+    public ListProperty<String> simpleListPropertyString() {
+        //  for(int i = 0; i  < model.getShoppingBag().getAllProducts().size();i++){
+        //      listString.add(model.getBag().get(i).getName());
+        //  }
         return listString;
     }
 
-    public ListProperty<String> simpleListPropertyStringWish(){
+    public ListProperty<String> simpleListPropertyStringWish() {
         //  for(int i = 0; i  < model.getShoppingBag().getAllProducts().size();i++){
         //      listString.add(model.getBag().get(i).getName());
         //  }
@@ -270,9 +291,9 @@ public class ViewModel implements PropertyChangeListener {
         return price;
     }
 
-    public void getAProduct(Product product){
-	    this.product = product;
-	    model.getAProduct(product);
+    public void getAProduct(Product product) {
+        this.product = product;
+        model.getAProduct(product);
     }
 
 
@@ -281,11 +302,9 @@ public class ViewModel implements PropertyChangeListener {
     }
 
 
-
     public SimpleStringProperty nameItemProperty() {
         return nameItem;
     }
-
 
 
     public SimpleStringProperty descriptionItemProperty() {
@@ -298,17 +317,14 @@ public class ViewModel implements PropertyChangeListener {
 
     public Order finOrderByID(int id) throws RemoteException, SQLException {
 
-            return model.getOrderByID(id);
+        return model.getOrderByID(id);
 
     }
-
-
 
 
     public ObjectProperty<Image> image_1Property() {
         return image_1;
     }
-
 
 
     public ObjectProperty<Image> image_2Property() {
@@ -319,7 +335,6 @@ public class ViewModel implements PropertyChangeListener {
     public ObjectProperty<Image> image_3Property() {
         return image_3;
     }
-
 
 
     public ObjectProperty<Image> image_4Property() {
@@ -336,4 +351,40 @@ public class ViewModel implements PropertyChangeListener {
         return image_6;
     }
 
+
+    //ADMIN
+    public void addProduct(Product product) throws RemoteException, SQLException {
+        model.addProduct(product);
+    }
+
+    public void removeProduct(Product product) throws RemoteException, SQLException {
+        model.removeProduct(product);
+    }
+
+    public List<Product> getAllProducts() throws ClassNotFoundException, SQLException, RemoteException {
+       return model.getProducts();
+    }
+
+    public List<Product> getAllProductsNoListener() throws ClassNotFoundException, SQLException, RemoteException {
+        return model.getProductsNoListener();
+    }
+
+
+
+
+    private void adminListUpdate(PropertyChangeEvent propertyChangeEvent) {
+        List<String> list = (List<String>) propertyChangeEvent.getNewValue();
+        adminList.clear();
+        for(int i = 0;i < list.size();i++) {
+            adminList.add(list.get(i));
+        }
+
+    }
+
+    public SimpleListProperty<String> adminListProperty() {
+        return adminList;
+    }
+
 }
+
+

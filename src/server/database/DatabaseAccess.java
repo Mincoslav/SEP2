@@ -165,18 +165,31 @@ public class DatabaseAccess implements DatabaseCon {
      */
     @Override
     public void addProduct(Product product) throws RemoteException, SQLException {
+        getProductTable();
+        int index = productTable.indexOf(product);
+        for(int i = 0;i <productTable.size();i++ ){
+            if(productTable.get(i).getProductID()== product.getProductID()){
+                index = i;
+            }
+        }
         connect();
-        PreparedStatement statement = connection.prepareStatement
-                ("INSERT INTO Products VALUES (?,?,?,?,?,?,?);");
-        statement.setInt(1, product.getProductID());
-        statement.setInt(2, product.getQuantity());
-        statement.setDouble(3, product.getPrice());
-        statement.setString(4, product.getName());
-        statement.setInt(5, product.getCategoryID());
-        statement.setString(6, product.getDescription());
-        statement.setBoolean(7, product.isOnSale());
+        if(!(index == -1) ){
+            updateProduct(product);
+        }else {
+            PreparedStatement statement = connection.prepareStatement
+                    ("INSERT INTO Products VALUES (?,?,?,?,?,?,?,?);");
+            statement.setInt(1, product.getProductID());
+            statement.setInt(2, product.getQuantity());
+            statement.setDouble(3, product.getPrice());
+            statement.setString(4, product.getName());
+            statement.setInt(5, product.getCategoryID());
+            statement.setString(6, product.getDescription());
+            statement.setBoolean(7, product.isOnSale());
+            statement.setString(8, product.getImageLocation());
+            statement.executeUpdate();
+        }
 
-        statement.executeQuery();
+
         close();
     }
 
@@ -203,18 +216,24 @@ public class DatabaseAccess implements DatabaseCon {
     /**
      * Updates individual product in the database based on the column name that is inputted.
      * @param product
-     * @param columnToUpdate
-     * @param newValue
      * @throws RemoteException
      * @throws SQLException
      */
     @Override
-    public void updateProduct(Product product, String columnToUpdate, String newValue) throws RemoteException, SQLException {
+    public void updateProduct(Product product) throws RemoteException, SQLException {
         connect();
         int id = product.getProductID();
-        PreparedStatement statement = connection.prepareStatement("UPDATE Products SET " + columnToUpdate + " = ? WHERE productID = ?");
-        statement.setString(1, newValue);
-        statement.setInt(2, id);
+        PreparedStatement statement = connection.prepareStatement("UPDATE Products SET  stock = ? , price  = ?,name = ?,categoryid =?,description =?,onsale=?,url =? WHERE productID = ?");
+        statement.setInt(1, product.getQuantity());
+        statement.setFloat(2, (float) product.getPrice());
+        statement.setString(3,product.getName());
+        statement.setInt(4,product.getCategoryID());
+        statement.setString(5,product.getDescription());
+        statement.setBoolean(6,product.isOnSale());
+        statement.setString(7,product.getImageLocation());
+        statement.setInt(8,product.getProductID());
+
+
         statement.executeUpdate();
         close();
     }
@@ -223,7 +242,7 @@ public class DatabaseAccess implements DatabaseCon {
     public void removeProduct(Product product) throws RemoteException, SQLException {
         connect();
         int id = product.getProductID();
-        PreparedStatement statement = connection.prepareStatement("DELETE FROM products WHERE ?;");
+        PreparedStatement statement = connection.prepareStatement("DELETE FROM products WHERE productid = ?;");
         statement.setInt(1, id);
         statement.executeUpdate();
         close();

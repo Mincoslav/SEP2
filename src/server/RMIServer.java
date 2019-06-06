@@ -100,8 +100,13 @@ public class RMIServer implements RServer {
 	}
 
 	@Override
-	public void updateProduct(Product product, String columnToUpdate, String newValue) throws RemoteException, SQLException {
-		databaseAccess.updateProduct(product,columnToUpdate,newValue);
+	public void updateProduct(Product product) throws RemoteException, SQLException {
+		databaseAccess.updateProduct(product);
+	}
+
+	@Override
+	public void removeProduct(Product product) throws RemoteException, SQLException {
+		databaseAccess.removeProduct(product);
 	}
 
 }

@@ -47,6 +47,7 @@ public class ViewPurchasePage {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        viewModel.simpleListPropertyString().clear();
         name.clear();
         address.clear();
         phone.clear();

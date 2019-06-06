@@ -34,8 +34,13 @@ public class ViewPreviousOrders {
             name.setText("Costumer:  " + viewModel.finOrderByID(id).getCostumerName());
             price.setText("Price:  " + viewModel.finOrderByID(id).getShoppingBag().subTotal());
             date.setText("Date:  "  + viewModel.finOrderByID(id));
-        } catch (NumberFormatException | RemoteException | SQLException e) {
+        } catch (NumberFormatException i) {
         System.out.println("NumberFormatException is handled");}
+        catch (RemoteException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     public void returnToHome(ActionEvent actionEvent) {

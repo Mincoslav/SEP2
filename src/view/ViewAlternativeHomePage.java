@@ -17,6 +17,7 @@ public class ViewAlternativeHomePage {
 
 
     public Button bagButton;
+    public Button jacketsButton;
     @FXML
     private Button wishlistButton;
     @FXML
@@ -157,12 +158,14 @@ public class ViewAlternativeHomePage {
     }
 
     public void tshirtsPage(ActionEvent actionEvent) throws RemoteException, SQLException, ClassNotFoundException {
+
         current_Category = "Tshirts" ;
         current_Category_ID = 1;
         viewModel.getProductsPerPagePerCategory(new Categories(current_Category_ID,current_Category),page);
     }
 
     public void pantsButton(ActionEvent actionEvent) {
+
         current_Category = "Pants" ;
         current_Category_ID = 2;
         try {
@@ -240,6 +243,7 @@ public class ViewAlternativeHomePage {
         }
     }
     public void labelClick5(MouseEvent mouseEvent) {
+
         try {
             viewModel.getAProduct(viewModel.getProductsPerPagePerCategory(new Categories(current_Category_ID,current_Category),page).get(4));
         } catch (ClassNotFoundException e) {
