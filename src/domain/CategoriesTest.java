@@ -2,7 +2,8 @@ package domain;
 
 import org.junit.Test;
 
-import static junit.framework.TestCase.assertEquals;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 public class CategoriesTest {
 
@@ -22,11 +23,6 @@ public class CategoriesTest {
         assertEquals(0, categories.size());
     }
 
-    @Test
-    public void getCategoryProducts() {
-        categories.addProduct(product);
-        // ?
-    }
 
     @Test
     public void getCategoryID() {
@@ -37,7 +33,7 @@ public class CategoriesTest {
     @Test
     public void getCategoryName() {
         categories.addProduct(product);
-        assertEquals("Shoes", categories.getCategoryProducts());
+        assertNotNull(categories.getCategoryProducts());
     }
 
     @Test
@@ -47,8 +43,8 @@ public class CategoriesTest {
     }
 
     @Test
-    public String toString() {
+    public void toStringTest() {
         categories.addProduct(product);
-        return categories.toString();
+        assertNotNull(categories.toString());
     }
 }

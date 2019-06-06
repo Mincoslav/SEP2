@@ -1,6 +1,7 @@
 package domain;
 
 import static junit.framework.TestCase.assertEquals;
+import static junit.framework.TestCase.assertNotNull;
 
 public class OrderTest {
 
@@ -15,7 +16,7 @@ public class OrderTest {
 
     @org.junit.Test
     public void getOrderID() {
-        assertEquals(0, order.getOrderID());
+        assertNotNull(order.getOrderID());
     }
 
     @org.junit.Test

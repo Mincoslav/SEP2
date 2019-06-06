@@ -43,11 +43,4 @@ public class ArchiveTest {
         assertEquals(true, archive.isEmpty());
     }
 
-    @Test
-    public void getOrders() {
-        archive.addOrderToArchive(order);
-        assertEquals(order, archive.getOrders());
-
-        // ?
-    }
 }

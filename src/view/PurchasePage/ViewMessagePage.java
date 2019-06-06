@@ -18,7 +18,6 @@ public class ViewMessagePage {
         this.viewModel = viewModel;
         this.mainView = mainView;
         orderID.textProperty().bind(viewModel.orderIDProperty());
-
     }
 
     public void mouseClick(MouseEvent mouseEvent) {

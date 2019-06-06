@@ -122,14 +122,13 @@ public class ProductTest {
     @Test
     public void getPrice() {
         expected.add(product);
-        expected.get(0).getPrice();
-        assertEquals(expected.get(0).getPrice(), 0);
+        assertEquals( 0, (int) expected.get(0).getPrice());
     }
 
     @Test
     public void setPrice() {
         expected.add(product);
         expected.get(0).setPrice(200);
-        assertEquals(expected.get(0).getPrice(),200) ;
+        assertEquals((int) expected.get(0).getPrice(),200); ;
     }
 }

@@ -35,10 +35,4 @@ public class WishlistTest {
         assertEquals(product, list.getProduct(0));
     }
 
-    @Test
-    public void getAllProducts() {
-        list.addProduct(product);
-        list.addProduct(product);
-        assertEquals(" shirt...",list.getAllProducts());
-    }
 }
